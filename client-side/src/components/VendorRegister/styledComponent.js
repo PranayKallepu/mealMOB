@@ -1,0 +1,35 @@
+import styled from "styled-components";
+
+export const FormContainer = styled.div`
+  border: 1px solid;
+  border-radius: 20px;
+  p {
+    color: red;
+    font-size: 14px;
+  }
+`;
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 60px;
+
+  h3 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 6px;
+    border: none;
+    border-radius: 7px;
+    background-color: #3b82f6;
+    color: white;
+    cursor: pointer;
+  }
+`;
