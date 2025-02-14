@@ -1,0 +1,97 @@
+@rootURL = http://localhost:5000
+@vendorToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTc1NjdkMWUwZmNmOTU1OTYyYWRkZiIsImlhdCI6MTczOTE3MzE4MiwiZXhwIjoxNzM5MjU5NTgyfQ.klUZtlJmADTXHCBVgjy7o4QzO4UvM3guLZnXP3b_-aA
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTczOTUyMjM4NywiZXhwIjoxNzM5NjA4Nzg3fQ.wLmqQbVbHm__89jVU_fNKzPIMu3FLY5cSvgrmy48K7k
+
+###
+POST {{rootURL}}/vendor/register
+Content-Type: application/json
+
+{
+    "vendorName": "vendor2",
+    "vendorEmail": "vendor2@gmail.com",
+    "vendorPassword": "123"
+}
+
+###
+POST {{rootURL}}/vendor/login
+Content-Type: application/json
+
+{
+    "vendorEmail": "vendor@gmail.com",
+    "vendorPassword": "123"
+}
+
+###
+POST {{rootURL}}/api/add-restaurant
+Content-Type: application/json
+Authorization: Bearer {{vendorToken}}
+
+{
+    "restaurantName": "restaurant2",
+    "restaurantImage": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+    "rating":4.5,
+    "offer":1500,
+    "area":"Banglore",
+    "category":"Veg",
+    "cuisines":["Biryani", "Pizza"],
+    "vendorId": "67a5fe06117b2e6dc0d28c46"
+}
+
+###
+POST {{rootURL}}/api/add-foodItem
+Content-Type: application/json
+Authorization: Bearer {{vendorToken}}
+
+{
+    "foodName": "Pizza",
+    "foodImage": "",
+    "price": 250,
+    "category": "Non-Veg",
+    "description": "This is a sample Pizza",
+    "restaurantId": "67a756d91e0fcf955962ade8"
+}
+
+###
+// food items by restaurant
+GET {{rootURL}}/api/foodItems/67a756d91e0fcf955962ade8
+Authorization: Bearer {{vendorToken}}
+
+###
+DELETE {{rootURL}}/api/delete-foodItem/67a74cd296251a03f5746a6f
+Authorization: Bearer {{vendorToken}}
+
+//FOR MEALMOB USERS
+###
+POST {{rootURL}}/signup
+Content-Type: application/json
+
+{
+    "username": "pranay",
+    "email": "pranay@gmail.com",
+    "password": "123"
+}
+###
+POST {{rootURL}}/login
+Content-Type: application/json
+
+{
+    "username": "pranay",
+    "password": "123"
+}
+
+###
+GET {{rootURL}}/api/restaurants?sort_by=&search=r&rating=
+Authorization: Bearer {{userToken}}
+
+###
+GET {{rootURL}}/api/restaurantItems/67a756d91e0fcf955962ade8
+Authorization: Bearer {{userToken}}
+
+###
+GET {{rootURL}}/api/collections?cuisine=biryani
+Authorization: Bearer {{userToken}}
+
+###
+// filter food items 
+GET {{rootURL}}/api/dishes?sort_by=&search=
+Authorization: Bearer {{userToken}}
