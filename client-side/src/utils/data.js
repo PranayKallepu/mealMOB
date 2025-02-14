@@ -1,5 +1,5 @@
-// export const API_URL = "http://localhost:5000"
-export const API_URL = "https://mealmob-server.onrender.com";
+export const API_URL = "http://localhost:5000"
+// export const API_URL = "https://mealmob-server.onrender.com";
 
 export const menuList = [
   {

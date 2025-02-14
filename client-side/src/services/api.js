@@ -13,8 +13,10 @@ export const fetchRestaurants = async (category, rating, searchInput) => {
         rating: rating || "",
       },
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
-      }
+      },
+      withCredentials: true 
     });
     console.log('API Response:', response.data.filteredRestaurants);
     return response.data.filteredRestaurants; 
@@ -29,8 +31,10 @@ export const fetchFoodItems = async(restaurantId)=>{
   try {
     const response = await axios.get(`${API_URL}/api/restaurantItems/${restaurantId}`,{
       headers: {
+         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
-      }
+      },
+      withCredentials: true 
     })
     console.log('API Response:', response.data);
     return response.data
@@ -47,8 +51,10 @@ export const fetchRestaurantsByCuisine = async(activeCuisine)=>{
     const response = await axios.get(`${API_URL}/api/collections`, {
       params: {cuisine: activeCuisine || ""},
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
-      }
+      },
+      withCredentials: true 
     })
     console.log('API Response:', response.data.restaurantsByCuisine);
     return response.data.restaurantsByCuisine
@@ -67,8 +73,10 @@ export const fetchDishes = async (category, searchInput) => {
         search: searchInput || "",
       },
       headers: {
+         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}` || "",
-      }
+      },
+      withCredentials: true 
     });
 
     console.log("API Response for Dishes:", response.data.filterDishes);
