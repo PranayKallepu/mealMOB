@@ -1,14 +1,15 @@
 import axios from "axios";
 import Cookies from 'js-cookie'
+import {API_URL} from '../utils/data'
 
 // Fetch restaurants based on category and rating
 export const fetchRestaurants = async (category, rating, searchInput) => {
   
   try {
-    const response = await axios.get(`/api/restaurants`, {
+    const response = await axios.get(`${API_URL}/api/restaurants`, {
       params: {
         sort_by: category || "",  
-        search: searchInput || "",
+        search: searchInput || "",  
         rating: rating || "",
       },
       headers: {
@@ -28,7 +29,7 @@ export const fetchRestaurants = async (category, rating, searchInput) => {
 //Fetch restaurant Items
 export const fetchFoodItems = async(restaurantId)=>{
   try {
-    const response = await axios.get(`/api/restaurantItems/${restaurantId}`,{
+    const response = await axios.get(`${API_URL}/api/restaurantItems/${restaurantId}`,{
       headers: {
          "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
@@ -47,7 +48,7 @@ export const fetchFoodItems = async(restaurantId)=>{
 
 export const fetchRestaurantsByCuisine = async(activeCuisine)=>{
   try {
-    const response = await axios.get(`/api/collections`, {
+    const response = await axios.get(`${API_URL}/api/collections`, {
       params: {cuisine: activeCuisine || ""},
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +67,7 @@ export const fetchRestaurantsByCuisine = async(activeCuisine)=>{
 // Fetch Dishes
 export const fetchDishes = async (category, searchInput) => {
   try {
-    const response = await axios.get(`/api/dishes`, {
+    const response = await axios.get(`${API_URL}/api/dishes`, {
       params: {
         sort_by: category || "",  
         search: searchInput || "",

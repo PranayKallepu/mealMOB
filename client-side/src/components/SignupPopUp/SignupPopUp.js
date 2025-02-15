@@ -3,6 +3,7 @@ import 'reactjs-popup/dist/index.css';
 import { Button, ModalContainer, DetailsContainer, Form } from '../LoginPopUp/styledComponent';
 import { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../utils/data';
 
 const SignupPopUp = () => {
   //states
@@ -31,7 +32,7 @@ const SignupPopUp = () => {
     }
 
     try {
-      const response = await axios.post('/signup', inputData);
+      const response = await axios.post(`${API_URL}/signup`, inputData);
       if (response.data.success) {
         alert('User Registered Successfully!');
         setIsLoading(false);

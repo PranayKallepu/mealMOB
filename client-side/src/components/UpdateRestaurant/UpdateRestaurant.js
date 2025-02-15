@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import { categoryEnum, cuisinesEnum } from "../../utils/enums";
+import { API_URL } from "../../utils/data";
 import {
   ModalContainer,
   ModalOverlay,
@@ -30,7 +31,7 @@ const UpdateRestaurant = ({ restaurantId }) => {
   useEffect(() => {
     const fetchRestaurant = async () => {
       try {
-        const response = await axios.get(`/restaurant/${restaurantId}`);
+        const response = await axios.get(`${API_URL}/restaurant/${restaurantId}`);
         const data = response.data;
         setRestaurant(data);
         setInputData({
@@ -77,7 +78,7 @@ const UpdateRestaurant = ({ restaurantId }) => {
     setError("");
 
     try {
-      const response = await axios.patch(`/restaurant/update/${restaurantId}`, inputData);
+      const response = await axios.patch(`${API_URL}/restaurant/update/${restaurantId}`, inputData);
       console.log("Update Success:", response.data);
       alert("Restaurant updated successfully!");
     } catch (err) {

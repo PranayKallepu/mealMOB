@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { FormContainer, Form } from "../VendorRegister/styledComponent";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/data";
 
 const AddFoodItem = () => {
   const restaurantId = localStorage.getItem("restaurantId");
@@ -62,7 +63,7 @@ const AddFoodItem = () => {
       formData.append("restaurantId", inputData.restaurantId);
 
       const response = await axios.post(
-        '/api/add-foodItem',
+        `${API_URL}/api/add-foodItem`,
         formData,
         {
           headers: {
