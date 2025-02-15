@@ -1,6 +1,5 @@
 import { categoryEnum, cuisinesEnum } from "../../utils/enums";
 import axios from "axios";
-import { API_URL } from "../../utils/data";
 import { useState } from "react";
 import { FormContainer, Form } from "./styledComponent";
 
@@ -70,7 +69,7 @@ const AddRestaurant = (props) => {
         console.log(pair[0], pair[1]); // ✅ Log FormData to check if image is included
       }
   
-      const response = await axios.post(`${API_URL}/api/add-restaurant`, formData, {
+      const response = await axios.post('/api/add-restaurant', formData, {
         headers: {
           Authorization: `Bearer ${vendorToken}`, // ✅ Correct Authorization Header
         },

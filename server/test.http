@@ -1,4 +1,5 @@
-@rootURL = http://localhost:5000
+@rootURL = http://localhost:4000
+# @rootURL = https://mealmob-server.onrender.com
 @vendorToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTc1NjdkMWUwZmNmOTU1OTYyYWRkZiIsImlhdCI6MTczOTE3MzE4MiwiZXhwIjoxNzM5MjU5NTgyfQ.klUZtlJmADTXHCBVgjy7o4QzO4UvM3guLZnXP3b_-aA
 @userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTczOTUyMjM4NywiZXhwIjoxNzM5NjA4Nzg3fQ.wLmqQbVbHm__89jVU_fNKzPIMu3FLY5cSvgrmy48K7k
 
