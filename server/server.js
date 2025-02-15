@@ -14,29 +14,22 @@ const userRoutes = require('./routes/userRoutes')
 dotenv.config()
 connectDB()
 
-//Allow both local and deployed frontend
+// List of allowed origins
 const allowedOrigins = [
-    "http://localhost:3000", 
+    "http://localhost:3000",
     "https://mealmob-client.onrender.com"
 ];
-
-// MIDDLEWARES
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
-    allowedHeaders: "Content-Type,Authorization"
-}));
-// Handle Preflight (OPTIONS) Requests
+// CORS middleware to dynamically allow only one origin
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+
+    // Handle Preflight (OPTIONS request)
     if (req.method === "OPTIONS") {
         return res.sendStatus(200);
     }
