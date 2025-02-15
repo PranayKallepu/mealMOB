@@ -14,8 +14,34 @@ const userRoutes = require('./routes/userRoutes')
 dotenv.config()
 connectDB()
 
-// middlewares
-app.use(cors());
+//Allow both local and deployed frontend
+const allowedOrigins = [
+    "http://localhost:3000", 
+    "https://mealmob-client.onrender.com"
+];
+
+// MIDDLEWARES
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type,Authorization"
+}));
+// Handle Preflight (OPTIONS) Requests
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", allowedOrigins.join(", "));
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(200);
+    }
+    next();
+});
 app.use(bodyParser.json())
 
 // static files
