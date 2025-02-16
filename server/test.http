@@ -1,15 +1,15 @@
 @rootURL = http://localhost:4000
 # @rootURL = https://mealmob-server.onrender.com
-@vendorToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTc1NjdkMWUwZmNmOTU1OTYyYWRkZiIsImlhdCI6MTczOTE3MzE4MiwiZXhwIjoxNzM5MjU5NTgyfQ.klUZtlJmADTXHCBVgjy7o4QzO4UvM3guLZnXP3b_-aA
-@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTczOTUyMjM4NywiZXhwIjoxNzM5NjA4Nzg3fQ.wLmqQbVbHm__89jVU_fNKzPIMu3FLY5cSvgrmy48K7k
+@vendorToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjFkZTA1Mjg0NDcwZGE1YTI4YTE4YSIsImlhdCI6MTczOTcxMjMzMSwiZXhwIjoxNzM5Nzk4NzMxfQ.xdBehoey12ZeZK7q5Zk3cRLI8UDJWb9HnLci7zqHZQQ
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTczOTcxNTg2OSwiZXhwIjoxNzM5ODAyMjY5fQ.nTGweF2M6JovWtI7eOqYJ9pmiajyQzZ0tBri2gasBTw
 
 ###
 POST {{rootURL}}/vendor/register
 Content-Type: application/json
 
 {
-    "vendorName": "vendor2",
-    "vendorEmail": "vendor2@gmail.com",
+    "vendorName": "Vendor1",
+    "vendorEmail": "vendor1@gmail.com",
     "vendorPassword": "123"
 }
 
@@ -18,7 +18,7 @@ POST {{rootURL}}/vendor/login
 Content-Type: application/json
 
 {
-    "vendorEmail": "vendor@gmail.com",
+    "vendorEmail": "pranay@gmail.com",
     "vendorPassword": "123"
 }
 
@@ -29,13 +29,33 @@ Authorization: Bearer {{vendorToken}}
 
 {
     "restaurantName": "restaurant2",
-    "restaurantImage": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+    "restaurantImage": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/5/9/39a65ace-1068-4823-86bf-887991751e2a_535931.JPG",
     "rating":4.5,
     "offer":1500,
     "area":"Banglore",
     "category":"Veg",
     "cuisines":["Biryani", "Pizza"],
     "vendorId": "67a5fe06117b2e6dc0d28c46"
+}
+
+###
+GET {{rootURL}}/api/restaurants?sort_by=&search=r&rating=
+Authorization: Bearer {{vendorToken}}
+
+###
+PUT {{rootURL}}/api/update-restaurant/67b192742041cdc5360afa4a
+Content-Type: application/json
+Authorization: Bearer {{vendorToken}}
+
+{
+    "restaurantName": "restaurant2",
+    "restaurantImage": "",
+    "rating":4.5,
+    "offer":1500,
+    "area":"Banglore",
+    "category":"Veg",
+    "cuisines":["Biryani", "Pizza"],
+    "vendorId": "67b18ae0750691dda935740d"
 }
 
 ###
@@ -54,11 +74,11 @@ Authorization: Bearer {{vendorToken}}
 
 ###
 // food items by restaurant
-GET {{rootURL}}/api/foodItems/67a756d91e0fcf955962ade8
+GET {{rootURL}}/api/restaurantItems/67b1de81284470da5a28a198
 Authorization: Bearer {{vendorToken}}
 
 ###
-DELETE {{rootURL}}/api/delete-foodItem/67a74cd296251a03f5746a6f
+DELETE {{rootURL}}/api/delete-foodItem/67b192742041cdc5360afa4a
 Authorization: Bearer {{vendorToken}}
 
 //FOR MEALMOB USERS
@@ -85,7 +105,7 @@ GET {{rootURL}}/api/restaurants?sort_by=&search=r&rating=
 Authorization: Bearer {{userToken}}
 
 ###
-GET {{rootURL}}/api/restaurantItems/67a756d91e0fcf955962ade8
+GET {{rootURL}}/api/restaurantItems/67b1de81284470da5a28a198
 Authorization: Bearer {{userToken}}
 
 ###

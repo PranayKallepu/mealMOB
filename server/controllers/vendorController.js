@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const vendorRegister = async (req, res) => {
   try {
     const { vendorName, vendorEmail, vendorPassword } = req.body;
+
     // check if vendorEmail already exists
     const existingVendor = await Vendor.findOne({ vendorEmail });
     if (existingVendor) {
@@ -13,8 +14,13 @@ const vendorRegister = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Email already exists" });
     }
+
+     // Delete vendor if before any restaurant is null 
+    await Vendor.findOneAndDelete({ restaurant: null });
+
     // hash password
     const hashedPassword = await bcrypt.hash(vendorPassword, 10);
+
     // create new vendor
     const newVendor = await Vendor.create({
       vendorName,
@@ -22,6 +28,7 @@ const vendorRegister = async (req, res) => {
       vendorPassword: hashedPassword,
     });
     await newVendor.save();
+
     // return response
     return res
       .status(200)
@@ -65,9 +72,9 @@ const vendorLogin = async (req, res) => {
       expiresIn: "1d",
     });
 
-    // check if already restaurant added
+    // Check if a restaurant is linked to the vendor
     const restaurant = await Restaurant.findOne({ vendor: vendor._id });
-
+    
     // return response
     return res
       .status(200)
@@ -75,7 +82,7 @@ const vendorLogin = async (req, res) => {
         success: true,
         vendorId: vendor._id,
         vendorName: vendor.vendorName,
-        restaurantId: restaurant._id || null,
+        restaurantId: restaurant ? restaurant._id : null,
         message: "Vendor logged in successfully",
         token,
       });

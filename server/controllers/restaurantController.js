@@ -10,15 +10,15 @@ const addRestaurant = async (req, res) => {
             return res.status(400).json({ success: false, message: "Restaurant image is required" });
         }
 
-        const restaurantImage = req.file.path; // ✅ Use Multer's `req.file.path`
+        const restaurantImage = req.file.path; //  Use Multer's `req.file.path`
 
         // Check if vendor exists
         const vendor = await Vendor.findById(vendorId);
-        if (!vendor) return res.status(404).json({ success: false, message: "Vendor not found" });
+        if (!vendor) return res.status(404).json({ success: false, message: "Vendor ID not found" });
 
         // Check if vendor already has a restaurant
         const existingRestaurant = await Restaurant.findOne({ vendor: vendorId });
-        if (existingRestaurant) return res.status(400).json({ success: false, message: "Vendor already added a restaurant" });
+        if (existingRestaurant) return res.status(400).json({ success: false, message: "Already added a restaurant" });
 
         // Create new restaurant
         const newRestaurant = new Restaurant({
@@ -73,35 +73,50 @@ const getRestaurantsByCuisine = async (req, res) => {
 // update restaurant
 const updateRestaurant = async (req, res) => {
     try {
-        const { restaurantId } = req.params;
-        const updateData = req.body; // Get the fields to update
-
-        // Fetch the current restaurant details
-        const existingRestaurant = await Restaurant.findById(restaurantId);
-        if (!existingRestaurant) {
-            return res.status(404).json({ success: false, message: "Restaurant not found" });
-        }
-
-        // Merge existing data with new updates
-        const updatedRestaurant = await Restaurant.findByIdAndUpdate(
-            restaurantId,
-            { $set: updateData }, // Only update provided fields
-            { new: true } // Return updated document
-        );
-
-        res.status(200).json({ 
-            success: true, 
-            message: "Restaurant updated successfully", 
-            previousData: existingRestaurant, // Show previous details
-            updatedRestaurant 
-        });
-
+      const { restaurantId } = req.params;
+      const updateData = req.body;
+  
+      //  Handle Image Upload
+      if (req.file) {
+        updateData.restaurantImage = req.file.path.replace(/\\/g, "/"); // Store file path as string
+      }
+  
+      //  Ensure `restaurantImage` is always a string before updating
+      if (!updateData.restaurantImage || typeof updateData.restaurantImage !== "string") {
+        delete updateData.restaurantImage; // Prevents errors when no image is uploaded
+      }
+  
+      const updatedRestaurant = await Restaurant.findByIdAndUpdate(restaurantId, updateData, { new: true });
+  
+      if (!updatedRestaurant) {
+        return res.status(404).json({ success: false, message: "Restaurant not found" });
+      }
+  
+      res.json({ success: true, message: "Restaurant updated successfully", updatedRestaurant });
     } catch (error) {
-        console.error("UpdateRestaurant Error: ", error);
-        res.status(500).json({ success: false, message: "Internal Server Error! Please try again later." });
+      console.error("UpdateRestaurant Error:", error);
+      res.status(500).json({ success: false, message: "Internal server error" });
     }
-};
+  };
+
+// delete restaurant by id
+const deleteRestaurant = async (req, res) => {
+    try {
+        const {restaurantId} = req.params
+        // find restaurant by id
+        const restaurant = await Restaurant.findById(restaurantId)
+        if(!restaurant) {
+            return res.status(404).json({success: false, message: 'Restaurant not found'})
+        }
+        // delete restaurant
+        await Restaurant.findByIdAndDelete(restaurantId)
+        return res.status(200).json({success: true, message: 'Restaurant Deleted successfully!'})
+    } catch (error) {
+        console.error('Delete Restaurant: ', error);
+        res.status(500).json({success: false, message: 'Internal server error. Please try again later'})
+    }
+}
 
 
-module.exports = {addRestaurant, getRestaurants, getRestaurantsByCuisine, updateRestaurant};
+module.exports = {addRestaurant, getRestaurants, getRestaurantsByCuisine, updateRestaurant, deleteRestaurant};
 
