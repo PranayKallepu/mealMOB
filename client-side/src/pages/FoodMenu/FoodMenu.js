@@ -12,9 +12,29 @@ const FoodMenu = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const foodItemsHandler = async () => {
-    const restaurantId = localStorage.getItem("restaurantId");
-    const vendorToken = localStorage.getItem("vendorToken");
+  const authToken = Cookies.get("vendorToken");
+  const vendorId = Cookies.get("vendorId");
+
+  // Fetch restaurants
+  const { restaurantsList } = useFetchRestaurants(null, null, null, authToken);
+
+  // Find the vendor's restaurant and update state
+  useEffect(() => {
+    if (restaurantsList) {
+      const vendorRestaurant = restaurantsList.find(
+        (each) => each.vendor === vendorId
+      );
+      if (vendorRestaurant) {
+        setRestaurantId(vendorRestaurant._id);
+      } else {
+        setRestaurantId(null);
+      }
+    }
+  }, [restaurantsList, vendorId]);
+
+  // ✅ Define foodItemsHandler using useCallback
+  const foodItemsHandler = useCallback(async () => {
+      if (!restaurantId) return;
     try {
       const response = await axios.get(
         `${API_URL}/api/foodItems/${restaurantId}`,
