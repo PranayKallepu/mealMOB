@@ -1,140 +1,165 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { API_URL } from "../../utils/data";
-
-import AddFoodItem from "../../components/AddFoodItem/AddFoodItem";
 import VendorHeader from "../../components/VendorHeader/VendorHeader";
-
-import { MainContainer } from "./styledComponent";
 import axios from "axios";
+import Cookies from "js-cookie";
+import AddFood from "../../components/AddFood";
+import useFetchFoodItems from "../../hooks/useFetchFoodItems";
+import {
+  MainContainer,
+  NoFoodCard,
+  TableWrapper,
+  StyledTable,
+  SearchInput,
+} from "./styledComponent";
+import {
+  FailureCard,
+  FailureDescription,
+  FailureHeading,
+  FailureImage,
+  LoadingContainer
+} from "../../components/AllRestaurants/styledComponent";
 
 const FoodMenu = () => {
-  const [foodItems, setFoodItem] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // Search state
 
   const authToken = Cookies.get("vendorToken");
-  const vendorId = Cookies.get("vendorId");
+  const restaurantId = Cookies.get("restaurantId");
 
-  // Fetch restaurants
-  const { restaurantsList } = useFetchRestaurants(null, null, null, authToken);
+  // Fetch Food Items
+  const { foodItemsList, apiStatus } = useFetchFoodItems(
+    restaurantId,
+    authToken
+  );
 
-  // Find the vendor's restaurant and update state
-  useEffect(() => {
-    if (restaurantsList) {
-      const vendorRestaurant = restaurantsList.find(
-        (each) => each.vendor === vendorId
-      );
-      if (vendorRestaurant) {
-        setRestaurantId(vendorRestaurant._id);
-      } else {
-        setRestaurantId(null);
-      }
-    }
-  }, [restaurantsList, vendorId]);
-
-  // ✅ Define foodItemsHandler using useCallback
-  const foodItemsHandler = useCallback(async () => {
-      if (!restaurantId) return;
-    try {
-      const response = await axios.get(
-        `${API_URL}/api/foodItems/${restaurantId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${vendorToken}`,
-          },
-        }
-      );
-      setFoodItem(response.data.foodItems);
-    } catch (error) {
-      console.error(
-        "failed to fetch foodItems :",
-        error.response?.data?.message
-      );
-      setError(error.response?.data?.message || "Failed to fetch foodItems");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    foodItemsHandler();
-  }, []);
-
-  //handle delete
+  // Handle Delete with correct foodItemsHandler reference
   const deleteProductById = async (foodItemId) => {
-    alert('Are you Sure want to Delete!')
+    alert('Are you sure want to delete item?')
     try {
-      const vendorToken = localStorage.getItem("vendorToken");
+      const vendorToken = Cookies.get("vendorToken");
       await axios.delete(`${API_URL}/api/delete-foodItem/${foodItemId}`, {
-        headers: {
-          Authorization: `Bearer ${vendorToken}`,
-        },
+        headers: { Authorization: `Bearer ${vendorToken}` },
       });
-      foodItemsHandler();
+      window.location.reload();
     } catch (error) {
       console.error("Failed to delete foodItem:", error);
       setError(error.response?.data?.message || "Failed to delete foodItem");
     }
   };
+
+
+  const renderFoodItemListView = () => {
+    if (!Array.isArray(foodItemsList) || foodItemsList.length === 0) {
+      return <NoFoodCard><p>No food items available.</p> <AddFood /></NoFoodCard>;
+    }
+  
+    const filteredFoodItems = foodItemsList.filter((item) =>
+      item.foodName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  
+    return (
+      <section>
+        {/* Search Bar */}
+        <SearchInput
+          type="text"
+          placeholder="Search food items..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+  
+        {/* Check if filtered list is empty */}
+        {filteredFoodItems.length === 0 ? (
+          <p>No matching food items found.</p>
+        ) : (
+          <TableWrapper>
+            <StyledTable>
+              {error && <p>{error}</p>}
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Food Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Image</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredFoodItems.map((item, index) => (
+                  <tr key={item._id}>
+                    <td>{index + 1}</td>
+                    <td>{item.foodName}</td>
+                    <td>${item.price}</td>
+                    <td>{item.category}</td>
+                    <td>
+                      {item.foodImage ? (
+                        <img
+                          src={`${API_URL}/${item.foodImage.replace(/\\/g, "/")}`}
+                          alt={item.foodName}
+                          style={{ width: "50px", height: "50px", borderRadius: "5px" }}
+                        />
+                      ) : (
+                        <p>No Image</p>
+                      )}
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => deleteProductById(item._id)}
+                        className="deleteBtn"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </StyledTable>
+          </TableWrapper>
+        )}
+      </section>
+    );
+  };
+  
+
+  const renderFailureView = () => (
+      <FailureCard>
+        <FailureImage
+          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
+          alt="all-products-error"
+        />
+        <FailureHeading>Oops! Something Went Wrong</FailureHeading>
+        <FailureDescription>
+          We are having some trouble processing your request. Please try again
+          later.
+        </FailureDescription>
+      </FailureCard>
+    );
+  
+    const renderLoadingView = () => (
+      <LoadingContainer>
+        <p>Loading...</p>
+      </LoadingContainer>
+    );
+
+  const renderAllRestaurants = () => {
+    switch (apiStatus) {
+      case "SUCCESS":
+        return renderFoodItemListView();
+      case "FAILURE":
+        return renderFailureView();
+      case "IN_PROGRESS":
+        return renderLoadingView();
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <VendorHeader />
       <MainContainer>
-        <section>
-          <AddFoodItem />
-        </section>
-        <section>
-          <div className="foodItemsection">
-            {isLoading ? (
-              <div className="loader-section">
-                <p>Loading...</p>
-              </div>
-            ) : !foodItems.length ? (
-              <p>No foodItems added</p>
-            ) : (
-              <table className="product-table">
-                {error && <p>{error}</p>}
-                <thead>
-                  <tr>
-                    <th>Sr.No</th>
-                    <th>Food Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Image</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {foodItems.map((item, index) => (
-                    <tr key={item._id}>
-                      <td>{index + 1}</td>
-                      <td>{item.foodName}</td>
-                      <td>{item.price}</td>
-                      <td>{item.category}</td>
-                      <td>
-                        {item.foodImage && (
-                          <img
-                            src={`${API_URL}/${item.foodImage}`} 
-                            alt={item.foodName}
-                            style={{ width: "50px", height: "50px" }}
-                          />
-                        )}
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => deleteProductById(item._id)}
-                          className="deleteBtn"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-        </section>
+      {renderAllRestaurants()}
       </MainContainer>
     </>
   );

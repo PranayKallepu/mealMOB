@@ -5,6 +5,7 @@ import RestaurantCard from "../RestaurantCard/RestaurantCard";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { MdOutlineStarRate } from "react-icons/md";
 import { VscClearAll } from "react-icons/vsc";
+import Cookies from 'js-cookie'
 import {
   MainContainer,
   RestaurantHeader,
@@ -26,8 +27,9 @@ const AllRestaurants = () => {
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState("");
 
+  const authToken = Cookies.get('token')
   // Fetch data based on filters
-  const { restaurantsList, apiStatus } = useFetchRestaurants(category, rating);
+  const { restaurantsList, apiStatus } = useFetchRestaurants(category, rating, null, authToken);
 
   const handleFilterChange = (newCategory, newRating) => {
     setCategory(newCategory);

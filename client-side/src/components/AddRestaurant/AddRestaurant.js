@@ -1,12 +1,23 @@
-import { categoryEnum, cuisinesEnum } from "../../utils/enums";
-import axios from "axios";
 import { useState } from "react";
-import { FormContainer, Form } from "./styledComponent";
+import axios from "axios";
+import { categoryEnum, cuisinesEnum } from "../../utils/enums";
 import { API_URL } from "../../utils/data";
+import Cookies from "js-cookie";
+import {
+  AddButton,
+  ModalOverlay,
+  ModalContainer,
+  CloseButton,
+  StyledForm,
+  StyledInput,
+  StyledSelect,
+  CheckboxContainer,
+  SubmitButton,
+} from "./styledComponent";
 
-const AddRestaurant = (props) => {
-  const { setIsClick } = props;
-  const vendorId = localStorage.getItem("vendorId");
+const AddRestaurant = ({ setIsClick }) => {
+  const vendorId = Cookies.get("vendorId");
+  const [isOpen, setIsOpen] = useState(false);
   const [inputData, setInputData] = useState({
     restaurantName: "",
     restaurantImage: null,
@@ -15,7 +26,7 @@ const AddRestaurant = (props) => {
     area: "",
     category: "",
     cuisines: [],
-    vendorId: vendorId,
+    vendorId,
   });
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -46,43 +57,36 @@ const AddRestaurant = (props) => {
     e.preventDefault();
     setError("");
     setLoading(true);
-  
-    const vendorToken = localStorage.getItem("vendorToken");
-  
+
+    const vendorToken = Cookies.get("vendorToken");
+
     if (!vendorToken) {
       setError("Unauthorized: Please log in again.");
       setLoading(false);
       return;
     }
-  
+
     try {
       const formData = new FormData();
       formData.append("restaurantName", inputData.restaurantName);
-      formData.append("restaurantImage", inputData.restaurantImage); // ✅ Correctly added file
+      formData.append("restaurantImage", inputData.restaurantImage);
       formData.append("rating", inputData.rating);
       formData.append("offer", inputData.offer);
       formData.append("area", inputData.area);
       formData.append("category", inputData.category);
       inputData.cuisines.forEach((cuisine) => formData.append("cuisines", cuisine));
-      formData.append("vendorId", inputData.vendorId);
-  
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]); // ✅ Log FormData to check if image is included
-      }
-  
+      formData.append("vendorId", vendorId);
+
       const response = await axios.post(`${API_URL}/api/add-restaurant`, formData, {
-        headers: {
-          Authorization: `Bearer ${vendorToken}`, // ✅ Correct Authorization Header
-        },
+        headers: { Authorization: `Bearer ${vendorToken}` },
       });
-  
+
       if (response.data.success) {
         alert("Restaurant Added Successfully!");
-        const restaurantId= localStorage.getItem("restaurantId");
-        if(!restaurantId){
-          localStorage.setItem("restaurantId", response.data.restaurantId);
-        }
+        Cookies.set("restaurantId", response.data.restaurantId);
+        window.location.reload();
         setIsClick(false);
+        setIsOpen(false); // Close popup after submission
       }
     } catch (error) {
       setError(error.response?.data?.message || "Registration failed");
@@ -90,83 +94,89 @@ const AddRestaurant = (props) => {
       setLoading(false);
     }
   };
-  
 
   return (
-    <FormContainer>
-      <Form onSubmit={handleSubmit}>
-        <label>Restaurant Name *:</label>
-        <input
-          type="text"
-          name="restaurantName"
-          placeholder="RESTAURANT NAME"
-          onChange={handleInput}
-          required
-        />
+    <>
+      {/* Button to Open Popup */}
+      <AddButton onClick={() => setIsOpen(true)}>Add Restaurant</AddButton>
 
-        <label>Restaurant Image *:</label>
-        <input type="file" onChange={handleUploadImage} required />
+      {isOpen && (
+        <ModalOverlay>
+          <ModalContainer>
+            <CloseButton onClick={() => setIsOpen(false)}>&times;</CloseButton>
+            <StyledForm onSubmit={handleSubmit}>
+              <h3>Add Restaurant</h3>
 
-        <label>Rating *:</label>
-        <input
-          type="number"
-          name="rating"
-          value={inputData.rating}
-          placeholder="Ex. 4.5"
-          onChange={handleInput}
-          required
-        />
+              <StyledInput
+                type="text"
+                name="restaurantName"
+                placeholder="Restaurant Name"
+                onChange={handleInput}
+                required
+              />
 
-        <label>Offer *:</label>
-        <input
-          type="text"
-          name="offer"
-          value={inputData.offer}
-          placeholder="Ex. 10% off on above 200/-"
-          onChange={handleInput}
-          required
-        />
+              <StyledInput type="file" onChange={handleUploadImage} required />
 
-        <label>Area *:</label>
-        <input
-          type="text"
-          name="area"
-          value={inputData.area}
-          placeholder="Ex. Chowrastha"
-          onChange={handleInput}
-          required
-        />
+              <StyledInput
+                type="number"
+                name="rating"
+                placeholder="Rating"
+                onChange={handleInput}
+                required
+              />
 
-        <select name="category" value={inputData.category} onChange={handleCategory}>
-          <option value="" disabled>
-            Select Category
-          </option>
-          {categoryEnum.map((category) => (
-            <option key={category} value={category}>{category}</option>
-          ))}
-        </select>
+              <StyledInput
+                type="text"
+                name="offer"
+                placeholder="Offer (e.g. 10% off)"
+                onChange={handleInput}
+                required
+              />
 
-        <label>Cuisines *:</label>
-        {cuisinesEnum.map((cuisine) => (
-          <div key={cuisine}>
-            <label htmlFor={cuisine}>{cuisine}</label>
-            <input
-              id={cuisine}
-              type="checkbox"
-              value={cuisine}
-              checked={inputData.cuisines.includes(cuisine)}
-              onChange={handleCuisines}
-            />
-          </div>
-        ))}
+              <StyledInput
+                type="text"
+                name="area"
+                placeholder="Location/Area"
+                onChange={handleInput}
+                required
+              />
 
-        <button type="submit" disabled={isLoading}>
-        {isLoading ? "Submitting..." : "Submit"}
-        </button>
-      </Form>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-    </FormContainer>
+              <StyledSelect name="category" value={inputData.category} onChange={handleCategory}>
+                <option value="" disabled>
+                  Select Category
+                </option>
+                {categoryEnum.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </StyledSelect>
+
+              <label>Cuisines:</label>
+              <CheckboxContainer>
+                {cuisinesEnum.map((cuisine) => (
+                  <div key={cuisine}>
+                    <label htmlFor={cuisine}>{cuisine}</label>
+                    <input
+                      id={cuisine}
+                      type="checkbox"
+                      value={cuisine}
+                      checked={inputData.cuisines.includes(cuisine)}
+                      onChange={handleCuisines}
+                    />
+                  </div>
+                ))}
+              </CheckboxContainer>
+
+              <SubmitButton type="submit" disabled={isLoading}>
+                {isLoading ? "Submitting..." : "Submit"}
+              </SubmitButton>
+            </StyledForm>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+          </ModalContainer>
+        </ModalOverlay>
+      )}
+    </>
   );
 };
 

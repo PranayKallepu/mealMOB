@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import {API_URL} from '../utils/data'
 
 // Fetch restaurants based on category and rating
-export const fetchRestaurants = async (category, rating, searchInput) => {
+export const fetchRestaurants = async (category, rating, searchInput, authToken) => {
   
   try {
     const response = await axios.get(`${API_URL}/api/restaurants`, {
@@ -14,7 +14,7 @@ export const fetchRestaurants = async (category, rating, searchInput) => {
       },
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token")}`,
+        Authorization: `Bearer ${authToken}`,
       },
       withCredentials: true 
     });
@@ -26,13 +26,13 @@ export const fetchRestaurants = async (category, rating, searchInput) => {
   }
 };
 
-//Fetch restaurant Items
-export const fetchFoodItems = async(restaurantId)=>{
+//Fetch restaurant Items by restaurant
+export const fetchFoodItems = async(restaurantId, authToken)=>{
   try {
     const response = await axios.get(`${API_URL}/api/restaurantItems/${restaurantId}`,{
       headers: {
          "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token")}`,
+        Authorization: `Bearer ${authToken}`,
       },
       withCredentials: true 
     })

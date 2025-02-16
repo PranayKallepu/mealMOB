@@ -59,13 +59,77 @@ export const Form = styled.form`
   background-color: #f8fafc;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
+  max-height: 80vh; /* Prevents excessive height */
+  overflow-y: auto; /* Enables vertical scrolling */
+  box-sizing: border-box; /* Prevents unwanted layout shifts */
 
   h3 {
     font-size: 20px;
     color: #1e293b;
     margin-bottom: 15px;
   }
+
+  /* Optional: Hide scrollbar for a cleaner UI */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
+
+
+// Image Card
+// Image Card Wrapper
+export const ImageCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+`;
+
+// Styled Image Preview
+export const ImagePreview = styled.img`
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #cbd5e1;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+`;
+
+// Hide Default File Input
+export const HiddenFileInput = styled.input`
+  display: none;
+`;
+
+// Styled File Upload Button
+export const FileUploadLabel = styled.label`
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
 
 // Label
 export const Label = styled.label`
@@ -91,7 +155,6 @@ export const Input = styled.input`
 
 // Submit Button
 export const Button = styled.button`
-  width: 100%;
   padding: 10px;
   margin-top: 15px;
   background-color: #22c55e;

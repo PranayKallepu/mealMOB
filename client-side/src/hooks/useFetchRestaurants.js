@@ -8,7 +8,7 @@ const apiStatusConstants = {
   inProgress: "IN_PROGRESS",
 };
 
-const useFetchRestaurants = (category, rating, searchInput) => {
+const useFetchRestaurants = (category, rating, searchInput, authToken) => {
   const [data, setData] = useState({
     restaurantsList: [],
     apiStatus: apiStatusConstants.initial,
@@ -19,7 +19,7 @@ const useFetchRestaurants = (category, rating, searchInput) => {
       setData({ apiStatus: apiStatusConstants.inProgress });
 
       try {
-        const restaurants = await fetchRestaurants(category, rating, searchInput);
+        const restaurants = await fetchRestaurants(category, rating, searchInput, authToken);
         setData({ restaurantsList: restaurants, apiStatus: apiStatusConstants.success });
       } catch (error) {
         console.error("Error fetching restaurants:", error);
@@ -28,7 +28,7 @@ const useFetchRestaurants = (category, rating, searchInput) => {
     };
 
     getRestaurants();
-  }, [category, rating, searchInput]); 
+  }, [category, rating, searchInput, authToken]); 
 
   return data;
 };

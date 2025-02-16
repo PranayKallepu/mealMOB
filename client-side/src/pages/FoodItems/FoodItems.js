@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import useFetchFoodItems from "../../hooks/useFetchFoodItems";
 import { useParams } from "react-router-dom";
 import FoodItemDetails from "../../components/FoodItemDetails/FoodItemDetails";
+import Cookies from 'js-cookie'
 import {
   MainContainer,
   FoodItemsContainer,
@@ -21,9 +22,10 @@ import {
 
 const FoodItems = () => {
   const { restaurantId } = useParams();
-  const { restaurant, foodItems, apiStatus } = useFetchFoodItems(restaurantId);
+  const authToken = Cookies.get('token')
+  const { restaurant, foodItemsList, apiStatus } = useFetchFoodItems(restaurantId, authToken);
   const renderFoodItemsView = () => {
-    return foodItems && foodItems.length > 0 ? (
+    return foodItemsList && foodItemsList.length > 0 ? (
       <FoodItemsContainer>
         <RestaurantContainer>
           <RestaurantDetails>
@@ -48,9 +50,9 @@ const FoodItems = () => {
               <span>Ratings</span>
           </RatingCard>
         </RestaurantContainer>
-        <h4>{`Food Items (${foodItems.length})`}</h4>
+        <h4>{`Food Items (${foodItemsList.length})`}</h4>
         <FoodList>
-          {foodItems.map((foodItem) => (
+          {foodItemsList.map((foodItem) => (
             <FoodItemDetails key={foodItem._id} foodItem={foodItem} />
           ))}
         </FoodList>

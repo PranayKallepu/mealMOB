@@ -5,6 +5,7 @@ import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import useFetchDishes from "../../hooks/useFetchDishes.js";
 import SearchRestaurants from "../../components/SearchRestaurants/SearchRestaurants.js";
 import SearchDishes from "../../components/SearchDishes/index.js";
+import Cookies from 'js-cookie'
 import {
   SearchContainer,
   SearchInputCard,
@@ -18,10 +19,13 @@ const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [activeTab, setActiveTab] = useState("restaurants");
 
+  const authToken = Cookies.get('token')
+
   const { restaurantsList, apiStatus } = useFetchRestaurants(
     null,
     null,
-    searchInput
+    searchInput,
+    authToken
   );
 
   const { filterDishes, apiDishStatus } = useFetchDishes(null, searchInput);

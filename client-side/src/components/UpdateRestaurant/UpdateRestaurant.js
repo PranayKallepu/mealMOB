@@ -1,13 +1,19 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import { categoryEnum, cuisinesEnum } from "../../utils/enums";
 import { API_URL } from "../../utils/data";
+import useFetchRestaurants from "../../hooks/useFetchRestaurants";
+import Cookies from "js-cookie";
 import {
   ModalContainer,
   ModalOverlay,
   CloseButton,
   Form,
+  ImageCard,
+  ImagePreview,
+  HiddenFileInput,
+  FileUploadLabel,
   Input,
   Button,
   Select,
@@ -15,44 +21,62 @@ import {
 } from "./styledComponent";
 
 const UpdateRestaurant = ({ restaurantId }) => {
-  const [restaurant, setRestaurant] = useState(null);
   const [inputData, setInputData] = useState({
     restaurantName: "",
+    restaurantImage: "",
     rating: "",
     offer: "",
     area: "",
     category: "",
     cuisines: [],
   });
+  const imageUrl =
+    inputData.restaurantImage instanceof File
+      ? URL.createObjectURL(inputData.restaurantImage) // Convert file to preview URL
+      : `${API_URL}/${inputData.restaurantImage?.replace(/\\/g, "/")}`; // Use API URL for existing image
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const authToken = Cookies.get("vendorToken");
+
   // Fetch previous restaurant details
+  const { restaurantsList = [] } = useFetchRestaurants(
+    null,
+    null,
+    null,
+    authToken
+  );
+
+  // Find and set previous restaurant data
   useEffect(() => {
-    const fetchRestaurant = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/restaurant/${restaurantId}`);
-        const data = response.data;
-        setRestaurant(data);
+    if (restaurantsList.length > 0) {
+      const restaurant = restaurantsList.find(
+        (each) => each._id === restaurantId
+      );
+      if (restaurant) {
         setInputData({
-          restaurantName: data.restaurantName || "",
-          rating: data.rating || "",
-          offer: data.offer || "",
-          area: data.area || "",
-          category: data.category || "",
-          cuisines: data.cuisines || [],
+          restaurantName: restaurant.restaurantName || "",
+          restaurantImage: restaurant.restaurantImage || "",
+          rating: restaurant.rating || "",
+          offer: restaurant.offer || "",
+          area: restaurant.area || "",
+          category: restaurant.category || "",
+          cuisines: restaurant.cuisines || [],
         });
-      } catch (err) {
-        console.error("Error fetching restaurant:", err);
       }
-    };
-    fetchRestaurant();
-  }, [restaurantId]);
+    }
+  }, [restaurantsList, restaurantId]);
 
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle file upload
+  const handleFileChange = (e) => {
+    setInputData((prev) => ({ ...prev, restaurantImage: e.target.files[0] }));
   };
 
   // Handle category change
@@ -76,17 +100,38 @@ const UpdateRestaurant = ({ restaurantId }) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
+  
     try {
-      const response = await axios.patch(`${API_URL}/restaurant/update/${restaurantId}`, inputData);
-      console.log("Update Success:", response.data);
-      alert("Restaurant updated successfully!");
+      const formData = new FormData();
+      formData.append("restaurantName", inputData.restaurantName);
+      formData.append("rating", inputData.rating);
+      formData.append("offer", inputData.offer);
+      formData.append("area", inputData.area);
+      formData.append("category", inputData.category);
+      formData.append("cuisines", JSON.stringify(inputData.cuisines));
+  
+      // ✅ Only append `restaurantImage` if a new file is selected
+      if (inputData.restaurantImage instanceof File) {
+        formData.append("restaurantImage", inputData.restaurantImage);
+      } else {
+        formData.append("restaurantImage", inputData.restaurantImage); // Use existing image
+      }
+  
+      const response = await axios.put(`${API_URL}/api/update-restaurant/${restaurantId}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      alert(`${response.data.message}!`);
+      window.location.reload();
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong!");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <Popup
@@ -102,6 +147,24 @@ const UpdateRestaurant = ({ restaurantId }) => {
             <CloseButton onClick={close}>&times;</CloseButton>
             <Form onSubmit={handleUpdate}>
               <h3>Update Restaurant</h3>
+
+              <ImageCard>
+                <ImagePreview src={imageUrl} alt="Restaurant" />
+
+                {/* Hidden file input */}
+                <HiddenFileInput
+                  type="file"
+                  id="fileUpload"
+                  name="restaurantImage"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+
+                {/* Styled Upload Button */}
+                <FileUploadLabel htmlFor="fileUpload">
+                  Choose Image
+                </FileUploadLabel>
+              </ImageCard>
 
               <Input
                 type="text"
@@ -133,7 +196,15 @@ const UpdateRestaurant = ({ restaurantId }) => {
               />
 
               {/* Category Dropdown */}
-              <Select name="category" value={inputData.category} onChange={handleCategory}>
+              <Select
+                name="category"
+                value={
+                  Array.isArray(inputData.category)
+                    ? inputData.category[0] || ""
+                    : inputData.category
+                }
+                onChange={handleCategory}
+              >
                 <option value="" disabled>
                   Select Category
                 </option>
