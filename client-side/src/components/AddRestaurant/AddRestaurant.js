@@ -118,7 +118,7 @@ const AddRestaurant = ({ setIsClick }) => {
               <StyledInput type="file" onChange={handleUploadImage} required />
 
               <StyledInput
-                type="number"
+                type="float"
                 name="rating"
                 placeholder="Rating"
                 onChange={handleInput}
@@ -130,7 +130,6 @@ const AddRestaurant = ({ setIsClick }) => {
                 name="offer"
                 placeholder="Offer (e.g. 10% off)"
                 onChange={handleInput}
-                required
               />
 
               <StyledInput
