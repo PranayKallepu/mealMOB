@@ -18,7 +18,7 @@ POST {{rootURL}}/vendor/login
 Content-Type: application/json
 
 {
-    "vendorEmail": "pranay@gmail.com",
+    "vendorEmail": "pardise@gmail.com",
     "vendorPassword": "123"
 }
 
@@ -28,14 +28,14 @@ Content-Type: application/json
 Authorization: Bearer {{vendorToken}}
 
 {
-    "restaurantName": "restaurant2",
+    "restaurantName": "Paradise Biryani",
     "restaurantImage": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/5/9/39a65ace-1068-4823-86bf-887991751e2a_535931.JPG",
     "rating":4.5,
     "offer":1500,
-    "area":"Banglore",
-    "category":"Veg",
-    "cuisines":["Biryani", "Pizza"],
-    "vendorId": "67a5fe06117b2e6dc0d28c46"
+    "area":"Ramannapet",
+    "category":"Both",
+    "cuisines":["Biryani", "North-Indian"],
+    "vendorId": "67b322a34d49251cb654167d"
 }
 
 ###
@@ -65,7 +65,7 @@ Authorization: Bearer {{vendorToken}}
 
 {
     "foodName": "Pizza",
-    "foodImage": "",
+    "foodImage": "c:/Users/pranay/Desktop/food items/pizza-image.jpg",
     "price": 250,
     "category": "Non-Veg",
     "description": "This is a sample Pizza",
@@ -109,7 +109,7 @@ GET {{rootURL}}/api/restaurantItems/67b1de81284470da5a28a198
 Authorization: Bearer {{userToken}}
 
 ###
-GET {{rootURL}}/api/collections?cuisine=biryani
+GET {{rootURL}}/api/cuisines?cuisine=Pizza
 Authorization: Bearer {{userToken}}
 
 ###
