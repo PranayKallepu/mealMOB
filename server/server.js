@@ -12,12 +12,6 @@ const restaurantRoutes = require("./routes/restaurantRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const userRoutes = require("./routes/userRoutes");
 
-// Middleware for CORS
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://mealmob-client.onrender.com",
-];
-
 const app = express();
 
 // config
@@ -26,26 +20,16 @@ dotenv.config();
 //db connection
 connectDB();
 
-// CORS configuration
-// app.use(cors());
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
+// Middleware for CORS
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://mealmob-client.onrender.com"],
+  methods: "GET, POST, PUT, DELETE, OPTIONS",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // Allow credentials (cookies, authentication headers)
+};
 
-  // Handle Preflight (OPTIONS request)
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Handle preflight OPTIONS request
 
 // Body parser middleware for handling JSON
 app.use(bodyParser.json());
