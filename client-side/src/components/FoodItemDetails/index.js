@@ -12,7 +12,6 @@ import {
 
 const FoodItemDetails = ({ foodItem }) => {
   const { foodName, foodImage, price, description } = foodItem;
-  const imageUrl = `${API_URL}/${foodImage.replace(/\\/g, "/")}`;
   //states
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -29,20 +28,31 @@ const FoodItemDetails = ({ foodItem }) => {
     addCartItem({ ...foodItem, quantity, id });
   };
 
+  const handleLessQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
+  const handleMoreQuantity = () => {
+    if (quantity < 10) {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    }
+  };
+
   return (
     <FoodItem>
       <FoodImage>
-        <img src={imageUrl} alt={foodName} /> <br />
+        <img src={foodImage} alt={foodName} /> <br />
         <AddButtonCard onClick={onClickAddToCart}>
           {!isAdded ? (
             "ADD"
           ) : (
             <>
-              <button type="button" onClick={() => setQuantity(quantity - 1)}>
+              <button type="button" onClick={handleLessQuantity}>
                 -
               </button>
               <p>{quantity}</p>
-              <button type="button" onClick={() => setQuantity(quantity + 1)}>
+              <button type="button" onClick={handleMoreQuantity}>
                 +
               </button>
             </>

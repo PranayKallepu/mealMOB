@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const AddButton = styled.button`
-    background: none;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
 `;
 
 // Popup Modal Overlay
@@ -56,26 +56,42 @@ export const StyledForm = styled.form`
 export const StyledInput = styled.input`
   width: 100%;
   padding: 10px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  background-color: ${(props) => (props.isFill ? "#e0f7fa" : "white")};
+  transition: background-color 0.3s ease-in-out;
+
+  &:focus {
+    background-color: #b2ebf2;
+  }
 `;
 
 // Styled Select
 export const StyledSelect = styled.select`
   width: 100%;
   padding: 10px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  outline: none;
 `;
 
 // Styled Textarea
 export const StyledTextarea = styled.textarea`
   width: 100%;
   padding: 10px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #ccc;
   border-radius: 5px;
   resize: none;
   height: 100px;
+  outline: none;
+  background-color: ${(props) => (props.isFill ? "#e0f7fa" : "white")};
+  transition: background-color 0.3s ease-in-out;
+
+  &:focus {
+    background-color: #b2ebf2;
+  }
 `;
 
 // Styled Submit Button

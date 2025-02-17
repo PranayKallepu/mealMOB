@@ -7,7 +7,6 @@ export const PageWrapper = styled.div`
   min-height: 100vh;
 `;
 
-
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,7 +29,6 @@ export const SearchInputContainer = styled.div`
   padding: 15px 16px;
   margin: 0px 300px;
   text-decoration: none;
-
 `;
 export const SearchInput = styled.input`
   background-color: #f1f5f9;
@@ -44,7 +42,6 @@ export const SearchInput = styled.input`
     text-decoration: none;
     font-style: normal;
   }
-
 `;
 
 export const SearchIcon = styled(BsSearch)`

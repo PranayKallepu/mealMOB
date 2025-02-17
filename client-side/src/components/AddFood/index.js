@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/data";
 import {
-    AddButton,
+  AddButton,
   ModalOverlay,
   ModalContainer,
   CloseButton,
@@ -13,15 +13,17 @@ import {
   StyledTextarea,
   SubmitButton,
 } from "./styledComponent";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
-const AddFood= () => {
+const AddFood = () => {
   const restaurantId = Cookies.get("restaurantId");
   const navigate = useNavigate();
 
+  // states
   const [inputData, setInputData] = useState({
     foodName: "",
     foodImage: null,
+    imageUrl: "",
     price: "",
     category: "",
     description: "",
@@ -29,21 +31,29 @@ const AddFood= () => {
   });
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); // Popup state
+  const [isOpen, setIsOpen] = useState(false);
+  const [isFill, setIsFill] = useState(false);
 
   // Handle input changes
   const handleInput = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
+  const handleFocus = (e) => {
+    setIsFill(true);
+  };
+
+  const handleBlur = (e) => {
+    setIsFill(false);
+  };
 
   // Handle file upload
   const handleUploadImage = (e) => {
-    if (e.target.files.length > 0) {
-      setInputData((prevData) => ({
-        ...prevData,
-        foodImage: e.target.files[0],
-      }));
-    }
+    const file = e.target.files[0]; // If file is uploaded
+    setInputData({ ...inputData, foodImage: file, imageUrl: "" });
+  };
+  // Handle image URL upload
+  const handleImageUrl = (e) => {
+    setInputData({ ...inputData, imageUrl: e.target.value, foodImage: null });
   };
 
   // Handle form submission
@@ -62,28 +72,37 @@ const AddFood= () => {
 
     if (!inputData.restaurantId) {
       alert("Please add Restaurant First.");
-      navigate("/vendor");
       return;
     }
 
     try {
       const formData = new FormData();
       formData.append("foodName", inputData.foodName);
-      formData.append("foodImage", inputData.foodImage);
       formData.append("price", inputData.price);
       formData.append("category", inputData.category);
       formData.append("description", inputData.description);
       formData.append("restaurantId", inputData.restaurantId);
+      if (inputData.foodImage) {
+        // If user uploaded a file
+        formData.append("foodImage", inputData.foodImage);
+      } else if (inputData.imageUrl) {
+        // If user provided a direct URL
+        formData.append("foodImage", inputData.imageUrl);
+      }
 
-      const response = await axios.post(`${API_URL}/api/add-foodItem`, formData, {
-        headers: {
-          Authorization: `Bearer ${vendorToken}`,
-        },
-      });
+      const response = await axios.post(
+        `${API_URL}/api/add-foodItem`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${vendorToken}`,
+          },
+        }
+      );
 
       if (response.data.success) {
         alert("Food Item Added Successfully!");
-        window.location.reload();
+        navigate("/vendor/food-menu");
       }
     } catch (error) {
       console.log("Error Response:", error.response?.data);
@@ -106,22 +125,44 @@ const AddFood= () => {
             <StyledForm onSubmit={handleSubmit}>
               <h3>Add Food</h3>
               <StyledInput
+                isFill={isFill}
                 type="text"
                 name="foodName"
                 value={inputData.foodName}
                 onChange={handleInput}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 placeholder="FOOD NAME *"
                 required
               />
 
-              <StyledInput type="file" onChange={handleUploadImage} required />
+              <label>Upload Image:</label>
+              <StyledInput
+                type="file"
+                accept="image/*"
+                onChange={handleUploadImage}
+              />
+
+              <label>OR Enter Image URL:</label>
+              <StyledInput
+                isFill={isFill}
+                type="text"
+                name="imageUrl"
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                placeholder="https://example.com/image.jpg"
+                onChange={handleImageUrl}
+              />
 
               <StyledInput
+                isFill={isFill}
                 type="text"
                 name="price"
                 value={inputData.price}
-                placeholder="PRICE"
+                placeholder="PRICE ex: 100"
                 onChange={handleInput}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 required
               />
 
@@ -139,10 +180,13 @@ const AddFood= () => {
               </StyledSelect>
 
               <StyledTextarea
+                isFill={isFill}
                 name="description"
                 value={inputData.description}
                 placeholder="FOOD DESCRIPTION *"
                 onChange={handleInput}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 required
               />
 

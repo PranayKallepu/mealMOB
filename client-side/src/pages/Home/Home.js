@@ -1,9 +1,9 @@
-import Header from "../../components/Header/Header";
-import MenuList from "../../components/MenuList/MenuList";
+import Header from "../../components/Header";
+import MenuList from "../../components/MenuList";
 import { Link } from "react-router-dom";
-import AllRestaurants from "../../components/AllRestaurants/AllRestaurants";
+import AllRestaurants from "../../components/AllRestaurants";
 import { BsSearch } from "react-icons/bs";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer";
 import {
   PageWrapper,
   MainContainer,

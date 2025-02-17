@@ -1,19 +1,19 @@
 import React from "react";
-import DishCard from '../DishCard/index'
+import DishCard from "../DishCard";
 import {
-    MainContainer,
-    FoodList,
-    NoRestaurantsContainer,
-    FailureCard,
-    FailureDescription,
-    FailureHeading,
-    FailureImage
-  } from "./styledComponent";
+  MainContainer,
+  FoodList,
+  NoRestaurantsContainer,
+  FailureCard,
+  FailureDescription,
+  FailureHeading,
+  FailureImage,
+} from "./styledComponent";
 
 const SearchDishes = (props) => {
   const { filterDishes, apiDishStatus, searchInput } = props;
 
-  if(!searchInput){
+  if (!searchInput) {
     return null;
   }
 
@@ -67,11 +67,7 @@ const SearchDishes = (props) => {
     }
   };
 
-  return (
-    <MainContainer>
-      {renderAllRestaurants()}
-    </MainContainer>
-  );
-}
+  return <MainContainer>{renderAllRestaurants()}</MainContainer>;
+};
 
 export default SearchDishes;

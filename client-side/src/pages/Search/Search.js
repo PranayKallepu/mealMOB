@@ -1,25 +1,25 @@
 import React, { useState } from "react";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 import { BsSearch } from "react-icons/bs";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import useFetchDishes from "../../hooks/useFetchDishes.js";
-import SearchRestaurants from "../../components/SearchRestaurants/SearchRestaurants.js";
-import SearchDishes from "../../components/SearchDishes/index.js";
-import Cookies from 'js-cookie'
+import SearchRestaurants from "../../components/SearchRestaurants";
+import SearchDishes from "../../components/SearchDishes";
+import Cookies from "js-cookie";
 import {
   SearchContainer,
   SearchInputCard,
   SearchInput,
   ButtonContainer,
   ToggleButton,
-  DisplayContainer
+  DisplayContainer,
 } from "../../pages/Search/styledComponent";
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [activeTab, setActiveTab] = useState("restaurants");
 
-  const authToken = Cookies.get('token')
+  const authToken = Cookies.get("token");
 
   const { restaurantsList, apiStatus } = useFetchRestaurants(
     null,
@@ -63,7 +63,7 @@ const Search = () => {
         </ButtonContainer>
       </SearchContainer>
       <DisplayContainer>
-      {activeTab === "restaurants" ? (
+        {activeTab === "restaurants" ? (
           <SearchRestaurants
             restaurantsList={restaurantsList}
             apiStatus={apiStatus}

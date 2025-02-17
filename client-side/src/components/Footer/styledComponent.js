@@ -13,7 +13,6 @@ export const FooterSection = styled.footer`
   }
 `;
 
-
 export const DetailsContainer = styled.div`
   display: flex;
   justify-content: space-around;

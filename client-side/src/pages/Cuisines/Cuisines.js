@@ -1,22 +1,29 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
+import Header from "../../components/Header";
+import RestaurantCard from "../../components/RestaurantCard";
 import { menuList } from "../../utils/data";
 import useFetchCuisines from "../../hooks/useFetchCuisines";
 import {
-    MainContainer,
+  MainContainer,
   RestaurantList,
   NoRestaurantsContainer,
   FailureCard,
   FailureDescription,
   FailureHeading,
   FailureImage,
+  LoadingContainer,
+  LoadingImage,
+  LoadingName,
 } from "../../components/AllRestaurants/styledComponent";
+import { CuisineDetails } from "./styledComponent";
 
-const Collections = () => {
+const length = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const Cuisines = () => {
   const { activeCuisine } = useParams();
-  const menu = menuList.find((each) => each.cuisine === activeCuisine);
+
+  const menu = menuList.find((each) => each.cuisine === activeCuisine) || {};
 
   //   Fetch restaurants by active cuisine
   const { restaurantsByCuisine = [], apiStatus } =
@@ -24,13 +31,11 @@ const Collections = () => {
 
   const renderRestaurantsByCuisineView = () => {
     return restaurantsByCuisine && restaurantsByCuisine.length > 0 ? (
-      <div>
-        <RestaurantList>
-          {restaurantsByCuisine.map((restaurant) => (
-            <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
-          ))}
-        </RestaurantList>
-      </div>
+      <RestaurantList>
+        {restaurantsByCuisine.map((restaurant) => (
+          <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
+        ))}
+      </RestaurantList>
     ) : (
       <NoRestaurantsContainer>
         <img
@@ -57,7 +62,16 @@ const Collections = () => {
     </FailureCard>
   );
 
-  const renderLoadingView = () => <div>Loading restaurants...</div>;
+  const renderLoadingView = () => (
+    <LoadingContainer>
+      {length.map((index) => (
+        <div key={index}>
+          <LoadingImage></LoadingImage>
+          <LoadingName></LoadingName>
+        </div>
+      ))}
+    </LoadingContainer>
+  );
 
   const renderRestaurantsByCuisine = () => {
     switch (apiStatus) {
@@ -75,15 +89,15 @@ const Collections = () => {
     <>
       <Header />
       <MainContainer>
-        <div>
+        <CuisineDetails>
           <h1> {menu.cuisine}</h1>
           <p>{menu.description || "Discover delicious food"}</p>
           <h3>{restaurantsByCuisine.length} Restaurants to explore</h3>
-        </div>
+        </CuisineDetails>
         {renderRestaurantsByCuisine()}
       </MainContainer>
     </>
   );
 };
 
-export default Collections;
+export default Cuisines;

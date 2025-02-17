@@ -20,10 +20,7 @@ const VendorHeader = () => {
     Cookies.remove("vendorName");
     Cookies.remove("vendorToken");
     Cookies.remove("restaurantId");
-    if (!token) {
-      navigate("/dashboard");
-    }
-    navigate("/");
+    navigate("/vendor-dashboard");
   };
 
   return (
@@ -36,6 +33,9 @@ const VendorHeader = () => {
       </div>
       <div>
         <NavList>
+          <NavItem>
+            <Link to="/">MealMOB</Link>
+          </NavItem>
           <NavItem>
             <Link to="/vendor">Home</Link>
           </NavItem>

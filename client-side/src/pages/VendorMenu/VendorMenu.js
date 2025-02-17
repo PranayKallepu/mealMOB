@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "../../utils/data";
-import VendorHeader from "../../components/VendorHeader/VendorHeader";
+import VendorHeader from "../../components/VendorHeader";
 import axios from "axios";
 import Cookies from "js-cookie";
 import AddFood from "../../components/AddFood";
@@ -17,10 +17,10 @@ import {
   FailureDescription,
   FailureHeading,
   FailureImage,
-  LoadingContainer
+  LoadingContainer,
 } from "../../components/AllRestaurants/styledComponent";
 
-const FoodMenu = () => {
+const VendorMenu = () => {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState(""); // Search state
 
@@ -35,7 +35,7 @@ const FoodMenu = () => {
 
   // Handle Delete with correct foodItemsHandler reference
   const deleteProductById = async (foodItemId) => {
-    alert('Are you sure want to delete item?')
+    alert("Are you sure want to delete item?");
     try {
       const vendorToken = Cookies.get("vendorToken");
       await axios.delete(`${API_URL}/api/delete-foodItem/${foodItemId}`, {
@@ -48,16 +48,19 @@ const FoodMenu = () => {
     }
   };
 
-
   const renderFoodItemListView = () => {
     if (!Array.isArray(foodItemsList) || foodItemsList.length === 0) {
-      return <NoFoodCard><p>No food items available.</p> <AddFood /></NoFoodCard>;
+      return (
+        <NoFoodCard>
+          <p>No food items available.</p> <AddFood />
+        </NoFoodCard>
+      );
     }
-  
+
     const filteredFoodItems = foodItemsList.filter((item) =>
       item.foodName.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  
+
     return (
       <section>
         {/* Search Bar */}
@@ -67,7 +70,7 @@ const FoodMenu = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-  
+
         {/* Check if filtered list is empty */}
         {filteredFoodItems.length === 0 ? (
           <p>No matching food items found.</p>
@@ -95,9 +98,13 @@ const FoodMenu = () => {
                     <td>
                       {item.foodImage ? (
                         <img
-                          src={`${API_URL}/${item.foodImage.replace(/\\/g, "/")}`}
+                          src={item.foodImage}
                           alt={item.foodName}
-                          style={{ width: "50px", height: "50px", borderRadius: "5px" }}
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "5px",
+                          }}
                         />
                       ) : (
                         <p>No Image</p>
@@ -120,27 +127,26 @@ const FoodMenu = () => {
       </section>
     );
   };
-  
 
   const renderFailureView = () => (
-      <FailureCard>
-        <FailureImage
-          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
-          alt="all-products-error"
-        />
-        <FailureHeading>Oops! Something Went Wrong</FailureHeading>
-        <FailureDescription>
-          We are having some trouble processing your request. Please try again
-          later.
-        </FailureDescription>
-      </FailureCard>
-    );
-  
-    const renderLoadingView = () => (
-      <LoadingContainer>
-        <p>Loading...</p>
-      </LoadingContainer>
-    );
+    <FailureCard>
+      <FailureImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
+        alt="all-products-error"
+      />
+      <FailureHeading>Oops! Something Went Wrong</FailureHeading>
+      <FailureDescription>
+        We are having some trouble processing your request. Please try again
+        later.
+      </FailureDescription>
+    </FailureCard>
+  );
+
+  const renderLoadingView = () => (
+    <LoadingContainer>
+      <p>Loading...</p>
+    </LoadingContainer>
+  );
 
   const renderAllRestaurants = () => {
     switch (apiStatus) {
@@ -158,11 +164,9 @@ const FoodMenu = () => {
   return (
     <>
       <VendorHeader />
-      <MainContainer>
-      {renderAllRestaurants()}
-      </MainContainer>
+      <MainContainer>{renderAllRestaurants()}</MainContainer>
     </>
   );
 };
 
-export default FoodMenu;
+export default VendorMenu;

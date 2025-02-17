@@ -20,15 +20,18 @@ const useFetchDishes = (category, searchInput) => {
 
       try {
         const dishes = await fetchDishes(category, searchInput);
-        setData({ filterDishes: dishes, apiDishStatus: apiDishStatusConstants.success });
+        setData({
+          filterDishes: dishes,
+          apiDishStatus: apiDishStatusConstants.success,
+        });
       } catch (error) {
         console.error("Error fetching dishes:", error);
         setData({ apiDishStatus: apiDishStatusConstants.failure });
       }
     };
 
-    getDishes();   
-  }, [category, searchInput]); 
+    getDishes();
+  }, [category, searchInput]);
 
   return data;
 };

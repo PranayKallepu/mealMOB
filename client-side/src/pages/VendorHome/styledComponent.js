@@ -29,18 +29,18 @@ export const ButtonsCard = styled.div`
 `;
 
 export const Button = styled.button`
-  background-color: ${(props) =>
-    props.isActive ? "red" : "rgb(90, 147, 238)"};
-  color: #ffffff;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: rgb(236, 32, 32);
+  color: white;
   border: none;
   border-radius: 6px;
   font-size: 16px;
-  padding: 10px;
-  margin-top: 15px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+
   &:hover {
-    background-color: ${(props) =>
-      props.isActive ? "rgb(236, 32, 32)" : "#0b69ff"};
+    background-color: red;
   }
+  
 `;

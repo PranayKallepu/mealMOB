@@ -14,7 +14,7 @@ export const LinkItem = styled(Link)`
   }
 `;
 
-export const RestaurantItem = styled.li`
+export const RestaurantItemCard = styled.li`
   display: flex;
   flex-direction: column;
   color: #000000;
@@ -22,7 +22,7 @@ export const RestaurantItem = styled.li`
   transition: all 0.3s ease-in-out; /* Smooth animation */
   &:hover {
     transform: scale(0.9); /* Slight zoom out effect */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
   }
   img {
@@ -31,16 +31,23 @@ export const RestaurantItem = styled.li`
     border-radius: 10px;
   }
 
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
-
   p {
     color: gray;
   }
 `;
 
+export const RestaurantName = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CuisineCard = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  p {
+    font-size: 14px;
+  }
+`;
 
 export const Offer = styled.div`
   padding: 10px 3px;

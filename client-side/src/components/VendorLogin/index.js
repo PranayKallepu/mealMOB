@@ -2,11 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { API_URL } from "../../utils/data";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { FormContainer, Form } from "../VendorRegister/styledComponent";
 
 const VendorLogin = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [inputData, setInputData] = useState({
     vendorEmail: "",
@@ -33,7 +33,7 @@ const VendorLogin = () => {
         if (response.data.restaurantId) {
           Cookies.set("restaurantId", response.data.restaurantId);
         }
-        navigate('/vendor', {replace: true})
+        navigate("/vendor", { replace: true });
       }
     } catch (error) {
       setError(error.response?.data?.message);

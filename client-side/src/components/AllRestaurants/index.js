@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
-import FilterPopup from "../FilterPopup/FilterPopup";
-import RestaurantCard from "../RestaurantCard/RestaurantCard";
+import FilterPopup from "../FilterPopup";
+import RestaurantCard from "../RestaurantCard";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { MdOutlineStarRate } from "react-icons/md";
 import { VscClearAll } from "react-icons/vsc";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import {
   MainContainer,
   RestaurantHeader,
@@ -16,9 +16,9 @@ import {
   FailureDescription,
   FailureHeading,
   FailureImage,
-  LoadingContainer, 
+  LoadingContainer,
   LoadingImage,
-  LoadingName
+  LoadingName,
 } from "./styledComponent";
 
 const length = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -27,9 +27,14 @@ const AllRestaurants = () => {
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState("");
 
-  const authToken = Cookies.get('token')
+  const authToken = Cookies.get("token");
   // Fetch data based on filters
-  const { restaurantsList, apiStatus } = useFetchRestaurants(category, rating, null, authToken);
+  const { restaurantsList, apiStatus } = useFetchRestaurants(
+    category,
+    rating,
+    null,
+    authToken
+  );
 
   const handleFilterChange = (newCategory, newRating) => {
     setCategory(newCategory);
@@ -38,13 +43,11 @@ const AllRestaurants = () => {
 
   const renderRestaurantsListView = () => {
     return restaurantsList && restaurantsList.length > 0 ? (
-      <div>
-        <RestaurantList>
-          {restaurantsList.map((restaurant) => (
-            <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
-          ))}
-        </RestaurantList>
-      </div>
+      <RestaurantList>
+        {restaurantsList.map((restaurant) => (
+          <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
+        ))}
+      </RestaurantList>
     ) : (
       <NoRestaurantsContainer>
         <img
@@ -113,7 +116,9 @@ const AllRestaurants = () => {
               Ratings {rating || "2.0"}+
             </p>
           </div>
-          <button onClick={() => handleFilterChange("", "")}>Clear Filters <VscClearAll /></button>
+          <button onClick={() => handleFilterChange("", "")}>
+            Clear Filters <VscClearAll />
+          </button>
         </FilterCard>
       </RestaurantHeader>
       {renderAllRestaurants()}

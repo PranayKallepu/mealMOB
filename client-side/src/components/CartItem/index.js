@@ -23,40 +23,46 @@ import {
 
 const CartItem = (props) => {
   const { cartItemDetails } = props;
-  const { foodName, foodImage, category, price, quantity, id } = cartItemDetails;
-  const { deleteCartItem, increaseQuantity, decreaseQuantity } = useContext(CartContext);
-
-  const imageUrl = `${API_URL}/${foodImage.replace(/\\/g, "/")}`;
+  const { foodName, foodImage, category, price, quantity, id } =
+    cartItemDetails;
+  const { deleteCartItem, increaseQuantity, decreaseQuantity } =
+    useContext(CartContext);
 
   const onClickDeleteButton = () => {
     deleteCartItem(id);
     console.log(`product Deleted ${id}`);
   };
-  const onClickDecreaseQuantity =()=>{
-    if(quantity > 1){
-      decreaseQuantity(id)
+  const onClickDecreaseQuantity = () => {
+    if (quantity > 1) {
+      decreaseQuantity(id);
     }
-  }
-  const onClickIncreaseQuantity =()=>{
-    if(quantity < 10){
-      increaseQuantity(id)
+  };
+  const onClickIncreaseQuantity = () => {
+    if (quantity < 10) {
+      increaseQuantity(id);
     }
-  }
+  };
 
   return (
     <CartItemContainer>
-      <ProductImage src={imageUrl} alt={foodImage} />
+      <ProductImage src={foodImage} alt={foodImage} />
       <CartItemDetailsContainer>
         <ProductTitleBrandContainer>
           <ProductTitle>{foodName}</ProductTitle>
           <ProductBrand> {category}</ProductBrand>
         </ProductTitleBrandContainer>
         <QuantityContainer>
-          <QuantityControllerButton type="button" onClick={onClickDecreaseQuantity}>
+          <QuantityControllerButton
+            type="button"
+            onClick={onClickDecreaseQuantity}
+          >
             <BsDashSquare color="#52606D" size={12} />
           </QuantityControllerButton>
           <Quantity>{quantity}</Quantity>
-          <QuantityControllerButton type="button" onClick={onClickIncreaseQuantity}>
+          <QuantityControllerButton
+            type="button"
+            onClick={onClickIncreaseQuantity}
+          >
             <BsPlusSquare color="#52606D" size={12} />
           </QuantityControllerButton>
         </QuantityContainer>

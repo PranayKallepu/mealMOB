@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { FormContainer, Form } from "./styledComponent";
 import { API_URL } from "../../utils/data";
 
@@ -10,7 +10,7 @@ const VendorRegister = ({ setIsLogin }) => {
     vendorName: "",
     vendorEmail: "",
     vendorPassword: "",
-    confirmPassword: "", 
+    confirmPassword: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,10 +34,13 @@ const VendorRegister = ({ setIsLogin }) => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/vendor/register`, inputData);
+      const response = await axios.post(
+        `${API_URL}/vendor/register`,
+        inputData
+      );
       if (response.data.success) {
         alert("Vendor Registered Successfully!");
-        Cookies.set('vendorName', response.data.vendorName)
+        Cookies.set("vendorName", response.data.vendorName);
         setIsLogin(true);
       }
     } catch (error) {

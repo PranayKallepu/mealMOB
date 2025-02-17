@@ -1,9 +1,9 @@
-import styled, { keyframes } from 'styled-components'
-
+import styled, { keyframes } from "styled-components";
 
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: auto;
   padding: 10px;
   width: 90%;
@@ -14,6 +14,7 @@ export const MainContainer = styled.div`
 export const RestaurantHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `;
 
 export const FilterCard = styled.div`
@@ -21,13 +22,13 @@ export const FilterCard = styled.div`
   justify-content: space-between;
   width: 50%;
   margin-top: 10px;
-  div{
+  div {
     display: flex;
     border: 1px solid gray;
     padding: 6px;
     border-radius: 6px;
   }
-  button{
+  button {
     border-radius: 6px;
     border: 1px solid gray;
     cursor: pointer;
@@ -37,11 +38,13 @@ export const FilterCard = styled.div`
 
 export const RestaurantList = styled.ul`
   display: flex;
+  width: 100%;
+  margin-top: 10px;
   flex-wrap: wrap;
 `;
 
 export const NoRestaurantsContainer = styled.div`
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -53,42 +56,42 @@ export const NoRestaurantsContainer = styled.div`
     padding-bottom: 0;
     margin-top: 0px;
   }
-  img{
+  img {
     width: 250px;
-  height: 180px;
-  @media screen and (min-width: 768px) {
-    width: 459px;
-    height: 315px;
+    height: 180px;
+    @media screen and (min-width: 768px) {
+      width: 459px;
+      height: 315px;
+    }
   }
-  }
-  h1{
+  h1 {
     color: #171f46;
-  font-family: "Roboto";
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.3px;
-  @media screen and (min-width: 768px) {
-    margin-top: 32px;
-    font-size: 24px;
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3px;
+    @media screen and (min-width: 768px) {
+      margin-top: 32px;
+      font-size: 24px;
+    }
   }
-  }
-  p{
+  p {
     text-align: center;
-  color: #64748b;
-  font-family: "Roboto";
-  font-size: 14px;
-  width: 90%;
-  max-width: 288px;
-  line-height: 1.3;
+    color: #64748b;
+    font-family: "Roboto";
+    font-size: 14px;
+    width: 90%;
+    max-width: 288px;
+    line-height: 1.3;
 
-  @media screen and (min-width: 768px) {
-    margin-top: 12px;
-    font-size: 18px;
-    width: 60%;
-    max-width: 466px;
+    @media screen and (min-width: 768px) {
+      margin-top: 12px;
+      font-size: 18px;
+      width: 60%;
+      max-width: 466px;
+    }
   }
-  }
-`
+`;
 //FAILURE VIEW CSS
 export const FailureCard = styled.div`
   display: flex;

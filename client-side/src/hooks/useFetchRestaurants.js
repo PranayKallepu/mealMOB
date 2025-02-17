@@ -19,8 +19,16 @@ const useFetchRestaurants = (category, rating, searchInput, authToken) => {
       setData({ apiStatus: apiStatusConstants.inProgress });
 
       try {
-        const restaurants = await fetchRestaurants(category, rating, searchInput, authToken);
-        setData({ restaurantsList: restaurants, apiStatus: apiStatusConstants.success });
+        const restaurants = await fetchRestaurants(
+          category,
+          rating,
+          searchInput,
+          authToken
+        );
+        setData({
+          restaurantsList: restaurants,
+          apiStatus: apiStatusConstants.success,
+        });
       } catch (error) {
         console.error("Error fetching restaurants:", error);
         setData({ apiStatus: apiStatusConstants.failure });
@@ -28,7 +36,7 @@ const useFetchRestaurants = (category, rating, searchInput, authToken) => {
     };
 
     getRestaurants();
-  }, [category, rating, searchInput, authToken]); 
+  }, [category, rating, searchInput, authToken]);
 
   return data;
 };

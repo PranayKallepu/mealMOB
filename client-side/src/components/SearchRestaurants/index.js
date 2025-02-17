@@ -1,33 +1,35 @@
 import React from "react";
-import RestaurantCard from "../RestaurantCard/RestaurantCard";
-import RestaurantHeader from "../RestaurantHeader/RestaurantHeader";
+import RestaurantCard from "../RestaurantCard";
+import RestaurantHeader from "../RestaurantHeader";
 import {
-    MainContainer,
-    RestaurantList,
-    NoRestaurantsContainer,
-    FailureCard,
-    FailureDescription,
-    FailureHeading,
-    FailureImage
-  } from "../AllRestaurants/styledComponent";
+  MainContainer,
+  RestaurantList,
+  NoRestaurantsContainer,
+  FailureCard,
+  FailureDescription,
+  FailureHeading,
+  FailureImage,
+  LoadingContainer,
+  LoadingImage,
+  LoadingName,
+} from "../AllRestaurants/styledComponent";
+
+const length = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const SearchRestaurants = (props) => {
   const { restaurantsList, apiStatus, searchInput } = props;
 
-  if(!searchInput){
+  if (!searchInput) {
     return null;
   }
 
   const renderRestaurantsListView = () => {
     return restaurantsList && restaurantsList.length > 0 ? (
-      <div>
-        <RestaurantHeader />
-        <RestaurantList>
-          {restaurantsList.map((restaurant) => (
-            <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
-          ))}
-        </RestaurantList>
-      </div>
+      <RestaurantList>
+        {restaurantsList.map((restaurant) => (
+          <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
+        ))}
+      </RestaurantList>
     ) : (
       <NoRestaurantsContainer>
         <img
@@ -54,7 +56,16 @@ const SearchRestaurants = (props) => {
     </FailureCard>
   );
 
-  const renderLoadingView = () => <div>Loading restaurants...</div>;
+  const renderLoadingView = () => (
+    <LoadingContainer>
+      {length.map((index) => (
+        <div key={index}>
+          <LoadingImage></LoadingImage>
+          <LoadingName></LoadingName>
+        </div>
+      ))}
+    </LoadingContainer>
+  );
 
   const renderAllRestaurants = () => {
     switch (apiStatus) {
@@ -71,9 +82,10 @@ const SearchRestaurants = (props) => {
 
   return (
     <MainContainer>
+      <RestaurantHeader />
       {renderAllRestaurants()}
     </MainContainer>
   );
-}
+};
 
 export default SearchRestaurants;

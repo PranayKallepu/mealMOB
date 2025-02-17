@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {BsSearch} from 'react-icons/bs'
+import { BsSearch } from "react-icons/bs";
 
 // Search
 
@@ -7,8 +7,7 @@ export const SearchContainer = styled.div`
   margin: auto;
   width: 80%;
   max-width: 1110px;
-
-`
+`;
 
 export const SearchInputCard = styled.div`
   border-radius: 10px;
@@ -35,7 +34,6 @@ export const SearchInput = styled.input`
     color: #94a3b8;
     font-size: 15px;
   }
-
 `;
 
 export const SearchIcon = styled(BsSearch)`
@@ -49,8 +47,6 @@ export const SearchIcon = styled(BsSearch)`
     color: #2563eb;
   }
 `;
-
-
 
 export const ButtonContainer = styled.div`
   display: flex;
@@ -67,7 +63,7 @@ export const ToggleButton = styled.button`
   margin: 0 10px;
   border-radius: 8px;
   transition: all 0.3s ease;
-  
+
   /* Default button styles */
   background-color: #ddd;
   color: #333;

@@ -30,10 +30,6 @@ const UpdateRestaurant = ({ restaurantId }) => {
     category: "",
     cuisines: [],
   });
-  const imageUrl =
-    inputData.restaurantImage instanceof File
-      ? URL.createObjectURL(inputData.restaurantImage) // Convert file to preview URL
-      : `${API_URL}/${inputData.restaurantImage?.replace(/\\/g, "/")}`; // Use API URL for existing image
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -48,7 +44,6 @@ const UpdateRestaurant = ({ restaurantId }) => {
     authToken
   );
 
-  // Find and set previous restaurant data
   useEffect(() => {
     if (restaurantsList.length > 0) {
       const restaurant = restaurantsList.find(
@@ -68,39 +63,34 @@ const UpdateRestaurant = ({ restaurantId }) => {
     }
   }, [restaurantsList, restaurantId]);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle file upload
   const handleFileChange = (e) => {
     setInputData((prev) => ({ ...prev, restaurantImage: e.target.files[0] }));
   };
 
-  // Handle category change
   const handleCategory = (e) => {
     setInputData((prev) => ({ ...prev, category: e.target.value }));
   };
 
-  // Handle cuisines checkbox change
   const handleCuisines = (e) => {
     const { value, checked } = e.target;
-    setInputData((prev) => ({
-      ...prev,
-      cuisines: checked
+    setInputData((prev) => {
+      const updatedCuisines = checked
         ? [...prev.cuisines, value]
-        : prev.cuisines.filter((cuisine) => cuisine !== value),
-    }));
+        : prev.cuisines.filter((cuisine) => cuisine !== value);
+      return { ...prev, cuisines: updatedCuisines };
+    });
   };
 
-  // Handle form submission
-  const handleUpdate = async (e) => {
+  const handleUpdate = async (e, close) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-  
+
     try {
       const formData = new FormData();
       formData.append("restaurantName", inputData.restaurantName);
@@ -108,30 +98,34 @@ const UpdateRestaurant = ({ restaurantId }) => {
       formData.append("offer", inputData.offer);
       formData.append("area", inputData.area);
       formData.append("category", inputData.category);
-      formData.append("cuisines", JSON.stringify(inputData.cuisines));
-  
-      // ✅ Only append `restaurantImage` if a new file is selected
+
+      inputData.cuisines.forEach((cuisine) => {
+        formData.append("cuisines", cuisine);
+      });
+
       if (inputData.restaurantImage instanceof File) {
         formData.append("restaurantImage", inputData.restaurantImage);
-      } else {
-        formData.append("restaurantImage", inputData.restaurantImage); // Use existing image
       }
-  
-      const response = await axios.put(`${API_URL}/api/update-restaurant/${restaurantId}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+
+      const response = await axios.put(
+        `${API_URL}/api/update-restaurant/${restaurantId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
       alert(`${response.data.message}!`);
-      window.location.reload();
+      close();
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong!");
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <Popup
@@ -145,13 +139,14 @@ const UpdateRestaurant = ({ restaurantId }) => {
           <ModalOverlay onClick={close} />
           <ModalContainer>
             <CloseButton onClick={close}>&times;</CloseButton>
-            <Form onSubmit={handleUpdate}>
+            <Form onSubmit={(e) => handleUpdate(e, close)}>
               <h3>Update Restaurant</h3>
 
               <ImageCard>
-                <ImagePreview src={imageUrl} alt="Restaurant" />
-
-                {/* Hidden file input */}
+                <ImagePreview
+                  src={inputData.restaurantImage}
+                  alt="Restaurant"
+                />
                 <HiddenFileInput
                   type="file"
                   id="fileUpload"
@@ -159,8 +154,6 @@ const UpdateRestaurant = ({ restaurantId }) => {
                   accept="image/*"
                   onChange={handleFileChange}
                 />
-
-                {/* Styled Upload Button */}
                 <FileUploadLabel htmlFor="fileUpload">
                   Choose Image
                 </FileUploadLabel>
@@ -195,14 +188,9 @@ const UpdateRestaurant = ({ restaurantId }) => {
                 onChange={handleInputChange}
               />
 
-              {/* Category Dropdown */}
               <Select
                 name="category"
-                value={
-                  Array.isArray(inputData.category)
-                    ? inputData.category[0] || ""
-                    : inputData.category
-                }
+                value={inputData.category}
                 onChange={handleCategory}
               >
                 <option value="" disabled>
@@ -215,12 +203,10 @@ const UpdateRestaurant = ({ restaurantId }) => {
                 ))}
               </Select>
 
-              {/* Cuisines Checkboxes */}
               <label>Cuisines:</label>
               <CheckboxContainer>
                 {cuisinesEnum.map((cuisine) => (
                   <div key={cuisine}>
-                    <label htmlFor={cuisine}>{cuisine}</label>
                     <input
                       id={cuisine}
                       type="checkbox"
@@ -228,6 +214,7 @@ const UpdateRestaurant = ({ restaurantId }) => {
                       checked={inputData.cuisines.includes(cuisine)}
                       onChange={handleCuisines}
                     />
+                    <label htmlFor={cuisine}>{cuisine}</label>
                   </div>
                 ))}
               </CheckboxContainer>

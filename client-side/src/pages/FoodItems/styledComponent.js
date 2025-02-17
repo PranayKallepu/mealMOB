@@ -13,7 +13,7 @@ export const MainContainer = styled.div`
 export const FoodItemsContainer = styled.div`
   width: 60%;
   margin-top: 20px;
-  h4{
+  h4 {
     margin-top: 10px;
     margin-bottom: 5px;
   }
@@ -27,9 +27,9 @@ export const RestaurantContainer = styled.div`
   padding: 10px;
   border-radius: 10px;
   border-bottom-style: none;
-  box-shadow: 0px 11px 10px -10px rgba(0,0,0,0.31);
--webkit-box-shadow: 0px 11px 10px -10px rgba(0,0,0,0.31);
--moz-box-shadow: 0px 11px 10px -10px rgba(0,0,0,0.31);
+  box-shadow: 0px 11px 10px -10px rgba(0, 0, 0, 0.31);
+  -webkit-box-shadow: 0px 11px 10px -10px rgba(0, 0, 0, 0.31);
+  -moz-box-shadow: 0px 11px 10px -10px rgba(0, 0, 0, 0.31);
 `;
 
 export const RestaurantDetails = styled.div`
@@ -43,7 +43,7 @@ export const RestaurantDetails = styled.div`
     color: #64748b;
     font-size: 14px;
   }
-`
+`;
 
 export const CuisinesCard = styled.div`
   display: flex;
@@ -55,20 +55,19 @@ export const RatingCard = styled.div`
   flex-direction: column;
   align-items: center;
   margin-right: 10px;
-  p{
+  p {
     border-radius: 4px;
     padding: 6px;
     color: #ffffff;
     background-color: rgb(68, 159, 32);
-
   }
-  span{
+  span {
     color: gray;
   }
 `;
 export const Star = styled(FaStar)`
-font-size: 12px; 
-`
+  font-size: 12px;
+`;
 
 export const FoodList = styled.ul`
   display: flex;

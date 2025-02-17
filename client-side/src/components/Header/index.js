@@ -1,18 +1,25 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/M-logo.png";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { FiSearch } from "react-icons/fi";
 import { FaCartArrowDown } from "react-icons/fa";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
-import { NavContainer, Logo, NavList, NavItem ,CartCount} from "./styledComponent";
+import {
+  NavContainer,
+  Logo,
+  NavList,
+  NavItem,
+  CartCount,
+} from "./styledComponent";
 
 const Header = () => {
-  const {cartList} = useContext(CartContext)
-  const handleLogout = ()=>{
-    Cookies.remove('token')
-    Cookies.remove('username')
-  }
+  const { cartList } = useContext(CartContext);
+  const handleLogout = () => {
+    Cookies.remove("token");
+    Cookies.remove("username");
+  };
+
   return (
     <NavContainer>
       <div>
@@ -23,7 +30,7 @@ const Header = () => {
       </div>
       <div>
         <NavList>
-          <Link to="/vendor-dashboard">
+          <Link to="/vendor">
             <NavItem>Add Restaurant</NavItem>
           </Link>
           <Link to="/search">
@@ -36,7 +43,7 @@ const Header = () => {
             <NavItem>
               <FaCartArrowDown />
               Cart
-              {cartList.length > 0 && <CartCount > {cartList.length}</CartCount>}
+              {cartList.length > 0 && <CartCount> {cartList.length}</CartCount>}
             </NavItem>
           </Link>
           <Link to="/dashboard" onClick={handleLogout}>

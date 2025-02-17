@@ -73,21 +73,20 @@ export const Form = styled.form`
   &::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 4px;
   }
-  
+
   &::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
 `;
-
 
 // Image Card
 // Image Card Wrapper
@@ -129,7 +128,6 @@ export const FileUploadLabel = styled.label`
     background-color: #0056b3;
   }
 `;
-
 
 // Label
 export const Label = styled.label`

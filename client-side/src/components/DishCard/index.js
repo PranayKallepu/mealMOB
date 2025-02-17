@@ -12,14 +12,12 @@ import {
   AddButtonCard,
   FoodImage,
   ReadMoreButton,
-  RightArrow
+  RightArrow,
 } from "./styledComponent";
 
 const FoodItemDetails = ({ foodItem }) => {
-    const navigate = useNavigate()
-  const { foodName, foodImage, price, description, restaurant} = foodItem;
-  console.log(restaurant);
-  const imageUrl = `${API_URL}/${foodImage.replace(/\\/g, "/")}`;
+  const navigate = useNavigate();
+  const { foodName, foodImage, price, description, restaurant } = foodItem;
   //states
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -74,7 +72,7 @@ const FoodItemDetails = ({ foodItem }) => {
           </p>
         </FoodDetails>
         <FoodImage>
-          <img src={imageUrl} alt={foodName} /> <br />
+          <img src={foodImage} alt={foodName} /> <br />
           <AddButtonCard onClick={onClickAddToCart}>
             {!isAdded ? (
               "ADD"

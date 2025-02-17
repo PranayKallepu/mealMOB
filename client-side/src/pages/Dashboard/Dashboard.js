@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "../../assets/M-logo.png";
-import {Link} from 'react-router-dom'
-import LoginPopUp from "../../components/LoginPopUp/LoginPopUp";
-import SignupPopUp from "../../components/SignupPopUp/SignupPopUp";
+import { Link } from "react-router-dom";
+import LoginPopUp from "../../components/LoginPopUp";
+import SignupPopUp from "../../components/SignupPopUp";
 import {
   DashboardContainer,
   BackgroundContainer,
@@ -14,7 +14,6 @@ import {
 } from "./styledComponent";
 
 function Dashboard() {
-  
   return (
     <DashboardContainer>
       <BackgroundContainer></BackgroundContainer>
@@ -25,11 +24,15 @@ function Dashboard() {
         </div>
         <div>
           <NavList>
-            <Link to='/vendor-dashboard'>
-            <NavItem>Add Restaurant</NavItem>
+            <Link to="/vendor-dashboard">
+              <NavItem>Add Restaurant</NavItem>
             </Link>
-           <NavItem><LoginPopUp/></NavItem>
-            <NavItem><SignupPopUp/></NavItem>
+            <NavItem>
+              <LoginPopUp />
+            </NavItem>
+            <NavItem>
+              <SignupPopUp />
+            </NavItem>
           </NavList>
         </div>
       </Navbar>

@@ -13,7 +13,7 @@ const CartListView = () => {
           <CartItem key={eachItem.id} cartItemDetails={eachItem} />
         ))}
       </ul>
-      <CartSummary/>
+      <CartSummary />
     </>
   );
 };

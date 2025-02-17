@@ -20,8 +20,12 @@ const useFetchFoodItems = (restaurantId, authToken) => {
 
       try {
         const data = await fetchFoodItems(restaurantId, authToken);
-        const {restaurant, foodItems} = data
-        setData({ restaurant,foodItemsList: foodItems, apiStatus: apiStatusConstants.success });
+        const { restaurant, foodItems } = data;
+        setData({
+          restaurant,
+          foodItemsList: foodItems,
+          apiStatus: apiStatusConstants.success,
+        });
       } catch (error) {
         console.error("Error fetching restaurantItems:", error);
         setData({ apiStatus: apiStatusConstants.failure });
@@ -29,10 +33,9 @@ const useFetchFoodItems = (restaurantId, authToken) => {
     };
 
     getRestaurantItems();
-  }, [restaurantId, authToken]); 
+  }, [restaurantId, authToken]);
 
   return data;
 };
-
 
 export default useFetchFoodItems;

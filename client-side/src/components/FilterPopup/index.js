@@ -8,14 +8,30 @@ import {
   RatingItem,
   RatingImage,
   ClearFilterButton,
-  FilterButton
+  FilterButton,
 } from "./styledComponent";
 
 const ratingsList = [
-  { rating: "4", imageUrl: "https://assets.ccbp.in/frontend/react-js/rating-four-stars-img.png" },
-  { rating: "3", imageUrl: "https://assets.ccbp.in/frontend/react-js/rating-three-stars-img.png" },
-  { rating: "2", imageUrl: "https://assets.ccbp.in/frontend/react-js/rating-two-stars-img.png" },
-  { rating: "1", imageUrl: "https://assets.ccbp.in/frontend/react-js/rating-one-star-img.png" },
+  {
+    rating: "4",
+    imageUrl:
+      "https://assets.ccbp.in/frontend/react-js/rating-four-stars-img.png",
+  },
+  {
+    rating: "3",
+    imageUrl:
+      "https://assets.ccbp.in/frontend/react-js/rating-three-stars-img.png",
+  },
+  {
+    rating: "2",
+    imageUrl:
+      "https://assets.ccbp.in/frontend/react-js/rating-two-stars-img.png",
+  },
+  {
+    rating: "1",
+    imageUrl:
+      "https://assets.ccbp.in/frontend/react-js/rating-one-star-img.png",
+  },
 ];
 
 const categoryEnum = ["Both", "Veg", "Non-Veg"];
@@ -44,7 +60,12 @@ const FilterPopup = ({ onFilterChange }) => {
 
   return (
     <Popup
-      trigger={<FilterButton > Filter <IoFilter /></FilterButton>}
+      trigger={
+        <FilterButton>
+          {" "}
+          Filter <IoFilter />
+        </FilterButton>
+      }
       modal
       nested
     >
@@ -54,7 +75,11 @@ const FilterPopup = ({ onFilterChange }) => {
           {/* Category Dropdown */}
           <div>
             <label htmlFor="category">Category</label>
-            <select id="category" value={activeCategory} onChange={handleCategoryChange}>
+            <select
+              id="category"
+              value={activeCategory}
+              onChange={handleCategoryChange}
+            >
               {categoryEnum.map((category) => (
                 <option key={category} value={category}>
                   {category}
@@ -75,7 +100,10 @@ const FilterPopup = ({ onFilterChange }) => {
                     $isActive={isActive}
                     onClick={() => handleRatingChange(eachRating.rating)}
                   >
-                    <RatingImage src={eachRating.imageUrl} alt={`rating ${eachRating.rating}`} />
+                    <RatingImage
+                      src={eachRating.imageUrl}
+                      alt={`rating ${eachRating.rating}`}
+                    />
                     <p>& up</p>
                   </RatingItem>
                 );

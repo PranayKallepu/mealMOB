@@ -3,18 +3,16 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { MenuListContainer, ImageContainer, Image } from "./styledComponent";
 
-
 const MenuList = () => {
-
-  const username = Cookies.get('username')
+  const username = Cookies.get("username");
 
   const settings = {
     infinite: false,
     speed: 200,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
@@ -52,7 +50,7 @@ const MenuList = () => {
         <Slider {...settings}>
           {menuList.map((eachItem, index) => (
             <div key={index}>
-              <Link to={`/collections/${eachItem.cuisine}`}>
+              <Link to={`/cuisines/${eachItem.cuisine}`}>
                 <Image src={eachItem.item_img} alt={eachItem.cuisine} />
               </Link>
             </div>

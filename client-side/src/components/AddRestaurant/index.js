@@ -11,16 +11,21 @@ import {
   StyledForm,
   StyledInput,
   StyledSelect,
-  CheckboxContainer,
   SubmitButton,
+  CheckboxContainer,
+  Label,
+  CuisinesCard,
+  StyleCheckBox,
 } from "./styledComponent";
+import AddFood from "../AddFood";
 
-const AddRestaurant = ({ setIsClick }) => {
+const AddRestaurant = () => {
   const vendorId = Cookies.get("vendorId");
   const [isOpen, setIsOpen] = useState(false);
   const [inputData, setInputData] = useState({
     restaurantName: "",
     restaurantImage: null,
+    imageUrl: "",
     rating: "",
     offer: "",
     area: "",
@@ -36,7 +41,19 @@ const AddRestaurant = ({ setIsClick }) => {
   };
 
   const handleUploadImage = (e) => {
-    setInputData({ ...inputData, restaurantImage: e.target.files[0] });
+    setInputData({
+      ...inputData,
+      restaurantImage: e.target.files[0],
+      imageUrl: "",
+    });
+  };
+
+  const handleImageUrl = (e) => {
+    setInputData({
+      ...inputData,
+      imageUrl: e.target.value,
+      restaurantImage: null,
+    });
   };
 
   const handleCategory = (e) => {
@@ -69,24 +86,35 @@ const AddRestaurant = ({ setIsClick }) => {
     try {
       const formData = new FormData();
       formData.append("restaurantName", inputData.restaurantName);
-      formData.append("restaurantImage", inputData.restaurantImage);
       formData.append("rating", inputData.rating);
       formData.append("offer", inputData.offer);
       formData.append("area", inputData.area);
       formData.append("category", inputData.category);
-      inputData.cuisines.forEach((cuisine) => formData.append("cuisines", cuisine));
+      if (inputData.restaurantImage) {
+        // If user uploaded a file
+        formData.append("restaurantImage", inputData.restaurantImage);
+      } else if (inputData.imageUrl) {
+        // If user provided a direct URL
+        formData.append("restaurantImage", inputData.imageUrl);
+      }
+      inputData.cuisines.forEach((cuisine) =>
+        formData.append("cuisines", cuisine)
+      );
       formData.append("vendorId", vendorId);
 
-      const response = await axios.post(`${API_URL}/api/add-restaurant`, formData, {
-        headers: { Authorization: `Bearer ${vendorToken}` },
-      });
+      const response = await axios.post(
+        `${API_URL}/api/add-restaurant`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${vendorToken}` },
+        }
+      );
 
       if (response.data.success) {
         alert("Restaurant Added Successfully!");
         Cookies.set("restaurantId", response.data.restaurantId);
-        window.location.reload();
-        setIsClick(false);
         setIsOpen(false); // Close popup after submission
+        return <AddFood />;
       }
     } catch (error) {
       setError(error.response?.data?.message || "Registration failed");
@@ -115,7 +143,20 @@ const AddRestaurant = ({ setIsClick }) => {
                 required
               />
 
-              <StyledInput type="file" onChange={handleUploadImage} required />
+              <label>Upload Image:</label>
+              <StyledInput
+                type="file"
+                accept="image/*"
+                onChange={handleUploadImage}
+              />
+
+              <label>OR Enter Image URL:</label>
+              <StyledInput
+                type="text"
+                name="imageUrl"
+                placeholder="https://example.com/image.jpg"
+                onChange={handleImageUrl}
+              />
 
               <StyledInput
                 type="float"
@@ -140,7 +181,11 @@ const AddRestaurant = ({ setIsClick }) => {
                 required
               />
 
-              <StyledSelect name="category" value={inputData.category} onChange={handleCategory}>
+              <StyledSelect
+                name="category"
+                value={inputData.category}
+                onChange={handleCategory}
+              >
                 <option value="" disabled>
                   Select Category
                 </option>
@@ -151,19 +196,18 @@ const AddRestaurant = ({ setIsClick }) => {
                 ))}
               </StyledSelect>
 
-              <label>Cuisines:</label>
               <CheckboxContainer>
+                <Label>Cuisines:</Label>
                 {cuisinesEnum.map((cuisine) => (
-                  <div key={cuisine}>
-                    <label htmlFor={cuisine}>{cuisine}</label>
-                    <input
+                  <CuisinesCard key={cuisine} htmlFor={cuisine}>
+                    <StyleCheckBox
                       id={cuisine}
-                      type="checkbox"
                       value={cuisine}
                       checked={inputData.cuisines.includes(cuisine)}
                       onChange={handleCuisines}
                     />
-                  </div>
+                    {cuisine} {/* Cuisine Name beside the checkbox */}
+                  </CuisinesCard>
                 ))}
               </CheckboxContainer>
 

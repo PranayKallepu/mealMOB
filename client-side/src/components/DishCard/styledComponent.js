@@ -27,10 +27,9 @@ export const RestaurantDetails = styled.div`
 `;
 
 export const RightArrow = styled(FaArrowRightToBracket)`
-font-size: 20px;
-margin-right: 10px;
-`
-
+  font-size: 20px;
+  margin-right: 10px;
+`;
 
 export const FoodItem = styled.li`
   display: flex;
@@ -80,7 +79,7 @@ export const AddButtonCard = styled.div`
   background-color: white;
   color: green;
   cursor: pointer;
-  button{
+  button {
     cursor: pointer;
     font-weight: 500;
   }
