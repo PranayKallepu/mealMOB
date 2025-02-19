@@ -4,7 +4,6 @@ import useFetchFoodItems from "../../hooks/useFetchFoodItems";
 import { useParams } from "react-router-dom";
 import FoodItemDetails from "../../components/FoodItemDetails";
 import Cookies from "js-cookie";
-import { ThreeDots } from "react-loader-spinner";
 
 import {
   MainContainer,
@@ -92,7 +91,6 @@ const FoodItems = () => {
   const renderLoadingView = () => (
     <LoaderCard>
       <p>Loading Food Items...</p>
-      <ThreeDots color="#0b69ff" height={50} width={50} />
     </LoaderCard>
   );
 
