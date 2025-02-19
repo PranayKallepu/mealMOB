@@ -20,17 +20,8 @@ dotenv.config();
 //db connection
 connectDB();
 
-// Middleware for CORS
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://mealmob-client.onrender.com"],
-  methods: "GET, POST, PUT, DELETE, OPTIONS",
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // Allow credentials (cookies, authentication headers)
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight OPTIONS request
-
+// middlewares
+app.use(cors());
 // Body parser middleware for handling JSON
 app.use(bodyParser.json());
 
@@ -49,6 +40,4 @@ app.use("/", userRoutes);
 
 // Server listening
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, "0.0.0.0", () =>
-  console.log(`Server running on port ${PORT}`)
-);
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

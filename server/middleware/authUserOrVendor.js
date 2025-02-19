@@ -6,11 +6,16 @@ const authUserOrVendor = async (req, res, next) => {
   try {
     const token = req.header("Authorization");
     if (!token) {
-      return res.status(401).json({ success: false, message: "Access Denied. No Token Provided" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Access Denied. No Token Provided" });
     }
 
     // Remove "Bearer " prefix and verify token
-    const decoded = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET);
+    const decoded = jwt.verify(
+      token.replace("Bearer ", ""),
+      process.env.JWT_SECRET
+    );
 
     if (!decoded || !decoded.id) {
       return res.status(401).json({ success: false, message: "Invalid Token" });
@@ -30,8 +35,9 @@ const authUserOrVendor = async (req, res, next) => {
       return next();
     }
 
-    return res.status(401).json({ success: false, message: "Unauthorized Access" });
-
+    return res
+      .status(401)
+      .json({ success: false, message: "Unauthorized Access" });
   } catch (error) {
     console.error("Auth Error: ", error);
     res.status(401).json({ success: false, message: "Unauthorized Access" });

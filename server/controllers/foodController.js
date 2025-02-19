@@ -22,21 +22,17 @@ const addFoodItem = async (req, res) => {
     });
 
     await newFoodItem.save();
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Food item added successfully",
-        food: newFoodItem,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Food item added successfully",
+      food: newFoodItem,
+    });
   } catch (error) {
     console.error("AddFoodItem Error:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Internal Server Error! Please try again later.",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error! Please try again later.",
+    });
   }
 };
 
@@ -47,12 +43,10 @@ const getDishes = async (req, res) => {
     return res.status(200).json({ success: true, filterDishes: foodItems });
   } catch (error) {
     console.error("Get Food Items: ", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Internal server error. Please try again later",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Internal server error. Please try again later",
+    });
   }
 };
 
@@ -72,12 +66,10 @@ const getFoodItemsByRestaurant = async (req, res) => {
     return res.status(200).json({ success: true, restaurant, foodItems });
   } catch (error) {
     console.error("Get Food Items: ", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Internal server error. Please try again later",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Internal server error. Please try again later",
+    });
   }
 };
 
@@ -99,12 +91,10 @@ const deleteFoodItem = async (req, res) => {
       .json({ success: true, message: "Food item deleted successfully" });
   } catch (error) {
     console.error("Delete Food Item: ", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Internal server error. Please try again later",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Internal server error. Please try again later",
+    });
   }
 };
 
