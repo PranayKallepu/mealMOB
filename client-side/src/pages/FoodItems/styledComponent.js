@@ -123,6 +123,7 @@ export const NoFoodItemsContainer = styled.div`
     }
   }
 `;
+
 //FAILURE VIEW CSS
 export const FailureCard = styled.div`
   display: flex;
@@ -171,5 +172,16 @@ export const FailureDescription = styled.p`
     font-size: 18px;
     width: 60%;
     max-width: 466px;
+  }
+`;
+//LOADER VIEW CSS
+export const LoaderCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  @media screen and (min-width: 768px) {
+    width: 70%;
   }
 `;

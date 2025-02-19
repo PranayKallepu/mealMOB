@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { API_URL } from "../../utils/data";
 import { useNavigate } from "react-router-dom";
-import { FormContainer, Form } from "../VendorRegister/styledComponent";
+import { FormContainer, Form, Error } from "../VendorRegister/styledComponent";
 
 const VendorLogin = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const VendorLogin = () => {
           {loading ? "Logging..." : "Login"}
         </button>
       </Form>
-      {error && <p>{error}</p>}
+      {error && <Error>{error}</Error>}
     </FormContainer>
   );
 };

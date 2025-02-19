@@ -1,4 +1,4 @@
-export const categoryEnum = ["Veg", "Non-Veg", "Both"];
+export const categoryEnum = ["Both", "Veg", "Non-Veg"];
 
 export const cuisinesEnum = [
   "Biryani",

@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { API_URL } from "../../utils/data";
 import CartContext from "../../context/CartContext";
 import { v4 as uuidv4 } from "uuid";
 import {

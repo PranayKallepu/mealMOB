@@ -11,6 +11,12 @@ export const Logo = styled.img`
   width: 50px;
   cursor: pointer;
 `;
+export const LogoName = styled.p`
+  color: rgb(10, 182, 177);
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: -10px;
+`;
 export const NavList = styled.ul`
   display: flex;
   justify-content: space-between;

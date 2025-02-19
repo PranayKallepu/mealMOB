@@ -20,7 +20,6 @@ export const fetchRestaurants = async (
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      withCredentials: true,
     });
     console.log("API Response:", response.data.filteredRestaurants);
     return response.data.filteredRestaurants;
@@ -40,7 +39,6 @@ export const fetchFoodItems = async (restaurantId, authToken) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-        withCredentials: true,
       }
     );
     console.log("API Response:", response.data);
@@ -61,7 +59,6 @@ export const fetchRestaurantsByCuisine = async (activeCuisine) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
-      withCredentials: true,
     });
     console.log("API Response:", response.data.restaurantsByCuisine);
     return response.data.restaurantsByCuisine;
@@ -83,7 +80,6 @@ export const fetchDishes = async (category, searchInput) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Cookies.get("token")}` || "",
       },
-      withCredentials: true,
     });
 
     console.log("API Response for Dishes:", response.data.filterDishes);

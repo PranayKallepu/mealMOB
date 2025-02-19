@@ -1,4 +1,3 @@
-import { API_URL } from "../../utils/data";
 import { FaStar } from "react-icons/fa";
 import {
   LinkItem,
@@ -21,7 +20,6 @@ const RestaurantCard = ({ restaurantData }) => {
     area,
     _id,
   } = restaurantData;
-  // Normalize image path (replace backslashes with forward slashes)
 
   return (
     <LinkItem to={`/restaurantItems/${_id}`}>

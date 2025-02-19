@@ -106,6 +106,18 @@ export const FailureCard = styled.div`
     width: 70%;
     padding-bottom: 0;
   }
+  button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background: #c82333;
+    }
+  }
 `;
 
 export const FailureImage = styled.img`

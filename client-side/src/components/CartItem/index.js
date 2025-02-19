@@ -4,7 +4,6 @@ import { BsPlusSquare, BsDashSquare } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
-import { API_URL } from "../../utils/data";
 import {
   CartItemContainer,
   ProductImage,

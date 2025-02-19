@@ -2,43 +2,22 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { IoFilter } from "react-icons/io5";
+import { categoryEnum } from "../../utils/enums";
 import {
-  RatingHeading,
-  RatingsList,
-  RatingItem,
-  RatingImage,
-  ClearFilterButton,
+  MainContainer,
   FilterButton,
+  PopupContainer,
+  Dropdown,
+  RatingContainer,
+  RatingButton,
+  PopupActions,
+  ButtonApply,
+  ClearFilterButton,
 } from "./styledComponent";
 
-const ratingsList = [
-  {
-    rating: "4",
-    imageUrl:
-      "https://assets.ccbp.in/frontend/react-js/rating-four-stars-img.png",
-  },
-  {
-    rating: "3",
-    imageUrl:
-      "https://assets.ccbp.in/frontend/react-js/rating-three-stars-img.png",
-  },
-  {
-    rating: "2",
-    imageUrl:
-      "https://assets.ccbp.in/frontend/react-js/rating-two-stars-img.png",
-  },
-  {
-    rating: "1",
-    imageUrl:
-      "https://assets.ccbp.in/frontend/react-js/rating-one-star-img.png",
-  },
-];
-
-const categoryEnum = ["Both", "Veg", "Non-Veg"];
-
 const FilterPopup = ({ onFilterChange }) => {
-  const [activeCategory, setActiveCategory] = useState("");
-  const [activeRating, setActiveRating] = useState("");
+  const [activeCategory, setActiveCategory] = useState(categoryEnum[0]);
+  const [activeRating, setActiveRating] = useState(null);
 
   const handleCategoryChange = (event) => {
     setActiveCategory(event.target.value);
@@ -49,20 +28,19 @@ const FilterPopup = ({ onFilterChange }) => {
   };
 
   const clearFilters = () => {
-    setActiveCategory("");
-    setActiveRating("");
+    setActiveCategory(categoryEnum[0]);
+    setActiveRating(null);
   };
 
   const applyFilters = (close) => {
     onFilterChange(activeCategory, activeRating);
-    close(); // Close the popup after applying filters
+    close();
   };
 
   return (
     <Popup
       trigger={
         <FilterButton>
-          {" "}
           Filter <IoFilter />
         </FilterButton>
       }
@@ -70,56 +48,52 @@ const FilterPopup = ({ onFilterChange }) => {
       nested
     >
       {(close) => (
-        <div className="popup-container">
-          <h2>Filter Restaurants</h2>
-          {/* Category Dropdown */}
-          <div>
-            <label htmlFor="category">Category</label>
-            <select
-              id="category"
-              value={activeCategory}
-              onChange={handleCategoryChange}
-            >
-              {categoryEnum.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
+        <MainContainer>
+          <PopupContainer>
+            <h2>Filter Restaurants</h2>
+
+            {/* Category Dropdown */}
+            <div>
+              <label htmlFor="category">Category:</label>
+              <Dropdown
+                id="category"
+                value={activeCategory}
+                onChange={handleCategoryChange}
+              >
+                {categoryEnum.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </Dropdown>
+            </div>
+
+            {/* Rating Filter */}
+            <RatingContainer>
+              <p>Rating:</p>
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <RatingButton
+                  key={rating}
+                  selected={activeRating === rating}
+                  onClick={() => handleRatingChange(rating)}
+                >
+                  {rating}+ ⭐
+                </RatingButton>
               ))}
-            </select>
-          </div>
+            </RatingContainer>
 
-          {/* Rating Filter */}
-          <div>
-            <RatingHeading>Rating</RatingHeading>
-            <RatingsList>
-              {ratingsList.map((eachRating) => {
-                const isActive = eachRating.rating === activeRating;
-                return (
-                  <RatingItem
-                    key={eachRating.rating}
-                    $isActive={isActive}
-                    onClick={() => handleRatingChange(eachRating.rating)}
-                  >
-                    <RatingImage
-                      src={eachRating.imageUrl}
-                      alt={`rating ${eachRating.rating}`}
-                    />
-                    <p>& up</p>
-                  </RatingItem>
-                );
-              })}
-            </RatingsList>
-          </div>
-
-          {/* Buttons */}
-          <div className="popup-actions">
-            <button onClick={() => applyFilters(close)}>Apply</button>
-            <ClearFilterButton type="button" onClick={clearFilters}>
-              Clear Filters
-            </ClearFilterButton>
-            <button onClick={close}>Close</button>
-          </div>
-        </div>
+            {/* Buttons */}
+            <PopupActions>
+              <ButtonApply onClick={() => applyFilters(close)}>
+                Apply
+              </ButtonApply>
+              <ClearFilterButton type="button" onClick={clearFilters}>
+                Clear Filters
+              </ClearFilterButton>
+              <button onClick={close}>Close</button>
+            </PopupActions>
+          </PopupContainer>
+        </MainContainer>
       )}
     </Popup>
   );

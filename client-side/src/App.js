@@ -76,8 +76,16 @@ const App = () => {
           path="/cart"
           element={<ProtectedRoute route={<Cart />} />}
         />
-        <Route exact path="/vendor" element={<VendorHome />} />
-        <Route exact path="/vendor/food-menu" element={<VendorMenu />} />
+        <Route
+          exact
+          path="/vendor"
+          element={<ProtectedRoute vendorRoute={<VendorHome />} />}
+        />
+        <Route
+          exact
+          path="/vendor/food-menu"
+          element={<ProtectedRoute vendorRoute={<VendorMenu />} />}
+        />
       </Routes>
     </CartContext.Provider>
   );

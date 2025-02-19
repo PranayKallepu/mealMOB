@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import { FormContainer, Form } from "./styledComponent";
+import { FormContainer, Form, Error } from "./styledComponent";
 import { API_URL } from "../../utils/data";
 
 const VendorRegister = ({ setIsLogin }) => {
@@ -86,7 +86,7 @@ const VendorRegister = ({ setIsLogin }) => {
           {loading ? "Registering..." : "Register"}
         </button>
       </Form>
-      {error && <p>{error}</p>}
+      {error && <Error>{error}</Error>}
     </FormContainer>
   );
 };

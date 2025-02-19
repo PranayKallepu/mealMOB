@@ -4,6 +4,8 @@ import useFetchFoodItems from "../../hooks/useFetchFoodItems";
 import { useParams } from "react-router-dom";
 import FoodItemDetails from "../../components/FoodItemDetails";
 import Cookies from "js-cookie";
+import { ThreeDots } from "react-loader-spinner";
+
 import {
   MainContainer,
   FoodItemsContainer,
@@ -14,6 +16,7 @@ import {
   Star,
   FoodList,
   NoFoodItemsContainer,
+  LoaderCard,
   FailureCard,
   FailureDescription,
   FailureHeading,
@@ -86,7 +89,12 @@ const FoodItems = () => {
     </FailureCard>
   );
 
-  const renderLoadingView = () => <div>Loading restaurants...</div>;
+  const renderLoadingView = () => (
+    <LoaderCard>
+      <p>Loading Food Items...</p>
+      <ThreeDots color="#0b69ff" height={50} width={50} />
+    </LoaderCard>
+  );
 
   const renderAllFoodItems = () => {
     switch (apiStatus) {

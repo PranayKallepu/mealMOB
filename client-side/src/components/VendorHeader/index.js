@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import {
   NavContainer,
   Logo,
+  LogoName,
   NavList,
   NavItem,
 } from "../Header/styledComponent";
@@ -11,7 +12,6 @@ import AddFood from "../AddFood";
 
 const VendorHeader = () => {
   const navigate = useNavigate();
-  const token = Cookies.get("token");
 
   // 🔹 Logout Function: Clears all tokens and redirects
   const handleLogout = () => {
@@ -28,23 +28,23 @@ const VendorHeader = () => {
       <div>
         <Link to="/vendor">
           <Logo src={logo} alt="logo" />
-          <p>MealMOB</p>
+          <LogoName>Vendor Dashboard</LogoName>
         </Link>
       </div>
       <div>
         <NavList>
-          <NavItem>
-            <Link to="/">MealMOB</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/vendor">Home</Link>
-          </NavItem>
+          <Link to="/">
+            <NavItem>MealMOB</NavItem>
+          </Link>
+          <Link to="/vendor">
+            <NavItem>Home</NavItem>
+          </Link>
           <NavItem>
             <AddFood />
           </NavItem>
-          <NavItem>
-            <Link to="/vendor/food-menu">Food Menu</Link>
-          </NavItem>
+          <Link to="/vendor/food-menu">
+            <NavItem>Food Menu</NavItem>
+          </Link>
           <NavItem style={{ color: "red" }} onClick={handleLogout}>
             Logout
           </NavItem>

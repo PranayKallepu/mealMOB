@@ -1,6 +1,5 @@
 import React from "react";
 import RestaurantCard from "../RestaurantCard";
-import RestaurantHeader from "../RestaurantHeader";
 import {
   MainContainer,
   RestaurantList,
@@ -82,7 +81,7 @@ const SearchRestaurants = (props) => {
 
   return (
     <MainContainer>
-      <RestaurantHeader />
+      <h1>Restaurants in Warangal</h1>
       {renderAllRestaurants()}
     </MainContainer>
   );

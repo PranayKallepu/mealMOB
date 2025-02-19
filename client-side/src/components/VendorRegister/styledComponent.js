@@ -3,10 +3,6 @@ import styled from "styled-components";
 export const FormContainer = styled.div`
   border: 1px solid;
   border-radius: 20px;
-  p {
-    color: red;
-    font-size: 14px;
-  }
 `;
 export const Form = styled.form`
   display: flex;
@@ -32,4 +28,10 @@ export const Form = styled.form`
     color: white;
     cursor: pointer;
   }
+`;
+
+export const Error = styled.p`
+  color: red;
+  text-align: center;
+  font-weight: 500;
 `;
