@@ -103,6 +103,12 @@ const AddFood = () => {
       if (response.data.success) {
         alert("Food Item Added Successfully!");
         navigate("/vendor/food-menu");
+        setInputData({
+          foodName: "",
+          price: "",
+          category: "",
+          description: "",
+        });
       }
     } catch (error) {
       console.log("Error Response:", error.response?.data);

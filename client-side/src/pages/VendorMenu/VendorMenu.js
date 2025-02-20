@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_URL } from "../../utils/data";
 import VendorHeader from "../../components/VendorHeader";
 import axios from "axios";
@@ -22,8 +22,8 @@ import {
 
 const VendorMenu = () => {
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // Search state
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredFoodItems, setFilteredFoodItems] = useState([]);
   const authToken = Cookies.get("vendorToken");
   const restaurantId = Cookies.get("restaurantId");
 
@@ -33,15 +33,34 @@ const VendorMenu = () => {
     authToken
   );
 
-  // Handle Delete with correct foodItemsHandler reference
+  // Update filtered items when foodItemsList or searchTerm changes
+  useEffect(() => {
+    if (Array.isArray(foodItemsList)) {
+      setFilteredFoodItems(
+        foodItemsList.filter((item) =>
+          item.foodName.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
+  }, [foodItemsList, searchTerm]);
+
+  // Handle Delete
   const deleteProductById = async (foodItemId) => {
-    alert("Are you sure want to delete item?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (!confirmDelete) return;
+
     try {
       const vendorToken = Cookies.get("vendorToken");
       await axios.delete(`${API_URL}/api/delete-foodItem/${foodItemId}`, {
         headers: { Authorization: `Bearer ${vendorToken}` },
       });
-      window.location.reload();
+
+      // Update state by filtering out the deleted item
+      setFilteredFoodItems((prevItems) =>
+        prevItems.filter((item) => item._id !== foodItemId)
+      );
     } catch (error) {
       console.error("Failed to delete foodItem:", error);
       setError(error.response?.data?.message || "Failed to delete foodItem");
@@ -56,10 +75,6 @@ const VendorMenu = () => {
         </NoFoodCard>
       );
     }
-
-    const filteredFoodItems = foodItemsList.filter((item) =>
-      item.foodName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
     return (
       <section>
@@ -93,7 +108,7 @@ const VendorMenu = () => {
                   <tr key={item._id}>
                     <td>{index + 1}</td>
                     <td>{item.foodName}</td>
-                    <td>${item.price}</td>
+                    <td>₹{item.price}</td>
                     <td>{item.category}</td>
                     <td>
                       {item.foodImage ? (
