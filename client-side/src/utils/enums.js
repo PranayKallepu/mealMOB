@@ -10,4 +10,5 @@ export const cuisinesEnum = [
   "Starters",
   "South-Indian",
   "Shakes",
+  "Tiffins",
 ];
