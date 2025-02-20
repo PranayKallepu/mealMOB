@@ -29,6 +29,22 @@ export const FoodDetails = styled.div`
   }
 `;
 
+export const FoodHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Category = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 10px;
+  width: 50px;
+  background-color: ${(props) =>
+    props.isVeg ? "rgba(74, 206, 17, 0.82)" : "rgba(247, 3, 3, 0.77);"};
+`;
+
 export const FoodImage = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,7 +69,7 @@ export const AddButtonCard = styled.div`
   background-color: white;
   color: green;
   cursor: pointer;
-  button{
+  button {
     cursor: pointer;
     font-weight: 500;
   }

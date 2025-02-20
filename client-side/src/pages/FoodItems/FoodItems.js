@@ -35,6 +35,7 @@ const FoodItems = () => {
         <RestaurantContainer>
           <RestaurantDetails>
             <h2>{restaurant.restaurantName}</h2>
+            <p>{restaurant.category}</p>
             <CuisinesCard>
               {restaurant.cuisines.map((cuisine, index) => {
                 const lastCuisine = index === restaurant.cuisines.length - 1;

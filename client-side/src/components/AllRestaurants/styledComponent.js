@@ -6,7 +6,7 @@ export const MainContainer = styled.div`
   align-items: center;
   margin: auto;
   padding: 10px;
-  width: 90%;
+  width: 100%;
   max-width: 1110px;
   height: 100vh;
 `;
@@ -38,6 +38,7 @@ export const FilterCard = styled.div`
 
 export const RestaurantList = styled.ul`
   display: flex;
+  justify-content: center;
   width: 100%;
   margin-top: 10px;
   flex-wrap: wrap;

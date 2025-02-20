@@ -5,6 +5,7 @@ export const DishCard = styled.div`
   width: 300px;
   background-color: #ffffff;
   padding: 10px;
+  margin-right: 20px;
   border-radius: 6px;
   margin-bottom: 10px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);

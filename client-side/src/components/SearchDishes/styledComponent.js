@@ -13,6 +13,7 @@ export const MainContainer = styled.div`
 export const FoodList = styled.ul`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const NoRestaurantsContainer = styled.div`

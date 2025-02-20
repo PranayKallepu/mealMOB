@@ -4,13 +4,15 @@ import { v4 as uuidv4 } from "uuid";
 import {
   AddButtonCard,
   FoodItem,
+  FoodHeader,
+  Category,
   FoodDetails,
   FoodImage,
   ReadMoreButton,
 } from "./styledComponent";
 
 const FoodItemDetails = ({ foodItem }) => {
-  const { foodName, foodImage, price, description } = foodItem;
+  const { foodName, foodImage, category, price, description } = foodItem;
   //states
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -59,7 +61,10 @@ const FoodItemDetails = ({ foodItem }) => {
         </AddButtonCard>
       </FoodImage>
       <FoodDetails>
-        <h3>{foodName}</h3>
+        <FoodHeader>
+          <h3>{foodName}</h3>
+          <Category isVeg={category === "Veg"}>{category}</Category>
+        </FoodHeader>
         <h4>
           <span>₹</span>
           {price}

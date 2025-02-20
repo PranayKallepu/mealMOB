@@ -52,7 +52,7 @@ const SearchDishes = (props) => {
     </FailureCard>
   );
 
-  const renderLoadingView = () => <div>Loading restaurants...</div>;
+  const renderLoadingView = () => <div>Loading dishes...</div>;
 
   const renderAllRestaurants = () => {
     switch (apiDishStatus) {
