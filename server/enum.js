@@ -10,6 +10,7 @@ const cuisinesEnum = [
   "Starters",
   "South-Indian",
   "Shakes",
+  "Tiffins",
 ];
 
 module.exports = { categoryEnum, cuisinesEnum };
