@@ -27,8 +27,7 @@ const VendorLogin = () => {
       const response = await axios.post(`${API_URL}/vendor/login`, inputData);
       if (response.data.success) {
         Cookies.set("vendorToken", response.data.token, {
-          expires: 1,
-          path: "/vendor-dashboard",
+          expires: 30,
         });
         Cookies.set("vendorId", response.data.vendorId);
         Cookies.set("vendorName", response.data.vendorName);

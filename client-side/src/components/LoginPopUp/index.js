@@ -35,8 +35,7 @@ const LoginPopUp = () => {
       const response = await axios.post(`${API_URL}/login`, inputData);
       if (response.data.success) {
         Cookies.set("token", response.data.token, {
-          expires: 1,
-          path: "/dashboard",
+          expires: 30,
         });
         Cookies.set("username", response.data.username, { expires: 1 });
         navigate("/", { replace: true });
@@ -51,7 +50,11 @@ const LoginPopUp = () => {
   };
 
   return (
-    <Popup modal trigger={<Button type="button">Login</Button>}>
+    <Popup
+      modal
+      trigger={<Button type="button">Login</Button>}
+      contentStyle={{ minWidth: "280px" }}
+    >
       {(close) => (
         <ModalContainer>
           <DetailsContainer>

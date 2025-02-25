@@ -52,7 +52,11 @@ const SignupPopUp = () => {
 
   return (
     <div className="popup-container">
-      <Popup modal trigger={<Button type="button">Signup</Button>}>
+      <Popup
+        modal
+        trigger={<Button type="button">Signup</Button>}
+        contentStyle={{ minWidth: "280px" }}
+      >
         {(close) => (
           <ModalContainer>
             <DetailsContainer>

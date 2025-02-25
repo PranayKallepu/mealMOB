@@ -5,17 +5,16 @@ export const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* min-width: 280px;
-  max-width: 400px; */
+  min-width: 200px;
+  max-width: 400px;
   padding: 20px;
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   border: none;
   @media screen and (max-width: 768px) {
-    width: 100%;
     padding: 5px;
-    border: 1px solid;
+    margin: 15px 5px 15px 5px;
   }
 `;
 
