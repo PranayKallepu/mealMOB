@@ -15,6 +15,9 @@ export const RestaurantHeader = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const FilterCard = styled.div`
@@ -22,17 +25,26 @@ export const FilterCard = styled.div`
   justify-content: space-between;
   width: 50%;
   margin-top: 10px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
   div {
     display: flex;
     border: 1px solid gray;
     padding: 6px;
     border-radius: 6px;
+    margin-left: 10px;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      font-size: 12px;
+    }
   }
   button {
     border-radius: 6px;
     border: 1px solid gray;
     cursor: pointer;
     padding: 2px;
+    margin-left: 10px;
   }
 `;
 
@@ -42,6 +54,24 @@ export const RestaurantList = styled.ul`
   width: 100%;
   margin-top: 10px;
   flex-wrap: wrap;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ccc transparent;
+
+  /* For WebKit Browsers */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
 `;
 
 export const NoRestaurantsContainer = styled.div`

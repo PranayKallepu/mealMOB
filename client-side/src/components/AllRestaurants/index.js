@@ -105,16 +105,12 @@ const AllRestaurants = () => {
         <FilterCard>
           <FilterPopup onFilterChange={handleFilterChange} />
           <div>
-            <p>
-              <PiBowlFoodFill />
-              {category || "Veg & Non-Veg"}{" "}
-            </p>
+            <PiBowlFoodFill />
+            {category || "Veg & Non-Veg"}{" "}
           </div>
           <div>
-            <p>
-              <MdOutlineStarRate />
-              Ratings {rating || "2.0"}+
-            </p>
+            <MdOutlineStarRate />
+            Ratings {rating || "2.0"}+
           </div>
           <button onClick={() => handleFilterChange("", "")}>
             Clear Filters <VscClearAll />

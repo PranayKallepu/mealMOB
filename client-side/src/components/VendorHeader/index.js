@@ -1,17 +1,21 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/M-logo.png";
 import Cookies from "js-cookie";
+import Hamburger from "hamburger-react";
 import {
   NavContainer,
   Logo,
   LogoName,
   NavList,
   NavItem,
+  HamburgerContainer,
 } from "../Header/styledComponent";
 import AddFood from "../AddFood";
 
 const VendorHeader = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   // 🔹 Logout Function: Clears all tokens and redirects
   const handleLogout = () => {
@@ -32,7 +36,10 @@ const VendorHeader = () => {
         </Link>
       </div>
       <div>
-        <NavList>
+        <HamburgerContainer>
+          <Hamburger size={24} toggled={open} toggle={setOpen} />
+        </HamburgerContainer>
+        <NavList open={open}>
           <Link to="/">
             <NavItem>MealMOB</NavItem>
           </Link>

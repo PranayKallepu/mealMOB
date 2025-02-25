@@ -177,7 +177,7 @@ const UpdateRestaurant = ({ restaurantId }) => {
                 type="text"
                 name="offer"
                 placeholder="Offer %"
-                value={inputData.offer}
+                value={inputData.offer.toUpperCase()}
                 onChange={handleInputChange}
               />
               <Input

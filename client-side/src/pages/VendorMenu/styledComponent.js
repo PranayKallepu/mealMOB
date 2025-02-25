@@ -1,23 +1,23 @@
 import styled from "styled-components";
 
-// ✅ Responsive Main Container
+// Responsive Main Container
 export const MainContainer = styled.div`
   width: 90%;
   max-width: 1200px;
-  margin: 20px auto;
   padding: 20px;
+  margin: auto;
+  margin-top: 10px;
   background: white;
   border-radius: 10px;
   height: 100vh;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     width: 95%;
     padding: 15px;
   }
 `;
 
-// ✅ Search Input - Responsive
+// Search Input - Responsive
 export const SearchInput = styled.input`
   width: 100%;
   max-width: 400px;
@@ -42,14 +42,15 @@ export const SearchInput = styled.input`
   }
 `;
 
-// ✅ Table Wrapper (for mobile scroll)
+// Table Wrapper (for mobile scroll)
 export const TableWrapper = styled.div`
   width: 100%;
-  overflow-x: auto; // Enables horizontal scrolling on small screens
+  overflow-x: auto;
   border-radius: 10px;
+  overflow-y: auto;
 `;
 
-// ✅ Responsive Table
+// Responsive Table
 export const StyledTable = styled.table`
   width: 100%;
   min-width: 600px;
@@ -123,7 +124,7 @@ export const NoFoodCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px 0px;
-  p{
+  p {
     margin-bottom: 10px;
   }
 `;

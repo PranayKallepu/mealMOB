@@ -3,8 +3,9 @@ import logo from "../../assets/M-logo.png";
 import Cookies from "js-cookie";
 import { FiSearch } from "react-icons/fi";
 import { FaCartArrowDown } from "react-icons/fa";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../context/CartContext";
+import Hamburger from "hamburger-react";
 import {
   NavContainer,
   Logo,
@@ -12,11 +13,14 @@ import {
   NavList,
   NavItem,
   CartCount,
+  HamburgerContainer,
 } from "./styledComponent";
 
 const Header = () => {
   const navigate = useNavigate();
   const { cartList } = useContext(CartContext);
+  const [open, setOpen] = useState(false);
+
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("username");
@@ -30,7 +34,10 @@ const Header = () => {
         <LogoName>MealMOB</LogoName>
       </Link>
       <div>
-        <NavList>
+        <HamburgerContainer>
+          <Hamburger size={24} toggled={open} toggle={setOpen} />
+        </HamburgerContainer>
+        <NavList open={open}>
           <Link to="/vendor">
             <NavItem>Add Restaurant</NavItem>
           </Link>

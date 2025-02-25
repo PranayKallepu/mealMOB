@@ -15,6 +15,24 @@ export const MainContainer = styled.div`
   padding: 20px;
   width: 90%;
   max-width: 1110px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ccc transparent;
+
+  /* For WebKit Browsers */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
 `;
 
 export const SearchContainer = styled.div`
@@ -27,7 +45,6 @@ export const SearchInputContainer = styled.div`
   background-color: #f1f5f9;
   border-radius: 8px;
   padding: 15px 16px;
-  margin: 0px 300px;
   text-decoration: none;
 `;
 export const SearchInput = styled.input`

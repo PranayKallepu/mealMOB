@@ -27,6 +27,11 @@ export const FoodDetails = styled.div`
   h4 span {
     font-weight: 300;
   }
+  @media screen and (max-width: 768px) {
+    h3 {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const FoodHeader = styled.div`
@@ -55,6 +60,12 @@ export const FoodImage = styled.div`
     height: 130px;
     border-radius: 10px;
   }
+  @media screen and (max-width: 768px) {
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
 `;
 
 export const AddButtonCard = styled.div`
@@ -76,11 +87,12 @@ export const AddButtonCard = styled.div`
 `;
 
 export const ReadMoreButton = styled.button`
-  color: blue;
   cursor: pointer;
   font-weight: bold;
   margin-left: 5px;
-
+  border: none;
+  background: none;
+  font-size: 12px;
   &:hover {
     text-decoration: underline;
   }

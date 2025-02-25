@@ -39,21 +39,21 @@ const VendorHome = () => {
   }, [restaurantsList, vendorId]);
 
   const handleDeleteRestaurant = async () => {
-    try {
-      const response = await axios.delete(
-        `${API_URL}/api/delete-restaurant/${restaurantId}`,
-        {
-          headers: { Authorization: `Bearer ${authToken}` },
-        }
-      );
-      alert("ARE YOU SURE WANT TO DELETE!");
-      alert(response.data.message);
-      setRestaurantId(null);
-    } catch (error) {
-      alert(error.response?.data?.message);
+    if (window.confirm("ARE YOU SURE WANT TO DELETE!")) {
+      try {
+        const response = await axios.delete(
+          `${API_URL}/api/delete-restaurant/${restaurantId}`,
+          {
+            headers: { Authorization: `Bearer ${authToken}` },
+          }
+        );
+        alert(response.data.message);
+        setRestaurantId(null);
+      } catch (error) {
+        alert(error.response?.data?.message);
+      }
     }
   };
-
   return (
     <>
       <VendorHeader />

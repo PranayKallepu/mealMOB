@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const MenuListContainer = styled.div`
-  margin: 0px 150px;
+  margin: 0 10px 0 10px;
 `;
 export const ImageContainer = styled.div`
   position: relative;
@@ -20,4 +20,7 @@ export const ImageContainer = styled.div`
 `;
 export const Image = styled.img`
   width: 150px;
+  @media screen and (max-width: 768px) {
+    width: 100px;
+  }
 `;

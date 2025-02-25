@@ -17,6 +17,9 @@ export const FoodItemsContainer = styled.div`
     margin-top: 10px;
     margin-bottom: 5px;
   }
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
 `;
 //Restaurant Details
 export const RestaurantContainer = styled.div`

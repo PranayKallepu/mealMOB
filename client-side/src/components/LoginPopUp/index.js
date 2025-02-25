@@ -12,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/data";
 
-const LoginPopUp = (e) => {
+const LoginPopUp = () => {
   const navigate = useNavigate();
 
   const [inputData, setInputData] = useState({
@@ -33,14 +33,18 @@ const LoginPopUp = (e) => {
 
     try {
       const response = await axios.post(`${API_URL}/login`, inputData);
-      console.log(response.data);
       if (response.data.success) {
-        Cookies.set("token", response.data.token, { expires: 1 });
+        Cookies.set("token", response.data.token, {
+          expires: 1,
+          path: "/dashboard",
+        });
         Cookies.set("username", response.data.username, { expires: 1 });
         navigate("/", { replace: true });
+      } else {
+        setError("Invalid credentials");
       }
     } catch (error) {
-      setError(error.response?.data?.message);
+      setError(error.response?.data?.message || "An error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -58,20 +62,32 @@ const LoginPopUp = (e) => {
                 name="username"
                 onChange={handleInput}
                 placeholder="USERNAME"
+                aria-label="Username"
+                required
               />
               <input
                 type="password"
                 name="password"
                 onChange={handleInput}
                 placeholder="PASSWORD"
+                aria-label="Password"
+                required
               />
-              <button type="submit" disabled={isLoading}>
+              <button
+                type="submit"
+                disabled={isLoading}
+                aria-label="Login Button"
+              >
                 {isLoading ? "Logging..." : "Login"}
               </button>
             </Form>
             {error && <p style={{ color: "red" }}>{error}</p>}
           </DetailsContainer>
-          <button type="button" onClick={() => close()}>
+          <button
+            type="button"
+            onClick={() => close()}
+            aria-label="Close Modal"
+          >
             Close
           </button>
         </ModalContainer>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/M-logo.png";
 import { Link } from "react-router-dom";
 import LoginPopUp from "../../components/LoginPopUp";
 import SignupPopUp from "../../components/SignupPopUp";
+import Hamburger from "hamburger-react";
 import {
   DashboardContainer,
   BackgroundContainer,
@@ -11,30 +12,35 @@ import {
   NavList,
   NavItem,
   DashboardDetails,
+  HamburgerContainer,
+  BrandContainer,
 } from "./styledComponent";
 
-function Dashboard() {
+const Dashboard = () => {
+  const [open, setOpen] = useState(false);
+
   return (
     <DashboardContainer>
-      <BackgroundContainer></BackgroundContainer>
+      <BackgroundContainer />
       <Navbar>
-        <div>
+        <BrandContainer>
           <Logo src={logo} alt="logo" />
           <p>MealMOB</p>
-        </div>
-        <div>
-          <NavList>
-            <Link to="/vendor-dashboard">
-              <NavItem>Add Restaurant</NavItem>
-            </Link>
-            <NavItem>
-              <LoginPopUp />
-            </NavItem>
-            <NavItem>
-              <SignupPopUp />
-            </NavItem>
-          </NavList>
-        </div>
+        </BrandContainer>
+        <HamburgerContainer>
+          <Hamburger size={24} toggled={open} toggle={setOpen} />
+        </HamburgerContainer>
+        <NavList open={open}>
+          <Link to="/vendor-dashboard">
+            <NavItem>Add Restaurant</NavItem>
+          </Link>
+          <NavItem>
+            <LoginPopUp />
+          </NavItem>
+          <NavItem>
+            <SignupPopUp />
+          </NavItem>
+        </NavList>
       </Navbar>
       <DashboardDetails>
         <h1>MealMOB</h1>
@@ -42,6 +48,6 @@ function Dashboard() {
       </DashboardDetails>
     </DashboardContainer>
   );
-}
+};
 
 export default Dashboard;

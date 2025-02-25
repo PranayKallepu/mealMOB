@@ -7,8 +7,11 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 
-import { FooterSection, DetailsContainer , DetailsCard,
-    SocialIcons
+import {
+  FooterSection,
+  DetailsContainer,
+  DetailsCard,
+  SocialIcons,
 } from "./styledComponent";
 
 const sections = [
@@ -81,7 +84,6 @@ const Footer = () => {
         <div>
           {items.map((item, index) => (
             <a
-              style={{ textDecoration: "none", color: "inherit" }}
               key={index}
               href={item.link}
               target="_blank"

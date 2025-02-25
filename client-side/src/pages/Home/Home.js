@@ -1,6 +1,6 @@
 import Header from "../../components/Header";
 import MenuList from "../../components/MenuList";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AllRestaurants from "../../components/AllRestaurants";
 import { BsSearch } from "react-icons/bs";
 import Footer from "../../components/Footer";
@@ -13,21 +13,21 @@ import {
 } from "./styledComponent";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <PageWrapper>
       <Header />
       <MainContainer>
         <SearchContainer>
           <h1>Discover Best Food and Order Now.</h1>
-          <Link to="/search">
-            <SearchInputContainer>
-              <SearchInput
-                type="search"
-                placeholder="Search for restaurants and dishes"
-              />
-              <BsSearch className="search-icon" />
-            </SearchInputContainer>
-          </Link>
+          <SearchInputContainer>
+            <SearchInput
+              type="search"
+              onClick={() => navigate("/search")}
+              placeholder="Search for restaurants and dishes"
+            />
+            <BsSearch className="search-icon" />
+          </SearchInputContainer>
         </SearchContainer>
         <MenuList />
         <AllRestaurants />

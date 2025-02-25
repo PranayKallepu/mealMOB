@@ -5,12 +5,18 @@ export const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 320px;
+  /* min-width: 280px;
+  max-width: 400px; */
   padding: 20px;
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   border: none;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid;
+  }
 `;
 
 export const Button = styled.button`
@@ -33,6 +39,11 @@ export const DetailsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+  }
 `;
 
 export const Form = styled.form`
@@ -45,7 +56,11 @@ export const Form = styled.form`
   align-items: center;
   background-color: #f8fafc;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 100%;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0;
+  }
 
   h3 {
     font-size: 20px;

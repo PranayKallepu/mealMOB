@@ -171,6 +171,7 @@ const AddRestaurant = () => {
                 name="offer"
                 placeholder="Offer (e.g. 10% off)"
                 onChange={handleInput}
+                value={inputData.offer.toUpperCase()} // Convert to uppercase
               />
 
               <StyledInput

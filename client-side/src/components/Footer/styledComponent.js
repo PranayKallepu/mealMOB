@@ -6,7 +6,6 @@ export const FooterSection = styled.footer`
   color: gray;
   text-align: center;
   margin-top: auto; /* Ensures it stays at the bottom */
-
   h2 {
     color: black;
     margin-bottom: 15px;
@@ -24,7 +23,7 @@ export const DetailsContainer = styled.div`
 
 export const DetailsCard = styled.div`
   flex: 1;
-  min-width: 200px; /* Prevents too small items on small screens */
+  min-width: 100px; /* Prevents too small items on small screens */
   max-width: 250px;
   margin: 10px;
   text-align: left;
@@ -58,5 +57,8 @@ export const SocialIcons = styled.div`
     &:hover {
       color: black;
     }
+  }
+  @media screen and (max-width: 768px) {
+    height: 20vh;
   }
 `;

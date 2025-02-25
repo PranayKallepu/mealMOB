@@ -6,6 +6,9 @@ export const AddButton = styled.button`
   font-weight: 500;
   border: none;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 // Popup Modal Overlay
