@@ -9,6 +9,9 @@ export const MainContainer = styled.div`
   width: 100%;
   max-width: 1110px;
   height: 100vh;
+  h2 {
+    margin-bottom: 20px;
+  }
 `;
 
 export const RestaurantHeader = styled.div`
@@ -30,6 +33,9 @@ export const FilterCard = styled.div`
   }
   div {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     border: 1px solid gray;
     padding: 6px;
     border-radius: 6px;
@@ -39,12 +45,18 @@ export const FilterCard = styled.div`
       font-size: 12px;
     }
   }
-  button {
-    border-radius: 6px;
-    border: 1px solid gray;
-    cursor: pointer;
-    padding: 2px;
-    margin-left: 10px;
+`;
+
+export const ClearButton = styled.button`
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 10px;
+  background-color: rgba(253, 0, 0, 0.79);
+  &:hover {
+    background-color: rgb(180, 11, 11);
   }
 `;
 
@@ -79,8 +91,6 @@ export const NoRestaurantsContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 64px;
-  margin-top: 48px;
   @media screen and (min-width: 768px) {
     margin-left: 30px;
     width: 70%;
@@ -88,16 +98,15 @@ export const NoRestaurantsContainer = styled.div`
     margin-top: 0px;
   }
   img {
-    width: 250px;
-    height: 180px;
+    width: 200px;
+    height: 150px;
     @media screen and (min-width: 768px) {
-      width: 459px;
-      height: 315px;
+      width: 300px;
+      height: 250px;
     }
   }
   h1 {
     color: #171f46;
-    font-family: "Roboto";
     font-size: 20px;
     font-weight: 500;
     line-height: 1.3px;
@@ -109,7 +118,6 @@ export const NoRestaurantsContainer = styled.div`
   p {
     text-align: center;
     color: #64748b;
-    font-family: "Roboto";
     font-size: 14px;
     width: 90%;
     max-width: 288px;
@@ -129,11 +137,9 @@ export const FailureCard = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 48px;
+  margin-top: 50px;
   padding-bottom: 64px;
   @media screen and (min-width: 768px) {
-    margin-top: 0px;
-    margin-left: 30px;
     width: 70%;
     padding-bottom: 0;
   }
@@ -152,17 +158,15 @@ export const FailureCard = styled.div`
 `;
 
 export const FailureImage = styled.img`
-  width: 250px;
-  height: 200px;
+  width: 200px;
   @media screen and (min-width: 768px) {
-    width: 400px;
-    height: 350px;
+    width: 350px;
   }
 `;
 
 export const FailureHeading = styled.h1`
+  padding-top: 10px;
   color: #171f46;
-  font-family: "Roboto";
   font-size: 20px;
   font-weight: 500;
   line-height: 1.3;
@@ -174,7 +178,6 @@ export const FailureHeading = styled.h1`
 export const FailureDescription = styled.p`
   text-align: center;
   color: #64748b;
-  font-family: "Roboto";
   font-size: 14px;
   width: 90%;
   max-width: 288px;
@@ -207,9 +210,9 @@ export const LoadingContainer = styled.div`
 
 // Shared Loading Styles
 const LoadingEffect = styled.div`
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background: linear-gradient(120deg, #e2e8f0 25%, rgb(222, 227, 234) 90%);
   background-size: 400% 100%;
-  animation: ${shimmer} 1.5s infinite ease-in-out;
+  animation: ${shimmer} 1.5s infinite linear;
   border-radius: 8px;
 `;
 

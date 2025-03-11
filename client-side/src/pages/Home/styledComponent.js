@@ -15,8 +15,6 @@ export const MainContainer = styled.div`
   padding: 20px;
   width: 90%;
   max-width: 1110px;
-  overflow-y: auto;
-  overflow-x: hidden;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #ccc transparent;
 
@@ -38,17 +36,20 @@ export const MainContainer = styled.div`
 export const SearchContainer = styled.div`
   text-align: center;
   padding-bottom: 10px;
+  h1 {
+    color: #001433;
+    margin-bottom: 10px;
+  }
 `;
 
 export const SearchInputContainer = styled.div`
   display: flex;
-  background-color: #f1f5f9;
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 15px 16px;
   text-decoration: none;
 `;
 export const SearchInput = styled.input`
-  background-color: #f1f5f9;
   color: #0f172a;
   font-size: 14px;
   font-weight: 500;

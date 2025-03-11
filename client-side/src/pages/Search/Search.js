@@ -42,7 +42,7 @@ const Search = () => {
           <SearchInput
             value={searchInput}
             type="search"
-            placeholder="Search for restaurants and food"
+            placeholder="Search for restaurants or dishes"
             onChange={onChangeSearchInput}
           />
           <BsSearch className="search-icon" />

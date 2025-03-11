@@ -39,7 +39,6 @@ export const ProductTitleBrandContainer = styled.div`
 
 export const ProductTitle = styled.p`
   color: #171f46;
-  font-family: "Roboto";
   font-size: 12px;
   font-weight: 500;
   margin: 0;
@@ -51,7 +50,6 @@ export const ProductTitle = styled.p`
 
 export const ProductBrand = styled.p`
   color: #64748b;
-  font-family: "Roboto";
   font-size: 10px;
 
   @media screen and (min-width: 768px) {
@@ -74,7 +72,6 @@ export const QuantityControllerButton = styled.button`
 
 export const Quantity = styled.p`
   color: #52606d;
-  font-family: "Roboto";
   font-size: 12px;
   font-weight: 500;
   margin: 8px;
@@ -93,7 +90,6 @@ export const TotalPriceDeleteContainer = styled.div`
 
 export const TotalPrice = styled.p`
   color: #0b69ff;
-  font-family: "Roboto";
   font-size: 16px;
   font-weight: 500;
   margin: 0;
@@ -107,7 +103,6 @@ export const TotalPrice = styled.p`
 export const RemoveButton = styled.button`
   background-color: transparent;
   color: #334155;
-  font-family: "Roboto";
   font-size: 10px;
   line-height: 16px;
   border: none;

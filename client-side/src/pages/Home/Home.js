@@ -19,7 +19,7 @@ const Home = () => {
       <Header />
       <MainContainer>
         <SearchContainer>
-          <h1>Discover Best Food and Order Now.</h1>
+          <h1>Discover Best Food and Order Now</h1>
           <SearchInputContainer>
             <SearchInput
               type="search"

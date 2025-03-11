@@ -81,7 +81,7 @@ const SearchRestaurants = (props) => {
 
   return (
     <MainContainer>
-      <h1>Restaurants in Warangal</h1>
+      <h2>Restaurants in Warangal</h2>
       {renderAllRestaurants()}
     </MainContainer>
   );

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const FooterSection = styled.footer`
   padding: 20px;
-  background-color: rgb(238, 233, 233);
   color: gray;
   text-align: center;
   margin-top: auto; /* Ensures it stays at the bottom */

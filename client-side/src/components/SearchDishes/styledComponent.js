@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: auto;
   padding: 10px;
   width: 90%;
@@ -74,25 +75,20 @@ export const FailureCard = styled.div`
   margin-top: 48px;
   padding-bottom: 64px;
   @media screen and (min-width: 768px) {
-    margin-top: 0px;
-    margin-left: 30px;
     width: 70%;
     padding-bottom: 0;
   }
 `;
 
 export const FailureImage = styled.img`
-  width: 250px;
-  height: 200px;
+  width: 200px;
   @media screen and (min-width: 768px) {
-    width: 400px;
-    height: 350px;
+    width: 350px;
   }
 `;
 
 export const FailureHeading = styled.h1`
   color: #171f46;
-  font-family: "Roboto";
   font-size: 20px;
   font-weight: 500;
   line-height: 1.3;
@@ -104,7 +100,6 @@ export const FailureHeading = styled.h1`
 export const FailureDescription = styled.p`
   text-align: center;
   color: #64748b;
-  font-family: "Roboto";
   font-size: 14px;
   width: 90%;
   max-width: 288px;

@@ -4,9 +4,11 @@ export const NavContainer = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-right: -50px;
   padding: 10px 0px 10px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: white;
+  box-shadow: 0px 0px 5px 0px rgba(97, 96, 96, 0.75);
+  position: sticky;
+  top: 0;
 `;
 export const Logo = styled.img`
   width: 50px;

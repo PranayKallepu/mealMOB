@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import axios from "axios";
 import { API_URL } from "../../utils/data";
+import chefImage from "../../assets/smiling-chef.png";
 import {
   MainContainer,
   Heading,
@@ -62,10 +63,7 @@ const VendorHome = () => {
           <Heading>
             Welcome <span>{vendorName}</span>
           </Heading>
-          <Image
-            src="https://img.freepik.com/premium-vector/smiling-chef-cartoon-character_8250-10.jpg?w=740"
-            alt="vendor"
-          />
+          <Image src={chefImage} alt="chef" />
           <br />
           {apiStatus === "IN_PROGRESS" ? (
             <p>Loading..</p>

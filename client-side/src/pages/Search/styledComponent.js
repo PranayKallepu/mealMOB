@@ -10,24 +10,25 @@ export const SearchContainer = styled.div`
 `;
 
 export const SearchInputCard = styled.div`
-  border-radius: 10px;
-  padding: 18px 30px;
-  margin-top: 30px;
   display: flex;
-  align-items: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 15px 16px;
+  text-decoration: none;
+  margin-top: 30px;
 `;
 
 export const SearchInput = styled.input`
-  background-color: #f1f5f9;
   color: #0f172a;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  border: none;
   outline: none;
   flex-grow: 1;
-  padding: 12px 20px;
-  transition: all 0.3s ease-in-out;
+  &::placeholder {
+    text-decoration: none;
+    font-style: normal;
+  }
 
   ::placeholder {
     text-indent: 15px;
@@ -86,8 +87,6 @@ export const DisplayContainer = styled.div`
   width: 80%;
   padding: 10px;
   border-radius: 8px;
-  background-color: #f8fafc;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 
   /* Hide scrollbar for Chrome, Safari, and Edge */
   &::-webkit-scrollbar {

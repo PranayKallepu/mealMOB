@@ -5,6 +5,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   align-self: center;
+  p {
+    margin: 10px 0px 10px 0px;
+  }
 `;
 
 export const Image = styled.img`
@@ -18,7 +21,6 @@ export const Image = styled.img`
 
 export const Heading = styled.h1`
   color: #1e293b;
-  font-family: "Roboto";
   font-size: 24px;
   font-weight: 500;
   @media screen and (min-width: 768px) {
@@ -29,7 +31,6 @@ export const Heading = styled.h1`
 export const Button = styled.button`
   background-color: #0b69ff;
   color: #ffffff;
-  font-family: "Roboto";
   font-size: 12px;
   border-radius: 8px;
   border: none;

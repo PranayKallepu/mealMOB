@@ -11,16 +11,16 @@ const MenuList = () => {
 
   const settings = {
     infinite: false,
-    speed: 200,
+    speed: 150,
     slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1200,
         settings: {
           slidesToShow: 5,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: true,
         },
       },
@@ -28,7 +28,7 @@ const MenuList = () => {
         breakpoint: 600,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: true,
         },
       },
@@ -36,7 +36,7 @@ const MenuList = () => {
         breakpoint: 480,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: true,
         },
       },
@@ -45,7 +45,9 @@ const MenuList = () => {
 
   return (
     <MenuListContainer>
-      <h2>{username}, what's on your mind?</h2>
+      <h2>
+        <span>{username}</span>, what's on your mind?
+      </h2>
       <ImageContainer>
         <Slider {...settings}>
           {menuList.map((eachItem, index) => (

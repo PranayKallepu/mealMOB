@@ -10,6 +10,7 @@ import {
   MainContainer,
   RestaurantHeader,
   FilterCard,
+  ClearButton,
   RestaurantList,
   NoRestaurantsContainer,
   FailureCard,
@@ -112,9 +113,9 @@ const AllRestaurants = () => {
             <MdOutlineStarRate />
             Ratings {rating || "2.0"}+
           </div>
-          <button onClick={() => handleFilterChange("", "")}>
+          <ClearButton onClick={() => handleFilterChange("", "")}>
             Clear Filters <VscClearAll />
-          </button>
+          </ClearButton>
         </FilterCard>
       </RestaurantHeader>
       {renderAllRestaurants()}

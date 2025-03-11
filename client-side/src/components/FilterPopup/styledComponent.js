@@ -27,13 +27,13 @@ export const FilterButton = styled.button`
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
+  padding: 5px;
 
   &:hover {
     background-color: #0056b3;
