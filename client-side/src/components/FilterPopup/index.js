@@ -39,13 +39,18 @@ const FilterPopup = ({ onFilterChange }) => {
 
   return (
     <Popup
+      modal
       trigger={
         <FilterButton>
           Filter <IoFilter />
         </FilterButton>
       }
-      modal
-      nested
+      contentStyle={{
+        background: "none",
+        border: "none",
+        display: "flex",
+        justifyContent: "center",
+      }}
     >
       {(close) => (
         <MainContainer>
@@ -84,13 +89,22 @@ const FilterPopup = ({ onFilterChange }) => {
 
             {/* Buttons */}
             <PopupActions>
-              <ButtonApply onClick={() => applyFilters(close)}>
-                Apply
-              </ButtonApply>
               <ClearFilterButton type="button" onClick={clearFilters}>
                 Clear Filters
               </ClearFilterButton>
-              <button onClick={close}>Close</button>
+              <ButtonApply onClick={() => applyFilters(close)}>
+                Apply
+              </ButtonApply>
+              <button
+                style={{
+                  fontSize: "10px",
+                  padding: "0px 5px",
+                  borderRadius: "6px",
+                }}
+                onClick={close}
+              >
+                Close
+              </button>
             </PopupActions>
           </PopupContainer>
         </MainContainer>

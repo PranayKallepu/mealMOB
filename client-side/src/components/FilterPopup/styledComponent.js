@@ -10,7 +10,6 @@ export const MainContainer = styled.div`
   height: 300px;
   border-radius: 10px;
   text-align: center;
-  background-color: rgba(248, 249, 250, 0.59);
 `;
 
 export const PopupContainer = styled.div`
@@ -95,7 +94,6 @@ export const ClearFilterButton = styled.button`
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
-
   &:hover {
     background: #c82333;
   }

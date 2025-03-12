@@ -28,6 +28,10 @@ export const Form = styled.form`
     background-color: #3b82f6;
     color: white;
     cursor: pointer;
+    &:disabled {
+      background-color: #94a3b8;
+      cursor: not-allowed;
+    }
   }
 `;
 

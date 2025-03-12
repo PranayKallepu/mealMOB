@@ -55,7 +55,12 @@ const SignupPopUp = () => {
       <Popup
         modal
         trigger={<Button type="button">Signup</Button>}
-        contentStyle={{ minWidth: "280px" }}
+        contentStyle={{
+          background: "none",
+          border: "none",
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
         {(close) => (
           <ModalContainer>

@@ -51,6 +51,8 @@ export const ProductTitle = styled.p`
 export const ProductBrand = styled.p`
   color: #64748b;
   font-size: 10px;
+  color: ${(props) =>
+    props.isVeg ? "rgb(0, 179, 60)" : "rgba(247, 3, 3, 0.77);"};
 
   @media screen and (min-width: 768px) {
     font-size: 12px;
@@ -102,7 +104,7 @@ export const TotalPrice = styled.p`
 
 export const RemoveButton = styled.button`
   background-color: transparent;
-  color: #334155;
+  color: red;
   font-size: 10px;
   line-height: 16px;
   border: none;

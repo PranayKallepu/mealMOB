@@ -29,7 +29,7 @@ const VendorLogin = () => {
         Cookies.set("vendorToken", response.data.token, {
           expires: 30,
         });
-        Cookies.set("vendorId", response.data.vendorId);
+        Cookies.set("vendorId", response.data.vendorId, { expires: 30 });
         Cookies.set("vendorName", response.data.vendorName);
         // add restaurant id to local storage if present
         if (response.data.restaurantId) {
@@ -66,7 +66,7 @@ const VendorLogin = () => {
           placeholder="ENTER PASSWORD"
           required
         />
-        <button isLoading={loading} type="submit" disabled={loading}>
+        <button type="submit" disabled={loading}>
           {loading ? "Logging..." : "Login"}
         </button>
       </Form>

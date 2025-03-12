@@ -54,15 +54,17 @@ export const ClearButton = styled.button`
   cursor: pointer;
   padding: 5px;
   margin-left: 10px;
-  background-color: rgba(253, 0, 0, 0.79);
+  background: #dc3545;
   &:hover {
-    background-color: rgb(180, 11, 11);
+    background: #c82333;
+  }
+  @media (max-width: 768px) {
+    font-size: 10px;
   }
 `;
 
 export const RestaurantList = styled.ul`
   display: flex;
-  justify-content: center;
   width: 100%;
   margin-top: 10px;
   flex-wrap: wrap;
@@ -70,6 +72,11 @@ export const RestaurantList = styled.ul`
   overflow-x: hidden;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #ccc transparent;
+  background-color: #ffffff;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 
   /* For WebKit Browsers */
   &::-webkit-scrollbar {

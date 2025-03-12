@@ -4,6 +4,7 @@ import backgroundImageSm from "../../assets/background-sm.jpg";
 
 export const DashboardContainer = styled.div`
   color: #ffffff;
+  background-color: none;
 `;
 
 export const BackgroundContainer = styled.div`
@@ -26,17 +27,19 @@ export const Navbar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0px 40px 10px;
+  background-color: black;
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
 `;
 
 export const BrandContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
 
   p {
     font-size: 14px;
+    font-weight: 500;
     color: rgb(41, 184, 184);
   }
 `;

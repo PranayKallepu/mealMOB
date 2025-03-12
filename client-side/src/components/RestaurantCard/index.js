@@ -2,6 +2,7 @@ import { FaStar } from "react-icons/fa";
 import {
   LinkItem,
   RestaurantItemCard,
+  DetailsCard,
   RestaurantName,
   CuisineCard,
   Offer,
@@ -25,25 +26,30 @@ const RestaurantCard = ({ restaurantData }) => {
     <LinkItem to={`/restaurantItems/${_id}`}>
       <RestaurantItemCard>
         <img src={restaurantImage} alt={restaurantName} />
-        <Offer>{offer}</Offer>
-        <RestaurantName>
-          <h3>{restaurantName}</h3>
-          <Rating>
-            {rating}+ <FaStar />
-          </Rating>
-        </RestaurantName>
-        <CuisineCard>
-          {cuisines.map((cuisine, index) => {
-            const lastCuisine = index === cuisines.length - 1;
-            return (
-              <p key={cuisine}>
-                {cuisine}
-                {lastCuisine ? "" : ","}
+        <Offer isOffer={offer.length > 0}>{offer}</Offer>
+        <DetailsCard>
+          <RestaurantName>
+            <h3>{restaurantName}</h3>
+            <Rating>
+              <p>
+                <FaStar />
               </p>
-            );
-          })}
-        </CuisineCard>
-        <p>{area}</p>
+              {rating}+
+            </Rating>
+          </RestaurantName>
+          <CuisineCard>
+            {cuisines.map((cuisine, index) => {
+              const lastCuisine = index === cuisines.length - 1;
+              return (
+                <p key={cuisine}>
+                  {cuisine}
+                  {lastCuisine ? "" : ","}
+                </p>
+              );
+            })}
+          </CuisineCard>
+          <p>{area}</p>
+        </DetailsCard>
       </RestaurantItemCard>
     </LinkItem>
   );

@@ -11,11 +11,11 @@ export const MenuListContainer = styled.div`
 `;
 export const ImageContainer = styled.div`
   position: relative;
+  z-index: 0;
   width: 100%;
   .slick-prev,
   .slick-next {
     display: block !important;
-    z-index: 10;
   }
 
   .slick-prev::before,

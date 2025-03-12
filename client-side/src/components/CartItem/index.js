@@ -48,7 +48,7 @@ const CartItem = (props) => {
       <CartItemDetailsContainer>
         <ProductTitleBrandContainer>
           <ProductTitle>{foodName}</ProductTitle>
-          <ProductBrand> {category}</ProductBrand>
+          <ProductBrand isVeg={category === "Veg"}> {category}</ProductBrand>
         </ProductTitleBrandContainer>
         <QuantityContainer>
           <QuantityControllerButton

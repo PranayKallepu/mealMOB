@@ -15,9 +15,9 @@ export const Logo = styled.img`
   cursor: pointer;
 `;
 export const LogoName = styled.p`
-  color: rgb(10, 182, 177);
+  color: rgb(13, 160, 168);
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 500;
   margin-top: -10px;
 `;
 export const NavList = styled.ul`
@@ -33,9 +33,8 @@ export const NavList = styled.ul`
     left: 0;
     background-color: white;
     width: 100%;
-    height: 100vh;
+    height: 30vh;
     padding: 20px;
-    z-index: 1000; //Ensures it appears above other content
   }
 `;
 
@@ -47,7 +46,7 @@ export const NavItem = styled.li`
   @media screen and (max-width: 768px) {
     color: black;
     padding: 10px 0;
-    font-size: 20px;
+    font-size: 16px;
   }
 `;
 export const CartCount = styled.span`
@@ -63,5 +62,7 @@ export const HamburgerContainer = styled.div`
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 9999;
   }
 `;

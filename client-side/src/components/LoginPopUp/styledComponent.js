@@ -5,17 +5,13 @@ export const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 200px;
-  max-width: 400px;
+  width: 500px;
+  min-width: 300px;
+  max-width: 500px;
   padding: 20px;
   border-radius: 12px;
   background-color: #ffffff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  border: none;
-  @media screen and (max-width: 768px) {
-    padding: 5px;
-    margin: 15px 5px 15px 5px;
-  }
 `;
 
 export const Button = styled.button`
@@ -37,12 +33,8 @@ export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    padding: 0;
-    margin-bottom: 10px;
-  }
+  width: 100%;
+  margin-bottom: 10px;
 `;
 
 export const Form = styled.form`
