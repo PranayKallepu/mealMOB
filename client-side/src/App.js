@@ -12,6 +12,8 @@ import CartContext from "./context/CartContext";
 import { useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+
+//This is APP
 const App = () => {
   const [cartList, setCartList] = useState([]);
 
