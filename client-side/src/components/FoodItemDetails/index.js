@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
-import CartContext from "../../context/CartContext";
-import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 import {
   AddButtonCard,
+  Button,
   FoodItem,
   FoodHeader,
   Category,
@@ -12,12 +12,13 @@ import {
 } from "./styledComponent";
 
 const FoodItemDetails = ({ foodItem }) => {
-  const { foodName, foodImage, category, price, description } = foodItem;
+  const { addToCart } = useCart();
+  const { foodName, foodImage, category, price, description, restaurant } =
+    foodItem;
   //states
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const { addCartItem } = useContext(CartContext);
 
   const toggleReadMore = () => {
     setIsExpanded(!isExpanded);
@@ -25,8 +26,7 @@ const FoodItemDetails = ({ foodItem }) => {
 
   const onClickAddToCart = () => {
     setIsAdded(true);
-    const id = uuidv4();
-    addCartItem({ ...foodItem, quantity, id });
+    addToCart({ ...foodItem, quantity }, restaurant);
   };
 
   const handleLessQuantity = () => {
@@ -49,13 +49,13 @@ const FoodItemDetails = ({ foodItem }) => {
             "ADD"
           ) : (
             <>
-              <button type="button" onClick={handleLessQuantity}>
+              <Button type="button" onClick={handleLessQuantity}>
                 -
-              </button>
+              </Button>
               <p>{quantity}</p>
-              <button type="button" onClick={handleMoreQuantity}>
+              <Button type="button" onClick={handleMoreQuantity}>
                 +
-              </button>
+              </Button>
             </>
           )}
         </AddButtonCard>

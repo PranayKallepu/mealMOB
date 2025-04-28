@@ -42,5 +42,26 @@ export const Button = styled.button`
   &:hover {
     background-color: red;
   }
-  
+`;
+
+export const TabContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+`;
+
+export const TabButton = styled.button`
+  padding: 10px 20px;
+  background-color: ${(props) => (props.active ? "#3b82f6" : "#f3f4f6")};
+  color: ${(props) => (props.active ? "white" : "#333")};
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: ${(props) => (props.active ? "#2563eb" : "#e5e7eb")};
+  }
 `;

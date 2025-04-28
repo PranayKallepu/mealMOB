@@ -63,11 +63,11 @@ export const StyledInput = styled.input`
   border-radius: 5px;
   outline: none;
   font-size: 16px;
-  background-color: ${(props) => (props.isFill ? "#e0f7fa" : "white")};
-  transition: background-color 0.3s ease-in-out;
+  /* background-color: ${(props) => (props.isFill ? "#e0f7fa" : "white")};
+  transition: background-color 0.3s ease-in-out; */
 
   &:focus {
-    background-color: #b2ebf2;
+    background-color: #e0f7fa;
   }
 `;
 

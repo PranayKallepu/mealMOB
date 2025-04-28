@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
-import CartContext from "../../context/CartContext";
-import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,13 +14,12 @@ import {
 } from "./styledComponent";
 
 const FoodItemDetails = ({ foodItem }) => {
+  const { cart, addToCart } = useCart();
   const navigate = useNavigate();
   const { foodName, foodImage, price, description, restaurant } = foodItem;
-  //states
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const { addCartItem } = useContext(CartContext);
   const { restaurantsList = [] } = useFetchRestaurants();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -36,8 +34,7 @@ const FoodItemDetails = ({ foodItem }) => {
 
   const onClickAddToCart = () => {
     setIsAdded(true);
-    const id = uuidv4();
-    addCartItem({ ...foodItem, quantity, id });
+    addToCart({ ...foodItem, quantity }, restaurant);
   };
 
   return (

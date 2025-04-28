@@ -27,6 +27,9 @@ export const FoodDetails = styled.div`
   h4 span {
     font-weight: 300;
   }
+  p {
+    font-size: 12px;
+  }
   @media screen and (max-width: 768px) {
     h3 {
       font-size: 16px;
@@ -87,7 +90,7 @@ export const AddButtonCard = styled.div`
 
 export const ReadMoreButton = styled.button`
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
   margin-left: 5px;
   border: none;
   background: none;
@@ -95,4 +98,13 @@ export const ReadMoreButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
+  font-weight: 500;
+  color: green;
+  background: none;
+  border: none;
+  font-size: 24px;
 `;

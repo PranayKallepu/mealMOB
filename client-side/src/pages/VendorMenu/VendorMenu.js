@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { API_URL } from "../../utils/data";
 import VendorHeader from "../../components/VendorHeader";
 import axios from "axios";
@@ -19,6 +20,20 @@ import {
   FailureImage,
   LoadingContainer,
 } from "../../components/AllRestaurants/styledComponent";
+
+// Define animation variants
+const pageVariants = {
+  initial: { opacity: 0 },
+  in: { opacity: 1 },
+  out: { opacity: 0 },
+};
+
+// Define transition properties
+const pageTransition = {
+  type: "tween",
+  ease: "anticipate",
+  duration: 0.5,
+};
 
 const VendorMenu = () => {
   const [error, setError] = useState("");
@@ -177,10 +192,17 @@ const VendorMenu = () => {
   };
 
   return (
-    <>
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      style={{ position: "absolute", width: "100%" }}
+    >
       <VendorHeader />
       <MainContainer>{renderAllRestaurants()}</MainContainer>
-    </>
+    </motion.div>
   );
 };
 

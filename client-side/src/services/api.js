@@ -2,6 +2,22 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { API_URL } from "../utils/data";
 
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      error.response.data.message === "Token expired"
+    ) {
+      Cookies.remove("token");
+      Cookies.remove("vendorToken");
+      window.location.href = "/dashboard";
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Fetch restaurants based on category and rating
 export const fetchRestaurants = async (
   category,

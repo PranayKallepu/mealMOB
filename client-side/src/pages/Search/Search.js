@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "../../components/Header";
+import { motion } from "framer-motion";
 import { BsSearch } from "react-icons/bs";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import useFetchDishes from "../../hooks/useFetchDishes.js";
@@ -13,7 +13,26 @@ import {
   ButtonContainer,
   ToggleButton,
   DisplayContainer,
-} from "../../pages/Search/styledComponent";
+} from "./styledComponent";
+import Header from "../../components/Header/index.js";
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+  },
+  in: {
+    opacity: 1,
+  },
+  out: {
+    opacity: 0,
+  },
+};
+
+const pageTransition = {
+  type: "tween",
+  ease: "anticipate",
+  duration: 0.5,
+};
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -35,7 +54,14 @@ const Search = () => {
   };
 
   return (
-    <>
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      style={{ position: "absolute", width: "100%" }}
+    >
       <Header />
       <SearchContainer>
         <SearchInputCard>
@@ -77,7 +103,7 @@ const Search = () => {
           />
         )}
       </DisplayContainer>
-    </>
+    </motion.div>
   );
 };
 

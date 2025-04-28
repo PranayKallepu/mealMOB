@@ -2,9 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/M-logo.png";
 import Cookies from "js-cookie";
 import { FiSearch } from "react-icons/fi";
-import { FaCartArrowDown } from "react-icons/fa";
-import { useContext, useState } from "react";
-import CartContext from "../../context/CartContext";
+import { FaCartArrowDown, FaTruck } from "react-icons/fa";
+import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 import Hamburger from "hamburger-react";
 import {
   NavContainer,
@@ -17,8 +17,8 @@ import {
 } from "./styledComponent";
 
 const Header = () => {
+  const { cart } = useCart();
   const navigate = useNavigate();
-  const { cartList } = useContext(CartContext);
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
@@ -47,11 +47,17 @@ const Header = () => {
               Search
             </NavItem>
           </Link>
+          <Link to="/order-track">
+            <NavItem>
+              <FaTruck />
+              Order Track
+            </NavItem>
+          </Link>
           <Link to="/cart">
             <NavItem>
               <FaCartArrowDown />
               Cart
-              {cartList.length > 0 && <CartCount> {cartList.length}</CartCount>}
+              {cart.length > 0 && <CartCount> {cart.length}</CartCount>}
             </NavItem>
           </Link>
           <NavItem style={{ color: "red" }} onClick={handleLogout}>

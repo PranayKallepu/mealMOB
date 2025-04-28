@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import VendorHeader from "../../components/VendorHeader";
 import AddRestaurant from "../../components/AddRestaurant";
 import UpdateRestaurant from "../../components/UpdateRestaurant";
+import OrderManagement from "../VendorDashboard/OrderManagement";
 import Cookies from "js-cookie";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import axios from "axios";
@@ -13,12 +14,15 @@ import {
   Image,
   Button,
   ButtonsCard,
+  TabContainer,
+  TabButton,
 } from "./styledComponent";
 
 const VendorHome = () => {
   const vendorName = Cookies.get("vendorName");
   const vendorId = Cookies.get("vendorId");
   const [restaurantId, setRestaurantId] = useState(null);
+  const [activeTab, setActiveTab] = useState("restaurant");
   const authToken = Cookies.get("vendorToken");
 
   // Fetch restaurants
@@ -55,6 +59,28 @@ const VendorHome = () => {
       }
     }
   };
+
+  const renderContent = () => {
+    if (activeTab === "orders") {
+      return <OrderManagement restaurantId={restaurantId} />;
+    }
+
+    if (apiStatus === "IN_PROGRESS") {
+      return <p>Loading..</p>;
+    }
+
+    if (!restaurantId) {
+      return <AddRestaurant />;
+    }
+
+    return (
+      <ButtonsCard>
+        <UpdateRestaurant restaurantId={restaurantId} />
+        <Button onClick={handleDeleteRestaurant}>Delete Restaurant</Button>
+      </ButtonsCard>
+    );
+  };
+
   return (
     <>
       <VendorHeader />
@@ -64,19 +90,21 @@ const VendorHome = () => {
             Welcome <span>{vendorName}</span>
           </Heading>
           <Image src={chefImage} alt="chef" />
-          <br />
-          {apiStatus === "IN_PROGRESS" ? (
-            <p>Loading..</p>
-          ) : !restaurantId ? (
-            <AddRestaurant />
-          ) : (
-            <ButtonsCard>
-              <UpdateRestaurant restaurantId={restaurantId} />
-              <Button onClick={handleDeleteRestaurant}>
-                Delete Restaurant
-              </Button>
-            </ButtonsCard>
-          )}
+          <TabContainer>
+            <TabButton
+              active={activeTab === "restaurant"}
+              onClick={() => setActiveTab("restaurant")}
+            >
+              Manage Restaurant
+            </TabButton>
+            <TabButton
+              active={activeTab === "orders"}
+              onClick={() => setActiveTab("orders")}
+            >
+              Manage Orders
+            </TabButton>
+          </TabContainer>
+          {renderContent()}
         </div>
       </MainContainer>
     </>

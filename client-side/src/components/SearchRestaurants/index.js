@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import RestaurantCard from "../RestaurantCard";
 import {
   MainContainer,
@@ -13,6 +14,17 @@ import {
   LoadingName,
 } from "../AllRestaurants/styledComponent";
 
+// Define animation variants for the list container
+const listVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Stagger the animations of children by 0.1 seconds
+    },
+  },
+};
+
 const length = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const SearchRestaurants = (props) => {
@@ -24,11 +36,13 @@ const SearchRestaurants = (props) => {
 
   const renderRestaurantsListView = () => {
     return restaurantsList && restaurantsList.length > 0 ? (
-      <RestaurantList>
-        {restaurantsList.map((restaurant) => (
-          <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
-        ))}
-      </RestaurantList>
+      <motion.div variants={listVariants} initial="hidden" animate="visible">
+        <RestaurantList>
+          {restaurantsList.map((restaurant) => (
+            <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
+          ))}
+        </RestaurantList>
+      </motion.div>
     ) : (
       <NoRestaurantsContainer>
         <img

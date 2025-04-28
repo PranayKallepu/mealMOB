@@ -50,3 +50,25 @@ export const Heading = styled.h1`
     font-size: 48px;
   }
 `;
+
+export const BillDetails = styled.div`
+  padding: 20px;
+  border-top: 1px solid #ccc;
+`;
+
+export const TotalPrice = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+export const ProceedButton = styled.button`
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;

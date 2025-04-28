@@ -1,5 +1,6 @@
 import Dashboard from "./pages/Dashboard/Dashboard";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Home from "./pages/Home/Home";
 import VendorDashboard from "./pages/VendorDashboard/VendorDashboard";
 import VendorHome from "./pages/VendorHome/VendorHome";
@@ -7,87 +8,61 @@ import VendorMenu from "./pages/VendorMenu/VendorMenu";
 import Search from "./pages/Search/Search";
 import FoodItems from "./pages/FoodItems/FoodItems";
 import Cuisines from "./pages/Cuisines/Cuisines";
-import Cart from "./pages/Cart/Cart";
-import CartContext from "./context/CartContext";
-import { useState } from "react";
+import Cart from "./pages/Cart";
+import OrderTrack from "./pages/OrderTrack";
+// import OrderTracking from "./pages/OrderTracking";
+import { OrderProvider } from "./context/OrderContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { CartProvider } from "./context/CartContext";
 
 const App = () => {
-  const [cartList, setCartList] = useState([]);
-
-  const addCartItem = (food) => {
-    setCartList((prevCartList) => [...prevCartList, food]);
-  };
-  const deleteCartItem = (foodId) => {
-    setCartList((prevCartList) =>
-      prevCartList.filter((food) => food.id !== foodId)
-    );
-  };
-  const decreaseQuantity = (foodId) => {
-    setCartList((prevCartList) =>
-      prevCartList.map((food) =>
-        food.id === foodId ? { ...food, quantity: food.quantity - 1 } : food
-      )
-    );
-  };
-  const increaseQuantity = (foodId) => {
-    setCartList((prevCartList) =>
-      prevCartList.map((food) =>
-        food.id === foodId ? { ...food, quantity: food.quantity + 1 } : food
-      )
-    );
-  };
-  const clearCart = () => {
-    setCartList([]);
-  };
+  const location = useLocation();
 
   return (
-    <CartContext.Provider
-      value={{
-        cartList,
-        addCartItem,
-        deleteCartItem,
-        decreaseQuantity,
-        increaseQuantity,
-        clearCart,
-      }}
-    >
-      <Routes>
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path="/vendor-dashboard" element={<VendorDashboard />} />
-        <Route exact path="/" element={<ProtectedRoute route={<Home />} />} />
-        <Route
-          exact
-          path="/search"
-          element={<ProtectedRoute route={<Search />} />}
-        />
-        <Route
-          exact
-          path="/restaurantItems/:restaurantId"
-          element={<ProtectedRoute route={<FoodItems />} />}
-        />
-        <Route
-          exact
-          path="/cuisines/:activeCuisine"
-          element={<ProtectedRoute route={<Cuisines />} />}
-        />
-        <Route
-          exact
-          path="/cart"
-          element={<ProtectedRoute route={<Cart />} />}
-        />
-        <Route
-          exact
-          path="/vendor"
-          element={<ProtectedRoute vendorRoute={<VendorHome />} />}
-        />
-        <Route
-          exact
-          path="/vendor/food-menu"
-          element={<ProtectedRoute vendorRoute={<VendorMenu />} />}
-        />
-      </Routes>
-    </CartContext.Provider>
+    <CartProvider>
+      <OrderProvider>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route exact path="/dashboard" element={<Dashboard />} />
+            <Route
+              exact
+              path="/vendor-dashboard"
+              element={<VendorDashboard />}
+            />
+            <Route path="/" element={<ProtectedRoute route={<Home />} />} />
+            <Route
+              path="/search"
+              element={<ProtectedRoute route={<Search />} />}
+            />
+            <Route
+              path="/restaurantItems/:restaurantId"
+              element={<ProtectedRoute route={<FoodItems />} />}
+            />
+            <Route
+              path="/cuisines/:activeCuisine"
+              element={<ProtectedRoute route={<Cuisines />} />}
+            />
+            <Route path="/cart" element={<ProtectedRoute route={<Cart />} />} />
+            <Route
+              path="/order-track"
+              element={<ProtectedRoute route={<OrderTrack />} />}
+            />
+            {/* <Route
+              path="/order-tracking/:orderId"
+              element={<ProtectedRoute route={<OrderTrack />} />}
+            /> */}
+            <Route
+              path="/vendor"
+              element={<ProtectedRoute vendorRoute={<VendorHome />} />}
+            />
+            <Route
+              path="/vendor/food-menu"
+              element={<ProtectedRoute vendorRoute={<VendorMenu />} />}
+            />
+          </Routes>
+        </AnimatePresence>
+      </OrderProvider>
+    </CartProvider>
   );
 };
 

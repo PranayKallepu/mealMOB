@@ -32,18 +32,10 @@ const AddFood = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isFill, setIsFill] = useState(false);
 
   // Handle input changes
   const handleInput = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
-  };
-  const handleFocus = (e) => {
-    setIsFill(true);
-  };
-
-  const handleBlur = (e) => {
-    setIsFill(false);
   };
 
   // Handle file upload
@@ -131,13 +123,10 @@ const AddFood = () => {
             <StyledForm onSubmit={handleSubmit}>
               <h3>Add Food</h3>
               <StyledInput
-                isFill={isFill}
                 type="text"
                 name="foodName"
                 value={inputData.foodName}
                 onChange={handleInput}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
                 placeholder="FOOD NAME *"
                 required
               />
@@ -151,24 +140,18 @@ const AddFood = () => {
 
               <label>OR Enter Image URL:</label>
               <StyledInput
-                isFill={isFill}
                 type="text"
                 name="imageUrl"
-                onFocus={handleFocus}
-                onBlur={handleBlur}
                 placeholder="https://example.com/image.jpg"
                 onChange={handleImageUrl}
               />
 
               <StyledInput
-                isFill={isFill}
                 type="text"
                 name="price"
                 value={inputData.price}
                 placeholder="PRICE ex: 100"
                 onChange={handleInput}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
                 required
               />
 
@@ -186,13 +169,10 @@ const AddFood = () => {
               </StyledSelect>
 
               <StyledTextarea
-                isFill={isFill}
                 name="description"
                 value={inputData.description}
                 placeholder="FOOD DESCRIPTION *"
                 onChange={handleInput}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
                 required
               />
 

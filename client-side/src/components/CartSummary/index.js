@@ -2,22 +2,36 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import CartContext from "../../context/CartContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useOrder } from "../../context/OrderContext";
+// import AddressForm from "../AddressForm";
 import {
   TotalAmountContainer,
   AmountSpan,
   PopupContainer,
   OrderButton,
-  CloseButton,
   DisplayContainer,
 } from "./styledComponent";
 
 const CartSummary = () => {
   const { cartList, clearCart } = useContext(CartContext);
+  const { createOrder } = useOrder();
+  const navigate = useNavigate();
 
   const totalAmount = cartList.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  const handleOrderSubmit = (address) => {
+    const order = createOrder({
+      items: cartList,
+      address,
+      totalAmount,
+    });
+    clearCart();
+    navigate(`/order-tracking/${order.id}`);
+  };
 
   return (
     <TotalAmountContainer>
@@ -46,21 +60,7 @@ const CartSummary = () => {
         >
           {(close) => (
             <DisplayContainer>
-              <div>
-                <h3>🎉 Order Placed Successfully!</h3>
-                <p>Thank you for your order.</p>
-              </div>
-              <CloseButton
-                type="button"
-                className="trigger-button"
-                onClick={() => {
-                  clearCart();
-                  close();
-                }}
-              >
-                {" "}
-                Close
-              </CloseButton>
+              {/* <AddressForm onClose={close} onSubmit={handleOrderSubmit} /> */}
             </DisplayContainer>
           )}
         </Popup>

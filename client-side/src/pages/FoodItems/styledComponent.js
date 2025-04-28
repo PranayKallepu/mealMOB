@@ -75,6 +75,7 @@ export const Star = styled(FaStar)`
 export const FoodList = styled.ul`
   display: flex;
   flex-direction: column;
+  overflow: auto;
 `;
 
 export const NoFoodItemsContainer = styled.div`
