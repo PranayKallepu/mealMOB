@@ -40,6 +40,9 @@ const authUserOrVendor = async (req, res, next) => {
       .json({ success: false, message: "Unauthorized Access" });
   } catch (error) {
     console.error("Auth Error: ", error);
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ success: false, message: "Token expired" });
+    }
     res.status(401).json({ success: false, message: "Unauthorized Access" });
   }
 };

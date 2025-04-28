@@ -1,7 +1,7 @@
-# @rootURL = http://localhost:4000
-@rootURL = https://mealmob-server.onrender.com
-@vendorToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjFkZTA1Mjg0NDcwZGE1YTI4YTE4YSIsImlhdCI6MTczOTcxMjMzMSwiZXhwIjoxNzM5Nzk4NzMxfQ.xdBehoey12ZeZK7q5Zk3cRLI8UDJWb9HnLci7zqHZQQ
-@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTczOTcxNTg2OSwiZXhwIjoxNzM5ODAyMjY5fQ.nTGweF2M6JovWtI7eOqYJ9pmiajyQzZ0tBri2gasBTw
+@rootURL = http://localhost:4000
+# @rootURL = https://mealmob-server.onrender.com
+@vendorToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjMyMmEzNGQ0OTI1MWNiNjU0MTY3ZCIsImlhdCI6MTc0NTc1MzU1MSwiZXhwIjoxNzQ1ODM5OTUxfQ.iL4VLKJimFdpdfgM6PJOSev9xthdDhydvXpG5pqELT0
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTc0NTc1MDkyMSwiZXhwIjoxNzQ1ODM3MzIxfQ.wLt0whTBzP2BNn7cB34PO2YiRPteqioFZmzLvGxebfo
 
 ###
 POST {{rootURL}}/vendor/register
@@ -18,7 +18,7 @@ POST {{rootURL}}/vendor/login
 Content-Type: application/json
 
 {
-    "vendorEmail": "pardise@gmail.com",
+    "vendorEmail": "paradise@gmail.com",
     "vendorPassword": "123"
 }
 
@@ -87,8 +87,8 @@ POST {{rootURL}}/signup
 Content-Type: application/json
 
 {
-    "username": "pranay",
-    "email": "pranay@gmail.com",
+    "username": "lalitha",
+    "email": "lalitha123@gmail.com",
     "password": "123"
 }
 ###
@@ -116,3 +116,41 @@ Authorization: Bearer {{userToken}}
 // filter food items 
 GET {{rootURL}}/api/dishes?sort_by=&search=
 Authorization: Bearer {{userToken}}
+
+###
+// create order
+POST {{rootURL}}/api/orders
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{
+    "items": [
+        {
+            "foodId": "67b1de81284470da5a28a198",
+            "quantity": 1
+        }
+    ],
+    "address": "123 Main St, Anytown, USA",
+    "total": 100
+}
+
+###
+// get all orders by user token
+GET {{rootURL}}/api/all-orders
+Authorization: Bearer {{userToken}}
+
+
+###
+// get vendor orders by vendor token
+GET {{rootURL}}/api/all-orders
+Authorization: Bearer {{vendorToken}}
+
+###
+// update order status
+PUT {{rootURL}}/api/order-status/680e0f1bf660b4979940198f
+Content-Type: application/json
+Authorization: Bearer {{vendorToken}}
+
+{
+    "status": "delivered"
+}

@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const path = require("path");
 const dotenv = require("dotenv");
 const { v2: cloudinary } = require("cloudinary");
@@ -11,6 +10,8 @@ const vendorRoutes = require("./routes/vendorRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const userRoutes = require("./routes/userRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -22,6 +23,7 @@ connectDB();
 
 // middlewares
 app.use(cors());
+
 // Body parser middleware for handling JSON
 app.use(bodyParser.json());
 
@@ -37,6 +39,7 @@ app.use("/api", restaurantRoutes);
 app.use("/vendor", vendorRoutes);
 app.use("/api", foodRoutes);
 app.use("/", userRoutes);
+app.use("/api", orderRoutes);
 
 // Server listening
 const PORT = process.env.PORT || 4000;
