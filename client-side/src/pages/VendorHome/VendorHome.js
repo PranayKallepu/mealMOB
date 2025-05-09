@@ -10,13 +10,17 @@ import { API_URL } from "../../utils/data";
 import chefImage from "../../assets/smiling-chef.png";
 import {
   MainContainer,
+  VendorContainer,
   Heading,
   Image,
   Button,
   ButtonsCard,
+  TabButtonsCard,
   TabContainer,
   TabButton,
 } from "./styledComponent";
+import toast from "react-hot-toast";
+import { BeatLoader } from "react-spinners";
 
 const VendorHome = () => {
   const vendorName = Cookies.get("vendorName");
@@ -52,10 +56,12 @@ const VendorHome = () => {
             headers: { Authorization: `Bearer ${authToken}` },
           }
         );
-        alert(response.data.message);
+        toast.success(response.data.message);
         setRestaurantId(null);
       } catch (error) {
-        alert(error.response?.data?.message);
+        toast.error(
+          error.response?.data?.message || "Failed to delete restaurant"
+        );
       }
     }
   };
@@ -66,7 +72,11 @@ const VendorHome = () => {
     }
 
     if (apiStatus === "IN_PROGRESS") {
-      return <p>Loading..</p>;
+      return (
+        <p>
+          <BeatLoader color="#F7931E" />
+        </p>
+      );
     }
 
     if (!restaurantId) {
@@ -75,6 +85,7 @@ const VendorHome = () => {
 
     return (
       <ButtonsCard>
+        <h3>Manage Restaurant</h3>
         <UpdateRestaurant restaurantId={restaurantId} />
         <Button onClick={handleDeleteRestaurant}>Delete Restaurant</Button>
       </ButtonsCard>
@@ -85,12 +96,15 @@ const VendorHome = () => {
     <>
       <VendorHeader />
       <MainContainer>
-        <div>
+        <VendorContainer>
           <Heading>
             Welcome <span>{vendorName}</span>
           </Heading>
           <Image src={chefImage} alt="chef" />
-          <TabContainer>
+        </VendorContainer>
+
+        <TabContainer>
+          <TabButtonsCard>
             <TabButton
               active={activeTab === "restaurant"}
               onClick={() => setActiveTab("restaurant")}
@@ -103,9 +117,9 @@ const VendorHome = () => {
             >
               Manage Orders
             </TabButton>
-          </TabContainer>
+          </TabButtonsCard>
           {renderContent()}
-        </div>
+        </TabContainer>
       </MainContainer>
     </>
   );

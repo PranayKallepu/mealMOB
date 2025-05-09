@@ -4,7 +4,7 @@ import useFetchFoodItems from "../../hooks/useFetchFoodItems";
 import { useParams } from "react-router-dom";
 import FoodItemDetails from "../../components/FoodItemDetails";
 import Cookies from "js-cookie";
-
+import { BeatLoader } from "react-spinners";
 import {
   MainContainer,
   FoodItemsContainer,
@@ -110,7 +110,7 @@ const FoodItems = () => {
 
   const renderLoadingView = () => (
     <LoaderCard>
-      <p>Loading Food Items...</p>
+      <BeatLoader color="#F7931E" />
     </LoaderCard>
   );
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCart } from "../../context/CartContext";
+import { toast } from "react-hot-toast";
 import {
   AddButtonCard,
   Button,
@@ -27,6 +28,7 @@ const FoodItemDetails = ({ foodItem }) => {
   const onClickAddToCart = () => {
     setIsAdded(true);
     addToCart({ ...foodItem, quantity }, restaurant);
+    toast.success("Added to Cart!");
   };
 
   const handleLessQuantity = () => {

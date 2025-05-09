@@ -26,20 +26,31 @@ export const DashboardDetails = styled.div`
 `;
 
 export const OrdersContainer = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-right: 0.5rem;
 
+  /* Optional scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  width: 100%;
   h2 {
     color: #333;
     margin-bottom: 20px;
+  }
+  @media (min-width: 768px) {
+    padding: 0px 20px;
   }
 `;
 
 export const OrderCard = styled.div`
   background-color: white;
-  border-radius: 8px;
-  padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -63,43 +74,28 @@ export const OrderHeader = styled.div`
 `;
 
 export const OrderDetails = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 20px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 10px;
+  background-color: aliceblue;
+  h3 {
+    font-weight: 500;
   }
-
-  h4 {
-    color: #333;
-    margin: 0 0 10px;
-  }
-
   p {
-    margin: 5px 0;
-    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  span {
+    font-size: 11px;
   }
 `;
 
-export const StatusSelect = styled.select`
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: white;
-  color: #333;
-  font-size: 14px;
-
-  &:focus {
-    outline: none;
-    border-color: #3b82f6;
-  }
-`;
-
-export const OrderItems = styled.div`
-  h4 {
-    margin-bottom: 15px;
-  }
+export const ItemsCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
 `;
 
 export const ItemRow = styled.div`
@@ -113,6 +109,64 @@ export const ItemRow = styled.div`
 
   span {
     color: #666;
+  }
+`;
+
+export const ButtonsCard = styled.div`
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  button {
+    padding: 6px 8px;
+    font-size: 13px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+`;
+
+export const CancelButton = styled.button`
+  background-color: #dc3545;
+  color: white;
+
+  &:hover {
+    background-color: #b02a37;
+  }
+`;
+
+export const AcceptButton = styled.button`
+  background-color: #28a745;
+  color: white;
+
+  &:hover {
+    background-color: #1e7e34;
+  }
+`;
+
+export const StatusSelect = styled.select`
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  color: #ff5722;
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+    border-color: #ff5722;
+  }
+  option {
+  }
+`;
+
+export const OrderItems = styled.div`
+  h4 {
+    margin-bottom: 15px;
   }
 `;
 
@@ -130,5 +184,26 @@ export const NoOrders = styled.div`
 
   p {
     color: #666;
+  }
+`;
+
+export const OrderIdContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const CopyButton = styled.button`
+  padding: 2px;
+  font-size: 18px;
+  cursor: pointer;
+  color: gray;
+  border: none;
+  background: none;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #ccc;
+    border-radius: 50%;
+    color: black;
   }
 `;

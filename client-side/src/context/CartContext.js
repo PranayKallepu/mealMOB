@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
 
@@ -7,6 +7,7 @@ export const CartProvider = ({ children }) => {
   const [restaurantId, setRestaurantId] = useState(null);
 
   const addToCart = (item, restaurantId) => {
+    console.log(restaurantId);
     if (restaurantId !== cart[0]?.restaurantId && cart.length > 0) {
       alert("You can only order from one restaurant at a time");
       return;
@@ -20,11 +21,11 @@ export const CartProvider = ({ children }) => {
       if (existingItem) {
         return prevCart.map((cartItem) =>
           cartItem._id === item._id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
             : cartItem
         );
       }
-      return [...prevCart, { ...item, quantity: 1, restaurantId }];
+      return [...prevCart, { ...item, restaurantId: restaurantId }];
     });
   };
 

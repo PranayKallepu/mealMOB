@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-import "../../styles/AddAddress.css";
-import "./style.css";
 import Popup from "reactjs-popup";
+import {
+  AddressContainer,
+  AddressForm,
+  FormGroup,
+  ProceedButton,
+  ChangeAddressBtn,
+  AddressEmpty,
+} from "./styledComponent";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { API_URL } from "../../utils/data";
+import Cookies from "js-cookie";
 
 const AddressPopup = () => {
   const navigate = useNavigate();
   const { cart } = useCart();
+  const token = Cookies.get("token");
   const [address, setAddress] = useState({
     receiverName: "",
     mobile: "",
@@ -20,7 +31,6 @@ const AddressPopup = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
-    // Check if user has existing address
     const savedAddress = localStorage.getItem("deliveryAddress");
     if (savedAddress) {
       setAddress(JSON.parse(savedAddress));
@@ -38,12 +48,36 @@ const AddressPopup = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="address-empty">
+      <AddressEmpty>
         <h2>Your cart is empty</h2>
         <button onClick={() => navigate("/")}>Continue Shopping</button>
-      </div>
+      </AddressEmpty>
     );
   }
+
+  const handleSubmit = async (e, closePopup) => {
+    e.preventDefault();
+    if (
+      !address.street ||
+      !address.city ||
+      !address.state ||
+      !address.pincode
+    ) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    try {
+      await axios.post(`${API_URL}/api/address`, address, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success("Address added successfully");
+      localStorage.setItem("deliveryAddress", JSON.stringify(address));
+      closePopup();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to add address");
+    }
+  };
 
   return (
     <Popup
@@ -55,109 +89,89 @@ const AddressPopup = () => {
         minWidth: "400px",
       }}
       trigger={
-        isEdit ? (
-          <button className="change-address-btn">Change Address</button>
-        ) : (
-          <button className="change-address-btn">Add Address</button>
-        )
+        <ChangeAddressBtn>
+          {isEdit ? "Change Address" : "Add Address"}
+        </ChangeAddressBtn>
       }
       nested
     >
-      {(close) => {
-        const handleSubmit = (e) => {
-          e.preventDefault();
-          if (
-            !address.receiverName ||
-            !address.mobile ||
-            !address.houseNumber
-          ) {
-            alert("Please fill in all required fields");
-            return;
-          }
-          localStorage.setItem("deliveryAddress", JSON.stringify(address));
-          close();
-          alert("Address added successfully");
-        };
+      {(closePopup) => (
+        <AddressContainer>
+          <h1>{isEdit ? "Edit Delivery Address" : "Add Delivery Address"}</h1>
+          <AddressForm onSubmit={(e) => handleSubmit(e, closePopup)}>
+            <FormGroup>
+              <label>Receiver's Name *</label>
+              <input
+                type="text"
+                name="receiverName"
+                value={address.receiverName}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
 
-        return (
-          <div className="address-container">
-            <h1>{isEdit ? "Edit Delivery Address" : "Add Delivery Address"}</h1>
+            <FormGroup>
+              <label>Mobile Number *</label>
+              <input
+                type="tel"
+                name="mobile"
+                value={address.mobile}
+                onChange={handleChange}
+                required
+                pattern="[0-9]{10}"
+              />
+            </FormGroup>
 
-            <form onSubmit={handleSubmit} className="address-form">
-              <div className="form-group">
-                <label>Receiver's Name *</label>
-                <input
-                  type="text"
-                  name="receiverName"
-                  value={address.receiverName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <FormGroup>
+              <label>House Number *</label>
+              <input
+                type="text"
+                name="houseNumber"
+                value={address.houseNumber}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
 
-              <div className="form-group">
-                <label>Mobile Number *</label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  value={address.mobile}
-                  onChange={handleChange}
-                  required
-                  pattern="[0-9]{10}"
-                />
-              </div>
+            <FormGroup>
+              <label>City *</label>
+              <input
+                type="text"
+                name="city"
+                value={address.city}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
 
-              <div className="form-group">
-                <label>House Number *</label>
-                <input
-                  type="text"
-                  name="houseNumber"
-                  value={address.houseNumber}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <FormGroup>
+              <label>State *</label>
+              <input
+                type="text"
+                name="state"
+                value={address.state}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
 
-              <div className="form-group">
-                <label>City *</label>
-                <input
-                  type="text"
-                  name="city"
-                  value={address.city}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <FormGroup>
+              <label>Pincode *</label>
+              <input
+                type="text"
+                name="pincode"
+                value={address.pincode}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
 
-              <div className="form-group">
-                <label>State *</label>
-                <input
-                  type="text"
-                  name="state"
-                  value={address.state}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Pincode *</label>
-                <input
-                  type="text"
-                  name="pincode"
-                  value={address.pincode}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <button type="submit" className="proceed-btn">
-                {isEdit ? "Update Address" : "Add Address"}
-              </button>
-            </form>
-          </div>
-        );
-      }}
+            <ProceedButton type="submit">
+              {isEdit ? "Update Address" : "Add Address"}
+            </ProceedButton>
+          </AddressForm>
+        </AddressContainer>
+      )}
     </Popup>
   );
 };

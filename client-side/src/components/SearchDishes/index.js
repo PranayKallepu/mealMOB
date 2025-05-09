@@ -1,5 +1,6 @@
 import React from "react";
 import DishCard from "../DishCard";
+import { BeatLoader } from "react-spinners";
 import {
   MainContainer,
   FoodList,
@@ -52,7 +53,11 @@ const SearchDishes = (props) => {
     </FailureCard>
   );
 
-  const renderLoadingView = () => <div>Loading dishes...</div>;
+  const renderLoadingView = () => (
+    <div>
+      <BeatLoader color="#F7931E" />
+    </div>
+  );
 
   const renderAllRestaurants = () => {
     switch (apiDishStatus) {

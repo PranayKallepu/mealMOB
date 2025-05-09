@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { FormContainer, Form, Error } from "./styledComponent";
 import { API_URL } from "../../utils/data";
+import toast from "react-hot-toast";
 
 const VendorRegister = ({ setIsLogin }) => {
   // States
@@ -38,11 +39,9 @@ const VendorRegister = ({ setIsLogin }) => {
         `${API_URL}/vendor/register`,
         inputData
       );
-      if (response.data.success) {
-        alert("Vendor Registered Successfully!");
-        Cookies.set("vendorName", response.data.vendorName);
-        setIsLogin(true);
-      }
+      toast.success("Vendor Registered Successfully!");
+      Cookies.set("vendorName", response.data.vendorName);
+      setIsLogin(true);
     } catch (error) {
       setError(error.response?.data?.message || "Registration failed");
     } finally {

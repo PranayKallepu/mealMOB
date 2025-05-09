@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../utils/data";
+import toast from "react-hot-toast";
 
 const SignupPopUp = () => {
   //states
@@ -39,12 +40,12 @@ const SignupPopUp = () => {
     try {
       const response = await axios.post(`${API_URL}/signup`, inputData);
       if (response.data.success) {
-        alert("User Registered Successfully!");
+        toast.success("User Registered Successfully!");
         setIsLoading(false);
         close(); // Close signup popup
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Signup failed");
+      toast.error(error.response?.data?.message || "Signup failed");
     } finally {
       setIsLoading(false);
     }

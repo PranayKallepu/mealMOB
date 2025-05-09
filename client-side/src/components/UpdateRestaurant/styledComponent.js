@@ -155,7 +155,7 @@ export const Input = styled.input`
 export const Button = styled.button`
   padding: 10px;
   margin-top: 15px;
-  background-color: #22c55e;
+  background-color: rgb(209, 171, 16);
   color: white;
   border: none;
   border-radius: 6px;
@@ -164,7 +164,7 @@ export const Button = styled.button`
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: #16a34a;
+    background-color: rgb(239, 194, 16);
   }
 
   &:disabled {

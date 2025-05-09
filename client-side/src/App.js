@@ -1,3 +1,4 @@
+import React from "react";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -9,11 +10,12 @@ import Search from "./pages/Search/Search";
 import FoodItems from "./pages/FoodItems/FoodItems";
 import Cuisines from "./pages/Cuisines/Cuisines";
 import Cart from "./pages/Cart";
-import OrderTrack from "./pages/OrderTrack";
-// import OrderTracking from "./pages/OrderTracking";
+import MyOrders from "./pages/MyOrders";
 import { OrderProvider } from "./context/OrderContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { CartProvider } from "./context/CartContext";
+import OrderDetails from "./pages/OrderDetails";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const location = useLocation();
@@ -22,6 +24,7 @@ const App = () => {
     <CartProvider>
       <OrderProvider>
         <AnimatePresence mode="wait">
+          <Toaster position="top-right" reverseOrder={false} />
           <Routes location={location} key={location.pathname}>
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route
@@ -44,13 +47,10 @@ const App = () => {
             />
             <Route path="/cart" element={<ProtectedRoute route={<Cart />} />} />
             <Route
-              path="/order-track"
-              element={<ProtectedRoute route={<OrderTrack />} />}
+              path="/my-orders"
+              element={<ProtectedRoute route={<MyOrders />} />}
             />
-            {/* <Route
-              path="/order-tracking/:orderId"
-              element={<ProtectedRoute route={<OrderTrack />} />}
-            /> */}
+            <Route path="/my-orders/:orderId" element={<OrderDetails />} />
             <Route
               path="/vendor"
               element={<ProtectedRoute vendorRoute={<VendorHome />} />}

@@ -20,6 +20,7 @@ import {
   FailureImage,
   LoadingContainer,
 } from "../../components/AllRestaurants/styledComponent";
+import { BeatLoader } from "react-spinners";
 
 // Define animation variants
 const pageVariants = {
@@ -174,7 +175,7 @@ const VendorMenu = () => {
 
   const renderLoadingView = () => (
     <LoadingContainer>
-      <p>Loading...</p>
+      <BeatLoader color="#F7931E" />
     </LoadingContainer>
   );
 

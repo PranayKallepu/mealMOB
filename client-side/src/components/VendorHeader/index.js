@@ -12,19 +12,18 @@ import {
   HamburgerContainer,
 } from "../Header/styledComponent";
 import AddFood from "../AddFood";
-
 const VendorHeader = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   // 🔹 Logout Function: Clears all tokens and redirects
   const handleLogout = () => {
-    alert("Are you sure to Logout!");
-    Cookies.remove("vendorId");
-    Cookies.remove("vendorName");
-    Cookies.remove("vendorToken");
-    Cookies.remove("restaurantId");
-    navigate("/vendor-dashboard");
+    if (window.confirm("Are you sure to Logout!")) {
+      Cookies.remove("vendorId");
+      Cookies.remove("vendorToken");
+      Cookies.remove("vendorName");
+      navigate("/vendor-dashboard");
+    }
   };
 
   return (

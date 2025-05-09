@@ -14,7 +14,7 @@ import {
 } from "./styledComponent";
 
 const FoodItemDetails = ({ foodItem }) => {
-  const { cart, addToCart } = useCart();
+  const { addToCart } = useCart();
   const navigate = useNavigate();
   const { foodName, foodImage, price, description, restaurant } = foodItem;
   const [isExpanded, setIsExpanded] = useState(false);

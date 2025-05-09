@@ -19,6 +19,7 @@ import {
   Select,
   CheckboxContainer,
 } from "./styledComponent";
+import toast from "react-hot-toast";
 
 const UpdateRestaurant = ({ restaurantId }) => {
   const [inputData, setInputData] = useState({
@@ -118,7 +119,7 @@ const UpdateRestaurant = ({ restaurantId }) => {
         }
       );
 
-      alert(`${response.data.message}!`);
+      toast.success(`${response.data.message}!`);
       close();
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong!");

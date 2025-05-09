@@ -18,6 +18,7 @@ import {
   StyleCheckBox,
 } from "./styledComponent";
 import AddFood from "../AddFood";
+import toast from "react-hot-toast";
 
 const AddRestaurant = () => {
   const vendorId = Cookies.get("vendorId");
@@ -111,13 +112,13 @@ const AddRestaurant = () => {
       );
 
       if (response.data.success) {
-        alert("Restaurant Added Successfully!");
+        toast.success("Restaurant Added Successfully!");
         Cookies.set("restaurantId", response.data.restaurantId);
         setIsOpen(false); // Close popup after submission
         return <AddFood />;
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Registration failed");
+      toast.error(error.response?.data?.message || "Failed to add restaurant");
     } finally {
       setLoading(false);
     }

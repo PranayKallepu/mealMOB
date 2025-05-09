@@ -51,10 +51,12 @@ export const NavItem = styled.li`
 `;
 export const CartCount = styled.span`
   margin-left: 5px;
+  padding-right: 3px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 500;
   color: white;
   background-color: rgb(241, 57, 57);
-  border-radius: 100px;
-  padding-right: 5px;
 `;
 
 export const HamburgerContainer = styled.div`

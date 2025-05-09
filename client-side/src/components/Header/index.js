@@ -47,10 +47,10 @@ const Header = () => {
               Search
             </NavItem>
           </Link>
-          <Link to="/order-track">
+          <Link to="/my-orders">
             <NavItem>
               <FaTruck />
-              Order Track
+              My Orders
             </NavItem>
           </Link>
           <Link to="/cart">

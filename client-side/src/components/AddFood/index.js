@@ -14,6 +14,7 @@ import {
   SubmitButton,
 } from "./styledComponent";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 const AddFood = () => {
   const restaurantId = Cookies.get("restaurantId");
@@ -63,7 +64,7 @@ const AddFood = () => {
     }
 
     if (!inputData.restaurantId) {
-      alert("Please add Restaurant First.");
+      toast.error("Please add Restaurant First.");
       return;
     }
 
@@ -93,7 +94,7 @@ const AddFood = () => {
       );
 
       if (response.data.success) {
-        alert("Food Item Added Successfully!");
+        toast.success("Food Item Added Successfully!");
         navigate("/vendor/food-menu");
         setInputData({
           foodName: "",
