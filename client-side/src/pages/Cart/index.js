@@ -36,6 +36,22 @@ const Cart = () => {
 
   const { restaurantsList } = useFetchRestaurants("", "", null, authToken);
   const [currentRestaurant, setCurrentRestaurant] = useState(null);
+  const { subtotal, deliveryFee, discount, tax, total } = calculateTotal();
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [deliveryAddress, setDeliveryAddress] = useState(
+    JSON.parse(localStorage.getItem("deliveryAddress"))
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updated = localStorage.getItem("deliveryAddress");
+      if (updated) {
+        setDeliveryAddress(JSON.parse(updated));
+      }
+    }, 500); // poll every 500ms
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (restaurantsList && restaurantId) {
@@ -43,10 +59,6 @@ const Cart = () => {
       setCurrentRestaurant(restaurant);
     }
   }, [restaurantsList, restaurantId]);
-
-  const { subtotal, deliveryFee, discount, tax, total } = calculateTotal();
-  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
 
   const handlePlaceOrder = async () => {
     if (!deliveryAddress) {
@@ -65,7 +77,6 @@ const Cart = () => {
           city: deliveryAddress.city,
           state: deliveryAddress.state,
           pincode: deliveryAddress.pincode,
-          landmark: deliveryAddress.landmark || "",
         },
         total: total,
         restaurantId: cart[0]?.restaurantId,
@@ -113,7 +124,9 @@ const Cart = () => {
                   {deliveryAddress.city}-{deliveryAddress.pincode}
                 </span>
               </p>
-              <AddressPopup />
+              <AddressPopup
+                onAddressChange={(newAddress) => setDeliveryAddress(newAddress)}
+              />
             </AddressBox>
           ) : (
             <AddressBox>

@@ -11,14 +11,10 @@ import {
   AddressEmpty,
 } from "./styledComponent";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { API_URL } from "../../utils/data";
-import Cookies from "js-cookie";
 
-const AddressPopup = () => {
+const AddressPopup = ({ onAddressChange }) => {
   const navigate = useNavigate();
   const { cart } = useCart();
-  const token = Cookies.get("token");
   const [address, setAddress] = useState({
     receiverName: "",
     mobile: "",
@@ -57,26 +53,11 @@ const AddressPopup = () => {
 
   const handleSubmit = async (e, closePopup) => {
     e.preventDefault();
-    if (
-      !address.street ||
-      !address.city ||
-      !address.state ||
-      !address.pincode
-    ) {
-      toast.error("Please fill in all required fields");
-      return;
-    }
-
-    try {
-      await axios.post(`${API_URL}/api/address`, address, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      toast.success("Address added successfully");
-      localStorage.setItem("deliveryAddress", JSON.stringify(address));
-      closePopup();
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to add address");
-    }
+    toast.success("Address added successfully");
+    localStorage.setItem("deliveryAddress", JSON.stringify(address));
+    setIsEdit(true);
+    if (onAddressChange) onAddressChange(address);
+    closePopup();
   };
 
   return (
@@ -165,7 +146,6 @@ const AddressPopup = () => {
                 required
               />
             </FormGroup>
-
             <ProceedButton type="submit">
               {isEdit ? "Update Address" : "Add Address"}
             </ProceedButton>
