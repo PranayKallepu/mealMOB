@@ -1,7 +1,7 @@
 @rootURL = http://localhost:4000
 # @rootURL = https://mealmob-server.onrender.com
 @vendorToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjMyMmEzNGQ0OTI1MWNiNjU0MTY3ZCIsImlhdCI6MTc0NTc1MzU1MSwiZXhwIjoxNzQ1ODM5OTUxfQ.iL4VLKJimFdpdfgM6PJOSev9xthdDhydvXpG5pqELT0
-@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTc0NTc1MDkyMSwiZXhwIjoxNzQ1ODM3MzIxfQ.wLt0whTBzP2BNn7cB34PO2YiRPteqioFZmzLvGxebfo
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTgyY2U3OGU5OGVjYWZlNTQzZjg0NSIsImlhdCI6MTc0Njc4MDY4NywiZXhwIjoxNzQ2ODY3MDg3fQ.W_biiybKBNPQd0fUhwFuc5QovLjC64ah3YBDXIZyCCI
 
 ###
 POST {{rootURL}}/vendor/register
@@ -87,8 +87,8 @@ POST {{rootURL}}/signup
 Content-Type: application/json
 
 {
-    "username": "lalitha",
-    "email": "lalitha123@gmail.com",
+    "username": "pranay",
+    "email": "pranay@gmail.com",
     "password": "123"
 }
 ###
@@ -139,6 +139,11 @@ Authorization: Bearer {{userToken}}
 GET {{rootURL}}/api/all-orders
 Authorization: Bearer {{userToken}}
 
+###
+// get order details by order id
+GET {{rootURL}}/api/order-details/681714d34df9b46874acb8bd
+Authorization: Bearer {{userToken}}
+
 
 ###
 // get vendor orders by vendor token
@@ -147,10 +152,15 @@ Authorization: Bearer {{vendorToken}}
 
 ###
 // update order status
-PUT {{rootURL}}/api/order-status/680e0f1bf660b4979940198f
+PUT {{rootURL}}/api/order-status/6817715edc5917ce7b76c3ae
 Content-Type: application/json
-Authorization: Bearer {{vendorToken}}
+Authorization: Bearer {{userToken}}
 
 {
-    "status": "delivered"
+    "status": "cancelled"
 }
+
+###
+// delete order
+DELETE {{rootURL}}/api/delete-order/681b118088e9535eb4a49e27
+Authorization: Bearer {{userToken}}

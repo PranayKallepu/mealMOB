@@ -63,7 +63,7 @@ const orderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["pending", "in progress", "delivered"],
+    enum: ["pending", "in progress", "delivered", "cancelled"],
     default: "pending",
   },
   total: {
@@ -71,6 +71,10 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
     type: Date,
     default: Date.now,
   },
