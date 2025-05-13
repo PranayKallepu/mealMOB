@@ -7,6 +7,9 @@ export const MainContainer = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   animation: fadeIn 0.6s ease-in-out;
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 
   @keyframes fadeIn {
     from {

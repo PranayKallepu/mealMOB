@@ -12,6 +12,12 @@ export const MainContainer = styled.div`
   h2 {
     margin-bottom: 20px;
   }
+  @media (max-width: 768px) {
+    padding: 10px 0px;
+    h2 {
+      margin-bottom: 0px;
+    }
+  }
 `;
 
 export const RestaurantHeader = styled.div`

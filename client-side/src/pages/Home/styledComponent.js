@@ -17,6 +17,10 @@ export const MainContainer = styled.div`
   max-width: 1110px;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #ccc transparent;
+  @media (max-width: 768px) {
+    margin: 0px;
+    width: 100%;
+  }
 
   /* For WebKit Browsers */
   &::-webkit-scrollbar {

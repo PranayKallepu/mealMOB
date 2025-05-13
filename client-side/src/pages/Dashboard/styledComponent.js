@@ -30,6 +30,9 @@ export const Navbar = styled.nav`
   padding: 0px 40px 10px;
   background-color: black;
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 export const BrandContainer = styled.div`
@@ -66,10 +69,9 @@ export const NavList = styled.ul`
 export const NavItem = styled.li`
   list-style: none;
   cursor: pointer;
-  color: white;
+  color: #f7931e;
 
   @media screen and (max-width: 768px) {
-    color: black;
     padding: 10px 0;
   }
 `;

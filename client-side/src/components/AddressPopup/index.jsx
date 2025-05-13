@@ -70,9 +70,7 @@ const AddressPopup = ({ onAddressChange }) => {
         minWidth: "400px",
       }}
       trigger={
-        <ChangeAddressBtn>
-          {isEdit ? "Change Address" : "Add Address"}
-        </ChangeAddressBtn>
+        <ChangeAddressBtn>{isEdit ? "Change" : "Add Address"}</ChangeAddressBtn>
       }
       nested
     >

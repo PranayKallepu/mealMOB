@@ -25,7 +25,7 @@ export const Form = styled.form`
     padding: 6px;
     border: none;
     border-radius: 7px;
-    background-color: #3b82f6;
+    background-color: #f7931e;
     color: white;
     cursor: pointer;
     &:disabled {

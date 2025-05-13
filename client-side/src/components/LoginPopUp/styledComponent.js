@@ -17,7 +17,7 @@ export const ModalContainer = styled.div`
 export const Button = styled.button`
   color: white;
   border: none;
-  background: #2563eb;
+  background: #f7931e;
   font-size: 16px;
   padding: 6px 10px;
   border-radius: 6px;
@@ -25,7 +25,7 @@ export const Button = styled.button`
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background: #1e40af;
+    background: rgb(250, 144, 23);
   }
 `;
 
@@ -70,8 +70,8 @@ export const Form = styled.form`
     transition: border 0.3s ease-in-out;
 
     &:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+      border-color: #f7931e;
+      box-shadow: 0 0 5px #f7931e;
     }
   }
 
@@ -79,7 +79,7 @@ export const Form = styled.form`
     width: 100%;
     padding: 10px;
     margin-top: 15px;
-    background-color: #22c55e;
+    background-color: #f7931e;
     color: white;
     border: none;
     border-radius: 6px;
@@ -88,7 +88,7 @@ export const Form = styled.form`
     transition: all 0.3s ease-in-out;
 
     &:hover {
-      background-color: #16a34a;
+      background-color: rgb(250, 141, 17);
     }
 
     &:disabled {

@@ -9,6 +9,10 @@ export const NavContainer = styled.nav`
   box-shadow: 0px 0px 5px 0px rgba(97, 96, 96, 0.75);
   position: sticky;
   top: 0;
+  @media (max-width: 768px) {
+    justify-content: space-between;
+    padding: 0px 10px;
+  }
 `;
 export const Logo = styled.img`
   width: 50px;
@@ -41,10 +45,9 @@ export const NavList = styled.ul`
 export const NavItem = styled.li`
   list-style: none;
   padding-right: 40px;
-  color: #000000;
+  color: #f7931e;
   cursor: pointer;
   @media screen and (max-width: 768px) {
-    color: black;
     padding: 10px 0;
     font-size: 16px;
   }

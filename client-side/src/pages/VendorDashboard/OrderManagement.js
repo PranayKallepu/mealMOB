@@ -140,7 +140,7 @@ const OrderManagement = ({ restaurantId }) => {
 
   if (loading)
     return (
-      <p>
+      <p style={{ textAlign: "center" }}>
         <BeatLoader color="#F7931E" />
       </p>
     );

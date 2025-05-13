@@ -8,6 +8,10 @@ export const MainContainer = styled.div`
   margin: auto;
   width: 90%;
   max-width: 1110px;
+  @media (max-width: 768px) {
+    margin: 0px;
+    width: 100%;
+  }
 `;
 
 export const FoodItemsContainer = styled.div`
@@ -17,8 +21,9 @@ export const FoodItemsContainer = styled.div`
     margin-top: 10px;
     margin-bottom: 5px;
   }
-  @media screen and (max-width: 768px) {
-    width: 80%;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 10px;
   }
 `;
 //Restaurant Details
