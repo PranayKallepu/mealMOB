@@ -7,11 +7,14 @@ import {
   Form,
 } from "../LoginPopUp/styledComponent";
 import { useState } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/data";
 import toast from "react-hot-toast";
 
 const SignupPopUp = () => {
+  const navigate = useNavigate();
   //states
   const [inputData, setInputData] = useState({
     username: "",
@@ -41,8 +44,11 @@ const SignupPopUp = () => {
       const response = await axios.post(`${API_URL}/signup`, inputData);
       if (response.data.success) {
         toast.success("User Registered Successfully!");
+        Cookies.set("token", response.data.token, { expires: 30 });
+        Cookies.set("username", response.data.username, { expires: 30 });
         setIsLoading(false);
         close(); // Close signup popup
+        navigate("/", { replace: true });
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Signup failed");

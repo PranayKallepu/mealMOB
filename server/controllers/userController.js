@@ -27,10 +27,18 @@ const signup = async (req, res) => {
       password: hashedPassword,
     });
     await newUser.save();
+    //create token
+    const payload = { id: newUser._id };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
     // return response
-    return res
-      .status(201)
-      .json({ success: true, message: "User registered successfully" });
+    return res.status(201).json({
+      success: true,
+      username: newUser.username,
+      message: "User registered successfully",
+      token,
+    });
   } catch (error) {
     console.error("User Signup Error: ", error);
     res.status(500).json({
