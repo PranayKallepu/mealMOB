@@ -63,12 +63,12 @@ const MyOrders = () => {
       await axios.put(
         `${API_URL}/api/order-status/${orderId}`,
         { status: "cancelled" },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setOrders((prev) =>
         prev.map((order) =>
-          order._id === orderId ? { ...order, status: "cancelled" } : order
-        )
+          order._id === orderId ? { ...order, status: "cancelled" } : order,
+        ),
       );
     } catch (err) {
       console.error("Error cancelling order:", err);
@@ -202,16 +202,7 @@ const MyOrders = () => {
                     <OrderName>{item.foodName}</OrderName>
                   </OrderDetails>
                   <OrderActions>
-                    {order.status !== "cancelled" ? (
-                      <CancelButton
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleCancel(order._id);
-                        }}
-                      >
-                        Cancel Order
-                      </CancelButton>
-                    ) : (
+                    {order.status === "cancelled" ? (
                       <RemoveButton
                         onClick={(e) => {
                           e.preventDefault();
@@ -220,11 +211,20 @@ const MyOrders = () => {
                       >
                         <CiCircleRemove />
                       </RemoveButton>
-                    )}
+                    ) : order.status !== "delivered" ? (
+                      <CancelButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleCancel(order._id);
+                        }}
+                      >
+                        Cancel Order
+                      </CancelButton>
+                    ) : null}
                   </OrderActions>
                 </OrderCard>
               </OrderLink>
-            ))
+            )),
           )
         )}
       </MainContainer>
