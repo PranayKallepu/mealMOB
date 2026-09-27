@@ -15,13 +15,13 @@ const {
 const restaurantRoutes = express.Router();
 
 restaurantRoutes.post(
-  "/add-restaurant",
+  "/",
   authVendor,
   upload.single("restaurantImage"),
   addRestaurant
 );
 restaurantRoutes.get(
-  "/restaurants",
+  "/",
   authUserOrVendor,
   filterRestaurants,
   getRestaurants
@@ -33,13 +33,13 @@ restaurantRoutes.get(
   getRestaurantsByCuisine
 );
 restaurantRoutes.put(
-  "/update-restaurant/:restaurantId",
+  "/:restaurantId",
   authVendor,
   upload.single("restaurantImage"),
   updateRestaurant
 );
 restaurantRoutes.delete(
-  "/delete-restaurant/:restaurantId",
+  "/:restaurantId",
   authVendor,
   deleteRestaurant
 );

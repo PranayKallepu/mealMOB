@@ -35,11 +35,11 @@ cloudinary.config({
 });
 
 // routes
-app.use("/api", restaurantRoutes);
-app.use("/vendor", vendorRoutes);
-app.use("/api", foodRoutes);
-app.use("/", userRoutes);
-app.use("/api", orderRoutes);
+app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/vendors", vendorRoutes);
+app.use("/api/dishes", foodRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Server listening
 const PORT = process.env.PORT || 4000;

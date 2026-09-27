@@ -13,18 +13,18 @@ const {
 const orderRoutes = express.Router();
 
 // Create new order
-orderRoutes.post("/orders", authUser, createOrder);
+orderRoutes.post("/", authUser, createOrder);
 
 // Get all orders for user
-orderRoutes.get("/all-orders", authUserOrVendor, getAllOrders);
+orderRoutes.get("/", authUserOrVendor, getAllOrders);
 
 // Get order by ID
-orderRoutes.get("/order-details/:orderId", authUserOrVendor, getOrderById);
+orderRoutes.get("/:orderId", authUserOrVendor, getOrderById);
 
 // Update order status (vendor only)
-orderRoutes.put("/order-status/:orderId", authUserOrVendor, updateOrderStatus);
+orderRoutes.put("/status/:orderId", authUserOrVendor, updateOrderStatus);
 
 // Delete order (vendor only)
-orderRoutes.delete("/delete-order/:orderId", authUserOrVendor, deleteOrder);
+orderRoutes.delete("/:orderId", authUserOrVendor, deleteOrder);
 
 module.exports = orderRoutes;

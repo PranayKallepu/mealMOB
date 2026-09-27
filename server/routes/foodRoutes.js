@@ -13,18 +13,9 @@ const {
 
 const foodRoutes = express.Router();
 
-foodRoutes.post(
-  "/add-foodItem",
-  authVendor,
-  upload.single("foodImage"),
-  addFoodItem
-);
-foodRoutes.get("/dishes", authUser, filterFoodItems, getDishes);
-foodRoutes.get(
-  "/restaurantItems/:restaurantId",
-  authUserOrVendor,
-  getFoodItemsByRestaurant
-);
-foodRoutes.delete("/delete-foodItem/:foodItemId", authVendor, deleteFoodItem);
+foodRoutes.post("/", authVendor, upload.single("foodImage"), addFoodItem);
+foodRoutes.get("/", authUser, filterFoodItems, getDishes);
+foodRoutes.get("/:restaurantId", authUserOrVendor, getFoodItemsByRestaurant);
+foodRoutes.delete("/:foodItemId", authVendor, deleteFoodItem);
 
 module.exports = foodRoutes;
