@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import useFetchFoodItems from "../../hooks/useFetchFoodItems";
 import { useParams } from "react-router-dom";

@@ -1,8 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import  { useState } from "react";
 import Cookies from "js-cookie";
 import { FormContainer, Form, Error } from "./styledComponent";
-import { API_URL } from "../../utils/data";
 import toast from "react-hot-toast";
 
 const VendorRegister = ({ setIsLogin }) => {
@@ -36,7 +35,7 @@ const VendorRegister = ({ setIsLogin }) => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/vendor/register`,
+        `${process.env.REACT_APP_API_URL}/vendors/register`,
         inputData
       );
       toast.success("Vendor Registered Successfully!");

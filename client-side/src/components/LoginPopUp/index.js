@@ -10,7 +10,6 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../utils/data";
 
 const LoginPopUp = () => {
   const navigate = useNavigate();
@@ -32,7 +31,10 @@ const LoginPopUp = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${API_URL}/login`, inputData);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/users/login`,
+        inputData,
+      );
       if (response.data.success) {
         Cookies.set("token", response.data.token, {
           expires: 30,

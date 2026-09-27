@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { CiCircleRemove } from "react-icons/ci";
 import Header from "../../components/Header";
-import { API_URL } from "../../utils/data";
 import {
   MainContainer,
   SearchContainer,
@@ -44,7 +43,7 @@ const MyOrders = () => {
     const fetchOrders = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API_URL}/api/all-orders`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(response.data.orders);
@@ -61,7 +60,7 @@ const MyOrders = () => {
   const handleCancel = async (orderId) => {
     try {
       await axios.put(
-        `${API_URL}/api/order-status/${orderId}`,
+        `${process.env.REACT_APP_API_URL}/orders/status/${orderId}`,
         { status: "cancelled" },
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -77,7 +76,7 @@ const MyOrders = () => {
 
   const handleRemove = async (orderId) => {
     try {
-      await axios.delete(`${API_URL}/api/delete-order/${orderId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/orders/${orderId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders((prev) => prev.filter((order) => order._id !== orderId));

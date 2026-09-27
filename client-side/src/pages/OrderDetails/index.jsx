@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Header from "../../components/Header";
-import { API_URL } from "../../utils/data";
 import { RxCross2 } from "react-icons/rx";
 import { TiTick } from "react-icons/ti";
 
@@ -45,7 +44,7 @@ const OrderDetails = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/order-details/${orderId}`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/orders/${orderId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const orderData = res.data.order;

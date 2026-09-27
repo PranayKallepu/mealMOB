@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../utils/data";
 import {
   AddButton,
   ModalOverlay,
@@ -84,7 +83,7 @@ const AddFood = () => {
       }
 
       const response = await axios.post(
-        `${API_URL}/api/add-foodItem`,
+        `${process.env.REACT_APP_API_URL}/dishes`,
         formData,
         {
           headers: {

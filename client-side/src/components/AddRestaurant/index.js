@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import { categoryEnum, cuisinesEnum } from "../../utils/enums";
-import { API_URL } from "../../utils/data";
 import Cookies from "js-cookie";
 import {
   AddButton,
@@ -104,7 +103,7 @@ const AddRestaurant = () => {
       formData.append("vendorId", vendorId);
 
       const response = await axios.post(
-        `${API_URL}/api/add-restaurant`,
+        `${process.env.REACT_APP_API_URL}/restaurants`,
         formData,
         {
           headers: { Authorization: `Bearer ${vendorToken}` },

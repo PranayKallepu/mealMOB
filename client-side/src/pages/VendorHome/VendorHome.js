@@ -6,7 +6,6 @@ import OrderManagement from "../VendorDashboard/OrderManagement";
 import Cookies from "js-cookie";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import axios from "axios";
-import { API_URL } from "../../utils/data";
 import chefImage from "../../assets/smiling-chef.png";
 import {
   MainContainer,
@@ -51,7 +50,7 @@ const VendorHome = () => {
     if (window.confirm("ARE YOU SURE WANT TO DELETE!")) {
       try {
         const response = await axios.delete(
-          `${API_URL}/api/delete-restaurant/${restaurantId}`,
+          `${process.env.REACT_APP_API_URL}/restaurants/${restaurantId}`,
           {
             headers: { Authorization: `Bearer ${authToken}` },
           }

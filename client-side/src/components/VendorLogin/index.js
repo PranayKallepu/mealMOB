@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { API_URL } from "../../utils/data";
 import { useNavigate } from "react-router-dom";
 import { FormContainer, Form, Error } from "../VendorRegister/styledComponent";
 
@@ -24,7 +23,7 @@ const VendorLogin = () => {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post(`${API_URL}/vendor/login`, inputData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/vendors/login`, inputData);
       if (response.data.success) {
         Cookies.set("vendorToken", response.data.token, {
           expires: 30,

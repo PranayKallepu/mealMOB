@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import Header from "../../components/Header";
 import axios from "axios";
-import { API_URL } from "../../utils/data";
 import Cookies from "js-cookie";
 import AddressPopup from "../../components/AddressPopup";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
@@ -82,7 +81,7 @@ const Cart = () => {
         restaurantId: cart[0]?.restaurantId,
       };
 
-      await axios.post(`${API_URL}/api/orders`, orderData, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/orders`, orderData, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       toast.success("Order placed successfully");

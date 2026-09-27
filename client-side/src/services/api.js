@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { API_URL } from "../utils/data";
+
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000/api";
 
 axios.interceptors.response.use(
   (response) => response,
@@ -15,7 +16,7 @@ axios.interceptors.response.use(
       window.location.href = "/dashboard";
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 // Fetch restaurants based on category and rating
@@ -23,10 +24,10 @@ export const fetchRestaurants = async (
   category,
   rating,
   searchInput,
-  authToken
+  authToken,
 ) => {
   try {
-    const response = await axios.get(`${API_URL}/api/restaurants`, {
+    const response = await axios.get(`${API_URL}/restaurants`, {
       params: {
         sort_by: category || "",
         search: searchInput || "",
@@ -48,15 +49,12 @@ export const fetchRestaurants = async (
 //Fetch restaurant Items by restaurant
 export const fetchFoodItems = async (restaurantId, authToken) => {
   try {
-    const response = await axios.get(
-      `${API_URL}/api/restaurantItems/${restaurantId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_URL}/dishes/${restaurantId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
     console.log("API Response:", response.data);
     return response.data;
   } catch (error) {
@@ -69,7 +67,7 @@ export const fetchFoodItems = async (restaurantId, authToken) => {
 
 export const fetchRestaurantsByCuisine = async (activeCuisine) => {
   try {
-    const response = await axios.get(`${API_URL}/api/cuisines`, {
+    const response = await axios.get(`${API_URL}/restaurants/cuisines`, {
       params: { cuisine: activeCuisine },
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +85,7 @@ export const fetchRestaurantsByCuisine = async (activeCuisine) => {
 // Fetch Dishes
 export const fetchDishes = async (category, searchInput) => {
   try {
-    const response = await axios.get(`${API_URL}/api/dishes`, {
+    const response = await axios.get(`${API_URL}/restaurants/dishes`, {
       params: {
         sort_by: category || "",
         search: searchInput || "",

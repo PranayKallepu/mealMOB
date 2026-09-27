@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import { API_URL } from "../../utils/data";
 import Cookies from "js-cookie";
 import { format, isToday, isYesterday } from "date-fns";
 import { IoMdCopy } from "react-icons/io";
@@ -33,11 +32,11 @@ const OrderManagement = ({ restaurantId }) => {
     try {
       setLoading(true);
       const token = Cookies.get("vendorToken");
-      const response = await axios.get(`${API_URL}/api/all-orders`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/orders`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const orders = response.data.orders.filter(
-        (order) => order.restaurantId._id === restaurantId
+        (order) => order.restaurantId._id === restaurantId,
       );
       setOrders(orders);
     } catch (error) {
@@ -53,18 +52,18 @@ const OrderManagement = ({ restaurantId }) => {
 
   const handleCancelOrder = async (orderId) => {
     const confirmCancel = window.confirm(
-      "Are you sure you want to cancel this order?"
+      "Are you sure you want to cancel this order?",
     );
     if (!confirmCancel) return;
 
     try {
       const token = Cookies.get("vendorToken");
       await axios.put(
-        `${API_URL}/api/order-status/${orderId}`,
+        `${process.env.REACT_APP_API_URL}/orders/status/${orderId}`,
         { status: "cancelled" },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       toast.success("Order cancelled.");
       fetchOrders();
@@ -79,11 +78,11 @@ const OrderManagement = ({ restaurantId }) => {
     try {
       const token = Cookies.get("vendorToken");
       await axios.put(
-        `${API_URL}/api/order-status/${orderId}`,
+        `${process.env.REACT_APP_API_URL}/orders/status/${orderId}`,
         { status: "in progress" },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       toast.success("Order Accepted!");
       fetchOrders();
@@ -99,9 +98,9 @@ const OrderManagement = ({ restaurantId }) => {
     try {
       const token = Cookies.get("vendorToken");
       const response = await axios.put(
-        `${API_URL}/api/order-status/${orderId}`,
+        `${process.env.REACT_APP_API_URL}/orders/status/${orderId}`,
         { status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       toast.success(response.data.message);
       fetchOrders();

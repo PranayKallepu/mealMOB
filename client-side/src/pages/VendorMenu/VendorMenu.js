@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { API_URL } from "../../utils/data";
 import VendorHeader from "../../components/VendorHeader";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -69,7 +68,7 @@ const VendorMenu = () => {
 
     try {
       const vendorToken = Cookies.get("vendorToken");
-      await axios.delete(`${API_URL}/api/delete-foodItem/${foodItemId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/dishes/${foodItemId}`, {
         headers: { Authorization: `Bearer ${vendorToken}` },
       });
 

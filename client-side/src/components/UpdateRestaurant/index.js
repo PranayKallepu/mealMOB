@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import { categoryEnum, cuisinesEnum } from "../../utils/enums";
-import { API_URL } from "../../utils/data";
 import useFetchRestaurants from "../../hooks/useFetchRestaurants";
 import Cookies from "js-cookie";
 import {
@@ -109,7 +108,7 @@ const UpdateRestaurant = ({ restaurantId }) => {
       }
 
       const response = await axios.put(
-        `${API_URL}/api/update-restaurant/${restaurantId}`,
+        `${process.env.REACT_APP_API_URL}/restaurants/${restaurantId}`,
         formData,
         {
           headers: {
