@@ -347,20 +347,6 @@ CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 ```
 
-### Environment Variable Description
-
-Variable Description
-PORT Port used by the Express server
-MONGODB_URI MongoDB Atlas connection string
-JWT_SECRET Secret used to sign and verify JWT tokens
-CLOUDINARY_CLOUD_NAME Cloudinary cloud name
-CLOUDINARY_API_KEY Cloudinary API key
-CLOUDINARY_API_SECRET Cloudinary API secret
-
-Important: Never commit real credentials, API keys, database URLs, or JWT secrets to GitHub.
-
-For public repositories, create a .env.example file containing placeholder values.
-
 ## Author
 
 #### Pranay Kallepu

@@ -8,8 +8,8 @@ import {
 } from "./styledComponent";
 import { useState } from "react";
 import Cookies from "js-cookie";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import userService from "../../services/userService";
 
 const LoginPopUp = () => {
   const navigate = useNavigate();
@@ -31,21 +31,18 @@ const LoginPopUp = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/users/login`,
-        inputData,
-      );
-      if (response.data.success) {
-        Cookies.set("token", response.data.token, {
-          expires: 30,
-        });
-        Cookies.set("username", response.data.username, { expires: 30 });
-        navigate("/", { replace: true });
-      } else {
-        setError("Invalid credentials");
-      }
+      const data = await userService.login(inputData);
+
+      console.log(data);
+
+      Cookies.set("token", data.token, { expires: 30 });
+      Cookies.set("username", data.username, { expires: 30 });
+
+      navigate("/", { replace: true });
     } catch (error) {
-      setError(error.response?.data?.message || "An error occurred");
+      console.log("Login error:", error);
+      
+      setError(error.message || "An error occurred");
     } finally {
       setIsLoading(false);
     }

@@ -34,7 +34,7 @@ const AllRestaurants = () => {
     category,
     rating,
     null,
-    authToken
+    authToken,
   );
 
   const handleFilterChange = (newCategory, newRating) => {
@@ -45,7 +45,7 @@ const AllRestaurants = () => {
   const renderRestaurantsListView = () => {
     return restaurantsList && restaurantsList.length > 0 ? (
       <RestaurantList>
-        {restaurantsList.map((restaurant) => (
+        {restaurantsList.map((restaurant, i) => (
           <RestaurantCard key={restaurant._id} restaurantData={restaurant} />
         ))}
       </RestaurantList>
